@@ -1,6 +1,5 @@
 --cpu=Cortex-M4.fp.sp
 "407vet6_imu_car\startup_stm32f407xx.o"
-"407vet6_imu_car\rgb.o"
 "407vet6_imu_car\ws2812.o"
 "407vet6_imu_car\lcd_init.o"
 "407vet6_imu_car\lcd.o"
@@ -13,6 +12,7 @@
 "407vet6_imu_car\usart.o"
 "407vet6_imu_car\stm32f4xx_it.o"
 "407vet6_imu_car\stm32f4xx_hal_msp.o"
+"407vet6_imu_car\tb6612.o"
 "407vet6_imu_car\stm32f4xx_hal_i2c.o"
 "407vet6_imu_car\stm32f4xx_hal_i2c_ex.o"
 "407vet6_imu_car\stm32f4xx_hal_rcc.o"

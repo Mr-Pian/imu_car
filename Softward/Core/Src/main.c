@@ -30,6 +30,7 @@
 #include "ws2812.h"
 #include "lcd.h "
 #include "lcd_init.h "
+#include "tb6612.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -104,7 +105,6 @@ int main(void)
   MX_TIM8_Init();
   /* USER CODE BEGIN 2 */
 	//WS2812_Init();  //WS2812
-	uint16_t Num=0;
 	HAL_TIM_Base_Start_IT(&htim2);
 	LCD_Init();
 	LCD_Fill(0,0,LCD_W,LCD_H,BLACK);

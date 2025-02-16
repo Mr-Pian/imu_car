@@ -43,3 +43,4 @@
 407vet6_imu_car\main.o: ../Core/Inc/ws2812.h
 407vet6_imu_car\main.o: ../Core/Inc/lcd.h 
 407vet6_imu_car\main.o: ../Core/Inc/lcd_init.h 
+407vet6_imu_car\main.o: ../Core/Inc/tb6612.h
