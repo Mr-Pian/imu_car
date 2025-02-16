@@ -108,7 +108,7 @@ int main(void)
 	HAL_TIM_Base_Start_IT(&htim2);
 	LCD_Init();
 	LCD_Fill(0,0,LCD_W,LCD_H,WHITE);
-	LCD_ShowChinese(0,0,"中景园电子",BLACK,WHITE,32,0);
+	//LCD_ShowChinese(0,0,"中景园电子",BLACK,WHITE,32,0);
   /* USER CODE END 2 */
 
   /* Infinite loop */
