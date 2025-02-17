@@ -106,20 +106,16 @@ int main(void)
   MX_TIM8_Init();
   /* USER CODE BEGIN 2 */
 	WS2812_Init();  //WS2812
+	WS2812_Set_Color(255,255,0);
 	HAL_TIM_Base_Start_IT(&htim2);	
-	
 	LCD_Init();
 	LCD_Fill(0,0,LCD_W,LCD_H,WHITE);
-	
   icm42688_init ();
-	
 	uint16_t Count_L = 65535, Count_R = 0;
 //	HAL_TIM_Encoder_Start(&htim4, TIM_CHANNEL_ALL);
 //	HAL_TIM_Encoder_Start(&htim8, TIM_CHANNEL_ALL);
-	
-	Motor_SetSpeed(Foward, 200, L);
-	Motor_SetSpeed(Foward, 200, R);
-	
+//	Motor_SetSpeed(Foward, 200, L);
+//	Motor_SetSpeed(Foward, 200, R);
 	
   /* USER CODE END 2 */
 
@@ -130,7 +126,8 @@ int main(void)
 //		Count_L = __HAL_TIM_GET_COUNTER(&htim4);
 //		Count_R = __HAL_TIM_GET_COUNTER(&htim8);
 		icm42688_get_gyro ();
-		LCD_ShowIntNum(0, 0, icm42688_data.gyro_x, 5, BLACK, WHITE,16);
+		icm42688_get_temp();
+		LCD_ShowIntNum(0, 0, icm42688_temp_transition(icm42688_data.temp), 5, BLACK, WHITE,16);
 		
 		HAL_Delay(100);
     /* USER CODE END WHILE */

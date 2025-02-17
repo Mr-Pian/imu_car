@@ -230,26 +230,26 @@ uint8_t icm42688_init (void)
 		icm42688_write_register(icm42688_REG_BANK_SEL, icm42688_Bank_1); //设置bank 1区域寄存器
 		icm42688_write_register(icm42688_INTF_CONFIG4, 0x02); //设置为4线SPI通信
 	
-//		icm42688_write_register(icm42688_REG_BANK_SEL, icm42688_Bank_0); //设置bank 0区域寄存器
-//		icm42688_write_register(icm42688_INTF_CONFIG0, 0xB0);
+		icm42688_write_register(icm42688_REG_BANK_SEL, icm42688_Bank_0); //设置bank 0区域寄存器
+		icm42688_write_register(icm42688_INTF_CONFIG0, 0xB0);
 	
-//		icm42688_write_register(icm42688_REG_BANK_SEL, icm42688_Bank_0); //设置bank 0区域寄存器
-//        icm42688_write_register(icm42688_FIFO_CONFIG, 0x40); //Stream-to-FIFO Mode(page61)
+		icm42688_write_register(icm42688_REG_BANK_SEL, icm42688_Bank_0); //设置bank 0区域寄存器
+        icm42688_write_register(icm42688_FIFO_CONFIG, 0x40); //Stream-to-FIFO Mode(page61)
 	
 	//开启加速度计、陀螺仪的FIFO
-//		val = icm42688_read_register(icm42688_INT_SOURCE0);
-//        icm42688_write_register(icm42688_INT_SOURCE0, icm42688_Bank_0);
-//        icm42688_write_register(icm42688_FIFO_CONFIG2, 0x00); // watermark
-//        icm42688_write_register(icm42688_FIFO_CONFIG3, 0x02); // watermark
-//        icm42688_write_register(icm42688_INT_SOURCE0, val);
-//        icm42688_write_register(icm42688_FIFO_CONFIG1, 0x47); // Enable the accel and gyro to the FIFO
+		val = icm42688_read_register(icm42688_INT_SOURCE0);
+        icm42688_write_register(icm42688_INT_SOURCE0, icm42688_Bank_0);
+        icm42688_write_register(icm42688_FIFO_CONFIG2, 0x00); // watermark
+        icm42688_write_register(icm42688_FIFO_CONFIG3, 0x02); // watermark
+        icm42688_write_register(icm42688_INT_SOURCE0, val);
+        icm42688_write_register(icm42688_FIFO_CONFIG1, 0x47); // Enable the accel and gyro to the FIFO
 	
-//		icm42688_write_register(icm42688_REG_BANK_SEL, icm42688_Bank_0); //设置bank 0区域寄存器
-//        icm42688_write_register(icm42688_INT_CONFIG, 0x36);
+		icm42688_write_register(icm42688_REG_BANK_SEL, icm42688_Bank_0); //设置bank 0区域寄存器
+        icm42688_write_register(icm42688_INT_CONFIG, 0x36);
 
-//		icm42688_write_register(icm42688_REG_BANK_SEL, icm42688_Bank_0); //设置bank 0区域寄存器
-//		val = (icm42688_read_register(icm42688_INT_SOURCE0)|FIFO_THS_INT1_EN);
-//        icm42688_write_register(icm42688_INT_SOURCE0, val);
+		icm42688_write_register(icm42688_REG_BANK_SEL, icm42688_Bank_0); //设置bank 0区域寄存器
+		val = (icm42688_read_register(icm42688_INT_SOURCE0)|FIFO_THS_INT1_EN);
+        icm42688_write_register(icm42688_INT_SOURCE0, val);
 	
 	// 设置加速度计量程
 			icm42688_write_register(icm42688_REG_BANK_SEL, icm42688_Bank_0); //设置bank 0区域寄存器
@@ -271,18 +271,18 @@ uint8_t icm42688_init (void)
 	val = ((icm42688_read_register(icm42688_GYRO_CONFIG0)&0xF0)|icm42688_GYRO_ODR);
 	icm42688_write_register(icm42688_GYRO_CONFIG0, val); 
 	
-//		// 设置陀螺仪低通滤波器
-//		icm42688_write_register(icm42688_REG_BANK_SEL, icm42688_Bank_0); //设置bank 0区域寄存器  
-//		val = ((icm42688_read_register(icm42688_GYRO_ACCEL_CONFIG0)&0xF0)|0x07);
-//		icm42688_write_register(icm42688_GYRO_ACCEL_CONFIG0, val); 
+		// 设置陀螺仪低通滤波器
+		icm42688_write_register(icm42688_REG_BANK_SEL, icm42688_Bank_0); //设置bank 0区域寄存器  
+		val = ((icm42688_read_register(icm42688_GYRO_ACCEL_CONFIG0)&0xF0)|0x07);
+		icm42688_write_register(icm42688_GYRO_ACCEL_CONFIG0, val); 
 	
-//		// 设置陀螺仪陷波滤波器 滤除谐波，还要单独配置每个轴
-//		icm42688_write_register(icm42688_REG_BANK_SEL, icm42688_Bank_1); //设置bank 0区域寄存器  
-//		val = ((icm42688_read_register(icm42688_GYRO_CONFIG_STATIC10)&0x8F)|0x00);
-//		icm42688_write_register(icm42688_GYRO_CONFIG_STATIC10, val);
-//		
-//		val = ((icm42688_read_register(icm42688_GYRO_CONFIG_STATIC9)&0x8F)|0x00);
-//		icm42688_write_register(icm42688_GYRO_CONFIG_STATIC9, val);
+		// 设置陀螺仪陷波滤波器 滤除谐波，还要单独配置每个轴
+		icm42688_write_register(icm42688_REG_BANK_SEL, icm42688_Bank_1); //设置bank 0区域寄存器  
+		val = ((icm42688_read_register(icm42688_GYRO_CONFIG_STATIC10)&0x8F)|0x00);
+		icm42688_write_register(icm42688_GYRO_CONFIG_STATIC10, val);
+		
+		val = ((icm42688_read_register(icm42688_GYRO_CONFIG_STATIC9)&0x8F)|0x00);
+		icm42688_write_register(icm42688_GYRO_CONFIG_STATIC9, val);
 	
 	
 	// 设置加速度计模式
