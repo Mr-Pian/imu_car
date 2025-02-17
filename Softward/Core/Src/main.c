@@ -32,6 +32,7 @@
 #include "lcd_init.h "
 #include "tb6612.h"
 #include "ICM42688.h"
+#include "angle.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -105,12 +106,15 @@ int main(void)
   MX_TIM5_Init();
   MX_TIM8_Init();
   /* USER CODE BEGIN 2 */
+	icm42688_init ();
+	IMU_Calibration();
+	LCD_Init();
 	WS2812_Init();  //WS2812
 	WS2812_Set_Color(255,255,0);
 	HAL_TIM_Base_Start_IT(&htim2);	
-	LCD_Init();
+	
 	LCD_Fill(0,0,LCD_W,LCD_H,WHITE);
-  icm42688_init ();
+  
 	uint16_t Count_L = 65535, Count_R = 0;
 //	HAL_TIM_Encoder_Start(&htim4, TIM_CHANNEL_ALL);
 //	HAL_TIM_Encoder_Start(&htim8, TIM_CHANNEL_ALL);
@@ -125,11 +129,13 @@ int main(void)
   { 
 //		Count_L = __HAL_TIM_GET_COUNTER(&htim4);
 //		Count_R = __HAL_TIM_GET_COUNTER(&htim8);
-		icm42688_get_gyro ();
-		icm42688_get_temp();
-		LCD_ShowIntNum(0, 0, icm42688_temp_transition(icm42688_data.temp), 5, BLACK, WHITE,16);
-		
-		HAL_Delay(100);
+
+		IMU_DataUpdate();
+		IMU_GetAngle(0.05);
+		LCD_ShowFloatNum1(0, 0, Angle_Data.pitch, 5, BLACK, WHITE,16);
+		LCD_ShowFloatNum1(80, 0, Angle_Data.roll, 5, BLACK, WHITE,16);
+		LCD_ShowFloatNum1(160, 0, Angle_Data.yaw, 5, BLACK, WHITE,16);
+		HAL_Delay(50);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

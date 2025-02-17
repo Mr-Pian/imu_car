@@ -27,17 +27,14 @@ Project File Date:  02/17/2025
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'D:\Keil_v5\ARM\ARMCC\Bin'
 Build target '407vet6_imu_car'
-compiling ws2812.c...
-compiling main.c...
-../Core/Src/main.c(114): warning:  #177-D: variable "Count_L"  was declared but never referenced
-  	uint16_t Count_L = 65535, Count_R = 0;
-../Core/Src/main.c(114): warning:  #177-D: variable "Count_R"  was declared but never referenced
-  	uint16_t Count_L = 65535, Count_R = 0;
-../Core/Src/main.c: 2 warnings, 0 errors
-linking...
-Program Size: Code=18046 RO-data=15078 RW-data=32 ZI-data=2800  
-FromELF: creating hex file...
-"407vet6_imu_car\407vet6_imu_car.axf" - 0 Error(s), 2 Warning(s).
+assembling startup_stm32f407xx.s...
+compiling angle.c...
+..\Core\Src\angle.c(9): error:  #5: cannot open source input file "delay.h": No such file or directory
+  #include "delay.h"
+..\Core\Src\angle.c: 0 warnings, 1 error
+compiling HANA_math.c...
+compiling filter.c...
+"407vet6_imu_car\407vet6_imu_car.axf" - 1 Error(s), 0 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -60,7 +57,8 @@ Package Vendor: Keil
 
    * Component: ARM::CMSIS:CORE:5.5.0
       Include file:  CMSIS\Core\Include\tz_context.h
-Build Time Elapsed:  00:00:01
+Target not created.
+Build Time Elapsed:  00:00:02
 </pre>
 </body>
 </html>
