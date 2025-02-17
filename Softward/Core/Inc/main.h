@@ -75,6 +75,8 @@ void Error_Handler(void);
 #define Key_Yes_Pin GPIO_PIN_13
 #define Key_Yes_GPIO_Port GPIOB
 #define Key_Yes_EXTI_IRQn EXTI15_10_IRQn
+#define WC__Pin GPIO_PIN_8
+#define WC__GPIO_Port GPIOC
 #define ST7789_CS_Pin GPIO_PIN_15
 #define ST7789_CS_GPIO_Port GPIOA
 #define ST7789_SCL_Pin GPIO_PIN_10
