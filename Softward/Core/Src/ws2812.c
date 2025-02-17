@@ -36,35 +36,16 @@ void WS2812_Init()
   HAL_TIM_PWM_Start_DMA(&htim2,TIM_CHANNEL_4,(uint32_t *)WS2812_RGB_Buff,sizeof(WS2812_RGB_Buff)/sizeof(uint32_t)); 
 	
 }
-
-/************************************************************************************************************
-** WS2812_Set_Color(uint8_t R,uint8_t G,uint8_t B)                  				                               **                                                              
-** 功能描述：跑马灯效果开启函数                                                                        		   **
-** 参数说明：R、G、B分别为三个颜色通道的亮度，最大值为255                          					                   **   
-** 参数返回：无                                                                                             **
-************************************************************************************************************/
+/**
+ * 函数：WS2812颜色设置函数
+ * 参数：R、G、B分别为三个颜色通道的亮度，最大值为255
+ * 作用：设置流水灯颜色
+***/
 void WS2812_Set_Color(uint8_t R,uint8_t G,uint8_t B)
 {
 	color.B=B;
 	color.R=R;
 	color.G=G;
-	HAL_TIM_Base_Start_IT(&htim2);  //开启定时器
-}
-
-
-/************************************************************************************************************
-** void WS2812_Off(void)                  				                                                         **                                                              
-** 功能描述：跑马灯效果关闭函数                                                                        		   **
-** 参数说明：无                                                                					                   **   
-** 参数返回：无                                                                                             **
-************************************************************************************************************/
-void WS2812_Off(void)
-{
-	HAL_TIM_Base_Stop_IT(&htim2);
-	for(int i=0;i<LED_NUM;i++)
-		{
-			WS2812_Set(i,0,0,0);
-		}
 }
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
@@ -94,4 +75,11 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 		}	
 	}
 }
-
+void WS2812_Off(void)
+{
+	HAL_TIM_Base_Stop_IT(&htim2);
+	for(int i=0;i<LED_NUM;i++)
+		{
+			WS2812_Set(i,0,0,0);
+		}
+}

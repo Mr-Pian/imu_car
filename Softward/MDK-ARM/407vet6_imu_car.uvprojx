@@ -186,7 +186,6 @@
             <RvdsVP>2</RvdsVP>
             <RvdsMve>0</RvdsMve>
             <RvdsCdeCp>0</RvdsCdeCp>
-            <nBranchProt>0</nBranchProt>
             <hadIRAM2>1</hadIRAM2>
             <hadIROM2>0</hadIROM2>
             <StupSel>8</StupSel>
@@ -438,16 +437,6 @@
               <FileName>ICM42688.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Core\Src\ICM42688.c</FilePath>
-            </File>
-            <File>
-              <FileName>ICM42688.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\Core\Inc\ICM42688.h</FilePath>
-            </File>
-            <File>
-              <FileName>M24_EEPROM.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Core\Src\M24_EEPROM.c</FilePath>
             </File>
             <File>
               <FileName>main.c</FileName>
@@ -748,6 +737,11 @@
               <FileName>stm32f4xx_hal_msp.c</FileName>
               <FileType>1</FileType>
               <FilePath>../Core/Src/stm32f4xx_hal_msp.c</FilePath>
+            </File>
+            <File>
+              <FileName>ICM42688.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Core\Inc\ICM42688.h</FilePath>
             </File>
           </Files>
         </Group>

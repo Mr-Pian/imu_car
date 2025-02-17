@@ -32,7 +32,6 @@
 #include "lcd_init.h "
 #include "tb6612.h"
 #include "ICM42688.h"
-#include "M24_EEPROM.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -106,30 +105,31 @@ int main(void)
   MX_TIM5_Init();
   MX_TIM8_Init();
   /* USER CODE BEGIN 2 */
-	/* 外设初始化 */
-	icm42688_init ();  //IMU Init
+	WS2812_Init();  //WS2812
+	WS2812_Set_Color(255,255,0);
+	HAL_TIM_Base_Start_IT(&htim2);	
+	LCD_Init();
+	LCD_Fill(0,0,LCD_W,LCD_H,WHITE);
+  icm42688_init ();
+	uint16_t Count_L = 65535, Count_R = 0;
+//	HAL_TIM_Encoder_Start(&htim4, TIM_CHANNEL_ALL);
+//	HAL_TIM_Encoder_Start(&htim8, TIM_CHANNEL_ALL);
+//	Motor_SetSpeed(Foward, 200, L);
+//	Motor_SetSpeed(Foward, 200, R);
 	
-	WS2812_Init();  //WS2812 Init
-	
-	LCD_Init();  //LCD_Init
-	LCD_Fill(0,0,LCD_W,LCD_H,BLACK);
-    
-	HAL_TIM_Encoder_Start(&htim4, TIM_CHANNEL_ALL);  //编码器初始化
-	HAL_TIM_Encoder_Start(&htim8, TIM_CHANNEL_ALL);
-
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 	while (1)
   { 
-    uint8_t Data[4] = {0x01, 0x02, 0x03, 0x04};
-		uint8_t R_Data[4] = {0};
-		EEPROM_WriteMultipleBytes(0x00, Data, 4);
-		HAL_Delay(200);
-		EEPROM_ReadMultipleBytes(0x00, R_Data, 4);
-		LCD_ShowIntNum(0,0, R_Data[3], 4, WHITE, BLACK, 16);
+//		Count_L = __HAL_TIM_GET_COUNTER(&htim4);
+//		Count_R = __HAL_TIM_GET_COUNTER(&htim8);
+		icm42688_get_gyro ();
+		icm42688_get_temp();
+		LCD_ShowIntNum(0, 0, icm42688_temp_transition(icm42688_data.temp), 5, BLACK, WHITE,16);
 		
+		HAL_Delay(100);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
