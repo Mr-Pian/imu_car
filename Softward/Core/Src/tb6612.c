@@ -12,7 +12,7 @@
 //speed µÄ·¶Î§ÊÇ0-1000
 
 
-int Motor_SetSpeed(uint8_t Mode,float speed, uint8_t L_R)
+int Motor_SetSpeed(int Mode,int speed, uint8_t L_R)
 {
 	
 	int pulse = 0;  

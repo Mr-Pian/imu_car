@@ -65,8 +65,6 @@ void Error_Handler(void);
 #define AIN2_GPIO_Port GPIOA
 #define AIN1_Pin GPIO_PIN_2
 #define AIN1_GPIO_Port GPIOA
-#define CS_Pin GPIO_PIN_4
-#define CS_GPIO_Port GPIOC
 #define BIN1_Pin GPIO_PIN_7
 #define BIN1_GPIO_Port GPIOE
 #define BIN2_Pin GPIO_PIN_8

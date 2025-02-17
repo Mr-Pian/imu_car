@@ -430,6 +430,16 @@
               <FilePath>..\Core\Inc\lcd.h</FilePath>
             </File>
             <File>
+              <FileName>tb6612.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Core\Src\tb6612.c</FilePath>
+            </File>
+            <File>
+              <FileName>ICM42688.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Core\Src\ICM42688.c</FilePath>
+            </File>
+            <File>
               <FileName>main.c</FileName>
               <FileType>1</FileType>
               <FilePath>../Core/Src/main.c</FilePath>
@@ -728,16 +738,6 @@
               <FileName>stm32f4xx_hal_msp.c</FileName>
               <FileType>1</FileType>
               <FilePath>../Core/Src/stm32f4xx_hal_msp.c</FilePath>
-            </File>
-            <File>
-              <FileName>tb6612.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Core\Src\tb6612.c</FilePath>
-            </File>
-            <File>
-              <FileName>ICM42688.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Core\Src\ICM42688.c</FilePath>
             </File>
           </Files>
         </Group>
