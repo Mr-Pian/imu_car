@@ -123,16 +123,10 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-	while (1)
-  { 
-    uint8_t Data[4] = {0x01, 0x02, 0x03, 0x04};
-		uint8_t R_Data[4] = {0};
-		EEPROM_WriteMultipleBytes(0x00, Data, 4);
-		HAL_Delay(200);
-		EEPROM_ReadMultipleBytes(0x00, R_Data, 4);
-		LCD_ShowIntNum(0,0, R_Data[3], 4, WHITE, BLACK, 16);
 		
     /* USER CODE END WHILE */
+	while (1)
+  { 
 
     /* USER CODE BEGIN 3 */
   }
