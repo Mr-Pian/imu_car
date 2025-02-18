@@ -8,4 +8,11 @@ HAL_StatusTypeDef EEPROM_WriteByte(uint16_t MemAddress,uint8_t data);
 HAL_StatusTypeDef EEPROM_ReadMultipleBytes(uint16_t MemAddress, uint8_t *pData, uint16_t Size);
 HAL_StatusTypeDef EEPROM_WriteMultipleBytes(uint16_t MemAddress, uint8_t *pData, uint16_t Size);
 
+uint8_t M24C02_Check(void);
+
+uint8_t Only_Read_Mode_1(void);
+uint8_t Only_Read_Mode_0(void);
+		
+void Erase_Full_Chip(void);
+
 #endif 
