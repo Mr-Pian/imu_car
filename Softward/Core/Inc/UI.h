@@ -23,7 +23,7 @@ typedef struct menu
 	MENU_FUN Function;  //选择某一功能后执行的功能函数
 	struct menu *next;  //下一级菜单
 	struct menu *prev;  //上一级菜单
-
+	int ce;
 } Menu;
 
 extern Menu menu1_main[4];
