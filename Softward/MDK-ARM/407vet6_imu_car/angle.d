@@ -37,3 +37,7 @@
 407vet6_imu_car\angle.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h
 407vet6_imu_car\angle.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
 407vet6_imu_car\angle.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
+407vet6_imu_car\angle.o: ../Core/Inc/ICM42688.h
+407vet6_imu_car\angle.o: ../Core/Inc/filter.h
+407vet6_imu_car\angle.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+407vet6_imu_car\angle.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h

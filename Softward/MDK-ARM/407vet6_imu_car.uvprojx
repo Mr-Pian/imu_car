@@ -743,36 +743,6 @@
               <FileType>1</FileType>
               <FilePath>../Core/Src/stm32f4xx_hal_msp.c</FilePath>
             </File>
-            <File>
-              <FileName>angle.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Core\Src\angle.c</FilePath>
-            </File>
-            <File>
-              <FileName>HANA_math.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Core\Src\HANA_math.c</FilePath>
-            </File>
-            <File>
-              <FileName>filter.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Core\Src\filter.c</FilePath>
-            </File>
-            <File>
-              <FileName>angle.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\Core\Inc\angle.h</FilePath>
-            </File>
-            <File>
-              <FileName>filter.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\Core\Inc\filter.h</FilePath>
-            </File>
-            <File>
-              <FileName>HANA_math.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\Core\Inc\HANA_math.h</FilePath>
-            </File>
           </Files>
         </Group>
         <Group>

@@ -11,7 +11,7 @@
 #include "HANA_math.h"
 #include "stdio.h"
 
-#define Gyro_NUM	100 // 角速度零漂采样个数
+#define Gyro_NUM	20 // 角速度零漂采样个数
 #define Acc_NUM   20 // 加速度零漂采样个数
 
 
@@ -168,7 +168,7 @@ void IMU_DataUpdate(void)
 	volatile vector3float_t acc_trans={0,0,0};
 	volatile vector3float_t acc_temp = {0,0,0};
 	int16_t acc_LPF_in[3],acc_LPF_out[3];
-
+	
 	
 	icm42688_get_gyro();// 获取陀螺仪数据 
 	icm42688_get_acc();//获取加速度计数据 

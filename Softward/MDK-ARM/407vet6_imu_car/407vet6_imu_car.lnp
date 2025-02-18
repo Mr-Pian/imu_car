@@ -34,6 +34,9 @@
 "407vet6_imu_car\stm32f4xx_hal_tim_ex.o"
 "407vet6_imu_car\stm32f4xx_hal_uart.o"
 "407vet6_imu_car\system_stm32f4xx.o"
+"407vet6_imu_car\angle_1.o"
+"407vet6_imu_car\filter_1.o"
+"407vet6_imu_car\hana_math_1.o"
 --library_type=microlib --strict --scatter "407vet6_imu_car\407vet6_imu_car.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers

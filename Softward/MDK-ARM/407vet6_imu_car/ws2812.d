@@ -36,3 +36,6 @@
 407vet6_imu_car\ws2812.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h
 407vet6_imu_car\ws2812.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
 407vet6_imu_car\ws2812.o: ../Core/Inc/tim.h
+407vet6_imu_car\ws2812.o: ../Core/Inc/angle.h
+407vet6_imu_car\ws2812.o: ../Core/Inc/HANA_math.h
+407vet6_imu_car\ws2812.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h

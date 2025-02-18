@@ -22,19 +22,22 @@ Dialog DLL:      TCM.DLL V1.53.0.0
  
 <h2>Project:</h2>
 D:\stm32cubemx\git\car1.0.4\Softward\MDK-ARM\407vet6_imu_car.uvprojx
-Project File Date:  02/17/2025
+Project File Date:  02/18/2025
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'D:\Keil_v5\ARM\ARMCC\Bin'
 Build target '407vet6_imu_car'
-assembling startup_stm32f407xx.s...
-compiling angle.c...
-..\Core\Src\angle.c(9): error:  #5: cannot open source input file "delay.h": No such file or directory
-  #include "delay.h"
-..\Core\Src\angle.c: 0 warnings, 1 error
-compiling HANA_math.c...
-compiling filter.c...
-"407vet6_imu_car\407vet6_imu_car.axf" - 1 Error(s), 0 Warning(s).
+Note: source file '..\Core\Src\angle.c' - object file renamed from '407vet6_imu_car\angle.o' to '407vet6_imu_car\angle_1.o'.
+Note: source file '..\Core\Src\filter.c' - object file renamed from '407vet6_imu_car\filter.o' to '407vet6_imu_car\filter_1.o'.
+Note: source file '..\Core\Src\HANA_math.c' - object file renamed from '407vet6_imu_car\HANA_math.o' to '407vet6_imu_car\hana_math_1.o'.
+compiling main.c...
+../Core/Src/main.c(140): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "const uint8_t *"
+  		LCD_ShowString(0,0,y_char,BLACK,WHITE,16,0);
+../Core/Src/main.c: 1 warning, 0 errors
+linking...
+Program Size: Code=26056 RO-data=15160 RW-data=172 ZI-data=2860  
+FromELF: creating hex file...
+"407vet6_imu_car\407vet6_imu_car.axf" - 0 Error(s), 1 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -57,8 +60,7 @@ Package Vendor: Keil
 
    * Component: ARM::CMSIS:CORE:5.5.0
       Include file:  CMSIS\Core\Include\tz_context.h
-Target not created.
-Build Time Elapsed:  00:00:02
+Build Time Elapsed:  00:00:01
 </pre>
 </body>
 </html>
