@@ -28,76 +28,21 @@ Project File Date:  02/18/2025
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target '407vet6_imu_car'
 compiling UI.c...
-../Core/Inc/UI.h(31): warning:  #1-D: last line of file ends without a newline
+../Core/Inc/UI.h(43): warning:  #1-D: last line of file ends without a newline
   #endif
-..\Core\Src\UI.c(6): error:  #77-D: this declaration has no storage class or type specifier
-  menu1_main[4] = // 第1级 主菜单 
-..\Core\Src\UI.c(6): error:  #147: declaration is incompatible with "Menu menu1_main[4]"  (declared at line 22 of "../Core/Inc/UI.h")
-  menu1_main[4] = // 第1级 主菜单 
-..\Core\Src\UI.c(14): error:  #77-D: this declaration has no storage class or type specifier
-  menu2_run[4] =  // 第2级 运行菜单 
-..\Core\Src\UI.c(14): error:  #147: declaration is incompatible with "Menu menu2_run[4]"  (declared at line 23 of "../Core/Inc/UI.h")
-  menu2_run[4] =  // 第2级 运行菜单 
-..\Core\Src\UI.c(22): error:  #77-D: this declaration has no storage class or type specifier
-  menu2_debug[6] =  // 第2级 调试菜单 
-..\Core\Src\UI.c(22): error:  #147: declaration is incompatible with "Menu menu2_debug[6]"  (declared at line 24 of "../Core/Inc/UI.h")
-  menu2_debug[6] =  // 第2级 调试菜单 
-..\Core\Src\UI.c(32): error:  #77-D: this declaration has no storage class or type specifier
-  menu2_set[2] =  // 第2级 设置菜单 
-..\Core\Src\UI.c(32): error:  #147: declaration is incompatible with "Menu menu2_set[2]"  (declared at line 25 of "../Core/Inc/UI.h")
-  menu2_set[2] =  // 第2级 设置菜单 
-..\Core\Src\UI.c(38): error:  #77-D: this declaration has no storage class or type specifier
-  menu3_manual_run[6] =  // 第3级 手动运行 
-..\Core\Src\UI.c(38): error:  #147: declaration is incompatible with "Menu menu3_manual_run[6]"  (declared at line 26 of "../Core/Inc/UI.h")
-  menu3_manual_run[6] =  // 第3级 手动运行 
-..\Core\Src\UI.c(48): error:  #77-D: this declaration has no storage class or type specifier
-  menu3_car_set[7] =  //第3级 小车设置
-..\Core\Src\UI.c(48): error:  #147: declaration is incompatible with "Menu menu3_car_set[7]"  (declared at line 27 of "../Core/Inc/UI.h")
-  menu3_car_set[7] =  //第3级 小车设置
-..\Core\Src\UI.c(59): error:  #77-D: this declaration has no storage class or type specifier
-  menu3_LCD_set[4] =  //第3级 LCD设置
-..\Core\Src\UI.c(59): error:  #147: declaration is incompatible with "Menu menu3_LCD_set[4]"  (declared at line 28 of "../Core/Inc/UI.h")
-  menu3_LCD_set[4] =  //第3级 LCD设置
-..\Core\Src\UI.c(69): error:  #20: identifier "cur_item" is undefined
-  	uint8_t menu_num = cur_item[0].num;//获取当前菜单的项目数量 
-..\Core\Src\UI.c(70): error:  #20: identifier "MENU_MAX_ROW" is undefined
-  	uint8_t i, num = menu_num>MENU_MAX_ROW ? MENU_MAX_ROW : menu_num;//绘制数量不能超过每一屏的最大绘制数量
-..\Core\Src\UI.c(71): error:  #20: identifier "item_index" is undefined
-  	if(item_index>=MENU_MAX_ROW || item_index>=menu_num)//菜单项上下选择是否越界 
-..\Core\Src\UI.c(86): warning:  #223-D: function "DrawTestPage" declared implicitly
-  	DrawTestPage((u8 *)cur_item[0].title);
-..\Core\Src\UI.c(90): error:  #20: identifier "POINT_COLOR" is undefined
-  		POINT_COLOR = RED;
-..\Core\Src\UI.c(91): error:  #20: identifier "item_index" is undefined
-  		LCD_ShowString(144,150+(i+1)*40,200,30,24, (u8 *)cur_item[i].label,i==item_index ? 0:1);
-..\Core\Src\UI.c(91): error:  #167: argument of type "int" is incompatible with parameter of type "const uint8_t *"
-  		LCD_ShowString(144,150+(i+1)*40,200,30,24, (u8 *)cur_item[i].label,i==item_index ? 0:1);
-..\Core\Src\UI.c(103): error:  #20: identifier "KEY_UP_PRESS" is undefined
-  	if(value==KEY_UP_PRESS || value==KEY_DOWN_PRESS || value==KEY_ENTER_PRESS || value==KEY_RETURN_PRESS)
-..\Core\Src\UI.c(103): error:  #20: identifier "KEY_DOWN_PRESS" is undefined
-  	if(value==KEY_UP_PRESS || value==KEY_DOWN_PRESS || value==KEY_ENTER_PRESS || value==KEY_RETURN_PRESS)
-..\Core\Src\UI.c(103): error:  #20: identifier "KEY_ENTER_PRESS" is undefined
-  	if(value==KEY_UP_PRESS || value==KEY_DOWN_PRESS || value==KEY_ENTER_PRESS || value==KEY_RETURN_PRESS)
-..\Core\Src\UI.c(103): error:  #20: identifier "KEY_RETURN_PRESS" is undefined
-  	if(value==KEY_UP_PRESS || value==KEY_DOWN_PRESS || value==KEY_ENTER_PRESS || value==KEY_RETURN_PRESS)
-..\Core\Src\UI.c(128): error:  #20: identifier "POINT_COLOR" is undefined
-  							POINT_COLOR = WHITE;
-..\Core\Src\UI.c(129): error:  #20: identifier "lcddev" is undefined
-  							LCD_Fill(0,lcddev.height-40,lcddev.width,lcddev.height,BLUE);
-..\Core\Src\UI.c(130): warning:  #223-D: function "Gui_StrCenter" declared implicitly
-  							Gui_StrCenter(0,lcddev.height-32,"待设置~~~",24,1);//居中显示
-..\Core\Src\UI.c(141): error:  #20: identifier "POINT_COLOR" is undefined
-  							POINT_COLOR = WHITE;
-..\Core\Src\UI.c(142): error:  #20: identifier "lcddev" is undefined
-  							LCD_Fill(0,lcddev.height-40,lcddev.width,lcddev.height,BLUE);
-..\Core\Src\UI.c(143): warning:  #223-D: function "Gui_StrCenter" declared implicitly
-  							Gui_StrCenter(0,lcddev.height-32,"待设置~~~",24,1);//居中显示
-..\Core\Src\UI.c(160): error:  #20: identifier "POINT_COLOR" is undefined
-  					POINT_COLOR = WHITE;
-..\Core\Src\UI.c(161): error:  #20: identifier "lcddev" is undefined
-  					LCD_Fill(0,lcddev.height-40,lcddev.width,lcddev.height,BLUE);
-..\Core\Src\UI.c: 4 warnings, 30 errors
-"407vet6_imu_car\407vet6_imu_car.axf" - 30 Error(s), 4 Warning(s).
+..\Core\Src\UI.c(96): warning:  #177-D: variable "Pointer_Color"  was declared but never referenced
+  		uint16_t Pointer_Color = LIGHTBLUE;
+..\Core\Src\UI.c(132): warning:  #767-D: conversion from pointer to smaller integer
+  							LCD_ShowChar(110, 110, (uint8_t)"Undefined", WHITE, DARKBLUE, 24, 0);  //居中显示
+..\Core\Src\UI.c(144): warning:  #767-D: conversion from pointer to smaller integer
+  							LCD_ShowChar(110, 110, (uint8_t)"Undefined", WHITE, DARKBLUE, 24, 0);  //居中显示
+..\Core\Src\UI.c(162): warning:  #767-D: conversion from pointer to smaller integer
+  					LCD_ShowChar(110, 110, (uint8_t)"Can't Back", WHITE, DARKBLUE, 24, 0);  //居中显示
+..\Core\Src\UI.c: 5 warnings, 0 errors
+linking...
+Program Size: Code=22380 RO-data=19540 RW-data=968 ZI-data=2784  
+FromELF: creating hex file...
+"407vet6_imu_car\407vet6_imu_car.axf" - 0 Error(s), 5 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -120,7 +65,6 @@ Package Vendor: Keil
 
    * Component: ARM::CMSIS:CORE:5.6.0
       Include file:  CMSIS/Core/Include/tz_context.h
-Target not created.
 Build Time Elapsed:  00:00:02
 </pre>
 </body>

@@ -1,15 +1,16 @@
 #include "UI.h"
-#include "lcd.h"
+
 
 //定义菜单操作需要的全局变量
 Menu *cur_item = menu1_main;  //初始化当前菜单为第一级(menu1_main)
 Menu *prev_item = NULL;	    //初始化上一级菜单为空
 uint8_t item_index = 0;//当前菜单项索引
+uint8_t Key_val=0;
 
 //结构体初始化//菜单定义,在这里将每一个菜单的关联设置好
 Menu menu1_main[4] = // 第1级 主菜单 
 {
-	{4, "主菜单", "运行", TYPE_SUBMENU, NULL, menu2_run, NULL}, 
+	{4, "核心选项", "运行", TYPE_SUBMENU, NULL, menu2_run, NULL}, 
 	{4, "", "调试", TYPE_SUBMENU, NULL, menu2_debug, NULL}, 
 	{4, "", "设置", TYPE_SUBMENU, NULL, menu2_set, NULL}, 
 	{4, "", "版本信息", TYPE_SUBMENU, NULL, NULL, NULL},  
@@ -17,7 +18,7 @@ Menu menu1_main[4] = // 第1级 主菜单
 
 Menu menu2_run[4] =  // 第2级 运行菜单 
 {
-	{4, "运行", "自动运行", TYPE_SUBMENU, NULL, NULL, menu1_main}, 
+	{4, "运行菜单", "自动运行", TYPE_SUBMENU, NULL, NULL, menu1_main}, 
 	{4, "",     "手动运行", TYPE_SUBMENU, NULL, menu3_manual_run, menu1_main}, 
 	{4, "",     "参数监视", TYPE_SUBMENU, NULL, NULL, menu1_main},
 	{4, "",     "编程", TYPE_SUBMENU, NULL, NULL, menu1_main},
@@ -25,7 +26,7 @@ Menu menu2_run[4] =  // 第2级 运行菜单
 
 Menu menu2_debug[6] =  // 第2级 调试菜单 
 {
-	{6, "调试", "Speed_P", TYPE_PARAM, NULL, NULL, menu1_main}, 
+	{6, "调试菜单", "Speed_P", TYPE_PARAM, NULL, NULL, menu1_main}, 
 	{6, "", "Speed_I", TYPE_PARAM, NULL, NULL, menu1_main}, 
 	{6, "", "Speed_D", TYPE_PARAM, NULL, NULL, menu1_main},
 	{6, "", "Angle_P", TYPE_PARAM, NULL, NULL, menu1_main},
@@ -35,8 +36,8 @@ Menu menu2_debug[6] =  // 第2级 调试菜单
 
 Menu menu2_set[2] =  // 第2级 设置菜单 
 {
-	{2, "设置", "小车设置", TYPE_SUBMENU, NULL, menu3_car_set, menu1_main}, 
-	{2, "",     "LCD设置", TYPE_SUBMENU, NULL, menu3_LCD_set, menu1_main}, 
+	{2, "设置菜单", "小车设置", TYPE_SUBMENU, NULL, menu3_car_set, menu1_main}, 
+	{2, "",     "屏幕设置", TYPE_SUBMENU, NULL, menu3_LCD_set, menu1_main}, 
 };
 
 Menu menu3_manual_run[6] =  // 第3级 手动运行 
@@ -62,7 +63,7 @@ Menu menu3_car_set[7] =  //第3级 小车设置
 
 Menu menu3_LCD_set[4] =  //第3级 LCD设置
 {
-	{4, "LCD设置", "LCD_Brightness", TYPE_PARAM, NULL, NULL, menu2_set},
+	{4, "屏幕设置", "LCD_Brightness", TYPE_PARAM, NULL, NULL, menu2_set},
 	{4, "", "LCD_Background_color", TYPE_PARAM, NULL, NULL, menu2_set},
 	{4, "", "Sleep", TYPE_PARAM, NULL, NULL, menu2_set},
 	{4, "", "Sleep_time", TYPE_PARAM, NULL, NULL, menu2_set},
@@ -93,18 +94,18 @@ void DispCrtMenu(void)//绘制当前菜单项
 	for (i=0; i<num; i++)//绘制某一级菜单下的功能键 
 	{
 		uint16_t Pointer_Color = LIGHTBLUE;
-		LCD_ShowString(144,150+(i+1)*40,200,30,24, (u8 *)cur_item[i].label,i==item_index ? 0:1);
+		LCD_ShowChinese(100,(i+1)*40,(u8 *)cur_item[i].label, WHITE, i==item_index ? LIGHTBLUE:BLACK, 24, 0);
 	}
 }
 
 
 
 //显示函数
-void Display(uint8_t value) 
+void Display(void) 
 {
-	if(value==KEY_UP_PRESS || value==KEY_DOWN_PRESS || value==KEY_ENTER_PRESS || value==KEY_RETURN_PRESS)
+	if(Key_val==KEY_UP_PRESS || Key_val==KEY_DOWN_PRESS || Key_val==KEY_ENTER_PRESS || Key_val==KEY_RETURN_PRESS)
 	{
-		switch(value)//检测按键，进入相应动作
+		switch(Key_val)//检测按键，进入相应动作
 		{
 			case KEY_UP_PRESS: 
 				item_index--; 
@@ -127,9 +128,8 @@ void Display(uint8_t value)
 						}
 						else
 						{
-							POINT_COLOR = WHITE;
-							LCD_Fill(0,lcddev.height-40,lcddev.width,lcddev.height,BLUE);
-							Gui_StrCenter(0,lcddev.height-32,"待设置~~~",24,1);//居中显示
+							LCD_DrawRectangle(105, 90, 135, 150, DARKBLUE);
+							LCD_ShowChar(110, 110, (uint8_t)"Undefined", WHITE, DARKBLUE, 24, 0);  //居中显示
 						}
 						break; 
 					case TYPE_PARAM:  //具有参数设置的菜单项
@@ -140,9 +140,8 @@ void Display(uint8_t value)
 						}
 						else
 						{
-							POINT_COLOR = WHITE;
-							LCD_Fill(0,lcddev.height-40,lcddev.width,lcddev.height,BLUE);
-							Gui_StrCenter(0,lcddev.height-32,"待设置~~~",24,1);//居中显示
+							LCD_DrawRectangle(105, 90, 135, 150, DARKBLUE);
+							LCD_ShowChar(110, 110, (uint8_t)"Undefined", WHITE, DARKBLUE, 24, 0);  //居中显示
 						}
 						break; 
 					default: 
@@ -159,19 +158,20 @@ void Display(uint8_t value)
 				} 
 				else
 				{
-					POINT_COLOR = WHITE;
-					LCD_Fill(0,lcddev.height-40,lcddev.width,lcddev.height,BLUE);
-					Gui_StrCenter(0,lcddev.height-32,"已是主菜单",24,1);//居中显示
+					LCD_DrawRectangle(105, 90, 135, 150, DARKBLUE);
+					LCD_ShowChar(110, 110, (uint8_t)"Can't Back", WHITE, DARKBLUE, 24, 0);  //居中显示
 				}
 				break; 
 		    default: 
 		        break;
 		}
 	}
+	Key_val = 0x00;
 } 
 
 void DrawTitle(uint8_t* Title_Name)
 {
-	;
+	LCD_DrawRectangle(0, 0, 240, 60, GRAY);
+	LCD_ShowChar(110, 110, *Title_Name, WHITE, GRAY, 32, 0);  //居中显示
 }
 

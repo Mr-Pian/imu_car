@@ -22,7 +22,7 @@
 #include "stm32f4xx_it.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "tb6612.h"
+#include "UI.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -42,7 +42,6 @@
 
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN PV */
-
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -201,6 +200,42 @@ void SysTick_Handler(void)
 /******************************************************************************/
 
 /**
+  * @brief This function handles EXTI line2 interrupt.
+  */
+void EXTI2_IRQHandler(void)
+{
+  /* USER CODE BEGIN EXTI2_IRQn 0 */
+	if (HAL_GPIO_ReadPin(GPIOC, Key_Up_Pin) == GPIO_PIN_RESET)
+	{
+		Key_val = KEY_UP_PRESS;
+	}
+	Display();
+  /* USER CODE END EXTI2_IRQn 0 */
+  HAL_GPIO_EXTI_IRQHandler(Key_Up_Pin);
+  /* USER CODE BEGIN EXTI2_IRQn 1 */
+
+  /* USER CODE END EXTI2_IRQn 1 */
+}
+
+/**
+  * @brief This function handles EXTI line3 interrupt.
+  */
+void EXTI3_IRQHandler(void)
+{
+  /* USER CODE BEGIN EXTI3_IRQn 0 */
+	if (HAL_GPIO_ReadPin(GPIOC, Key_Down_Pin) == GPIO_PIN_RESET)
+	{
+		Key_val = KEY_DOWN_PRESS;
+	}
+	Display();
+  /* USER CODE END EXTI3_IRQn 0 */
+  HAL_GPIO_EXTI_IRQHandler(Key_Down_Pin);
+  /* USER CODE BEGIN EXTI3_IRQn 1 */
+
+  /* USER CODE END EXTI3_IRQn 1 */
+}
+
+/**
   * @brief This function handles DMA1 stream6 global interrupt.
   */
 void DMA1_Stream6_IRQHandler(void)
@@ -236,16 +271,15 @@ void EXTI15_10_IRQHandler(void)
   /* USER CODE BEGIN EXTI15_10_IRQn 0 */
 	if (HAL_GPIO_ReadPin(GPIOB, Key_No_Pin) == GPIO_PIN_RESET)
 	{
-		Motor_Off(Both);
+		Key_val = KEY_RETURN_PRESS;
 	}
 	if (HAL_GPIO_ReadPin(GPIOB, Key_Yes_Pin) == GPIO_PIN_RESET)
 	{
-		Motor_Start(Both);
+		Key_val = KEY_ENTER_PRESS;
 	}
 	
-	
-	
-  /* USER CODE END EXTI15_10_IRQn 0 */
+	Display();
+/* USER CODE END EXTI15_10_IRQn 0 */
   HAL_GPIO_EXTI_IRQHandler(Key_No_Pin);
   HAL_GPIO_EXTI_IRQHandler(Key_Yes_Pin);
   /* USER CODE BEGIN EXTI15_10_IRQn 1 */

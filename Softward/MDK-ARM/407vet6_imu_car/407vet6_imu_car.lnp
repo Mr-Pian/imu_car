@@ -6,6 +6,7 @@
 "407vet6_imu_car\tb6612.o"
 "407vet6_imu_car\icm42688.o"
 "407vet6_imu_car\m24_eeprom.o"
+"407vet6_imu_car\ui.o"
 "407vet6_imu_car\main.o"
 "407vet6_imu_car\gpio.o"
 "407vet6_imu_car\dma.o"

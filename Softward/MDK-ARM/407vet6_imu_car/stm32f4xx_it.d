@@ -35,4 +35,5 @@
 407vet6_imu_car\stm32f4xx_it.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h
 407vet6_imu_car\stm32f4xx_it.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
 407vet6_imu_car\stm32f4xx_it.o: ../Core/Inc/stm32f4xx_it.h
-407vet6_imu_car\stm32f4xx_it.o: ../Core/Inc/tb6612.h
+407vet6_imu_car\stm32f4xx_it.o: ../Core/Inc/UI.h
+407vet6_imu_car\stm32f4xx_it.o: ../Core/Inc/lcd.h

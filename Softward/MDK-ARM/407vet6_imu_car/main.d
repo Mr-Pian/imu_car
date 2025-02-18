@@ -46,3 +46,5 @@
 407vet6_imu_car\main.o: ../Core/Inc/tb6612.h
 407vet6_imu_car\main.o: ../Core/Inc/ICM42688.h
 407vet6_imu_car\main.o: ../Core/Inc/M24_EEPROM.h
+407vet6_imu_car\main.o: ../Core/Inc/UI.h
+407vet6_imu_car\main.o: ../Core/Inc/lcd.h

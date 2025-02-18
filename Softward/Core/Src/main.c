@@ -33,6 +33,7 @@
 #include "tb6612.h"
 #include "ICM42688.h"
 #include "M24_EEPROM.h"
+#include "UI.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -118,16 +119,16 @@ int main(void)
 	HAL_TIM_Encoder_Start(&htim8, TIM_CHANNEL_ALL);
 
 	if (M24C02_Check()) Error_Handler();  //EEPROM初始化
-  
-	/* USER CODE END 2 */
+	
+	DispCrtMenu();  //UI初始化
+	
+  /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-		
-    /* USER CODE END WHILE */
 	while (1)
-  { 
-
+	{		
+		/* USER CODE END WHILE */
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */

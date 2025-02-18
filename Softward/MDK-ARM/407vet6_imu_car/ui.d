@@ -1,5 +1,6 @@
 407vet6_imu_car\ui.o: ..\Core\Src\UI.c
 407vet6_imu_car\ui.o: ../Core/Inc/UI.h
+407vet6_imu_car\ui.o: ../Core/Inc/lcd.h
 407vet6_imu_car\ui.o: ../Core/Inc/main.h
 407vet6_imu_car\ui.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h
 407vet6_imu_car\ui.o: ../Core/Inc/stm32f4xx_hal_conf.h
@@ -35,4 +36,3 @@
 407vet6_imu_car\ui.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h
 407vet6_imu_car\ui.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h
 407vet6_imu_car\ui.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
-407vet6_imu_car\ui.o: ../Core/Inc/lcd.h
