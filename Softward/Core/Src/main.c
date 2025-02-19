@@ -113,7 +113,8 @@ int main(void)
 	WS2812_Init();  //WS2812 Init
 	
 	LCD_Init();  //LCD_Init
-	LCD_Fill(0,0,LCD_W,LCD_H,BLACK);
+	LCD_Fill(0,0,LCD_W,LCD_H,Back_ground_color);
+	LCD_Fill(0, 0, 240, 50, GRAYBLUE);  //第一次打印标题框
     
 	HAL_TIM_Encoder_Start(&htim4, TIM_CHANNEL_ALL);  //编码器初始化
 	HAL_TIM_Encoder_Start(&htim8, TIM_CHANNEL_ALL);

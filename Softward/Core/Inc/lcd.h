@@ -29,7 +29,7 @@ void LCD_ShowFloatNum1(u16 x,u16 y,float num,u8 len,u16 fc,u16 bc,u8 sizey);//显
 void LCD_ShowPicture(u16 x,u16 y,u16 length,u16 width,const u8 pic[]);//显示图片
 
 
-//画笔颜色
+//画笔颜色(RGB565)
 #define WHITE         	 0xFFFF
 #define BLACK         	 0x0000	  
 #define BLUE           	 0x001F  
@@ -51,6 +51,9 @@ void LCD_ShowPicture(u16 x,u16 y,u16 length,u16 width,const u8 pic[]);//显示图片
 #define LGRAY 			     0XC618 //浅灰色(PANNEL),窗体背景色
 #define LGRAYBLUE        0XA651 //浅灰蓝色(中间层颜色)
 #define LBBLUE           0X2B12 //浅棕蓝色(选择条目的反色)
+#define DARKGREEN        0x0320 //深绿色
+#define ORANGE           0xFC60 //橘色
+#define DODGERBLUE       0x249f //靛蓝色
 
 #endif
 
