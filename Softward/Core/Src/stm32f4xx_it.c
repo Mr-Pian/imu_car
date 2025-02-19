@@ -57,6 +57,7 @@
 /* External variables --------------------------------------------------------*/
 extern DMA_HandleTypeDef hdma_tim2_ch2_ch4;
 extern TIM_HandleTypeDef htim2;
+extern TIM_HandleTypeDef htim3;
 /* USER CODE BEGIN EV */
 
 /* USER CODE END EV */
@@ -205,11 +206,7 @@ void SysTick_Handler(void)
 void EXTI2_IRQHandler(void)
 {
   /* USER CODE BEGIN EXTI2_IRQn 0 */
-	if (HAL_GPIO_ReadPin(GPIOC, Key_Up_Pin) == GPIO_PIN_RESET)
-	{
-		Key_val = KEY_UP_PRESS;
-	}
-	Display();
+	HAL_TIM_Base_Start_IT(&htim3);
   /* USER CODE END EXTI2_IRQn 0 */
   HAL_GPIO_EXTI_IRQHandler(Key_Up_Pin);
   /* USER CODE BEGIN EXTI2_IRQn 1 */
@@ -223,11 +220,7 @@ void EXTI2_IRQHandler(void)
 void EXTI3_IRQHandler(void)
 {
   /* USER CODE BEGIN EXTI3_IRQn 0 */
-	if (HAL_GPIO_ReadPin(GPIOC, Key_Down_Pin) == GPIO_PIN_RESET)
-	{
-		Key_val = KEY_DOWN_PRESS;
-	}
-	Display();
+	HAL_TIM_Base_Start_IT(&htim3);
   /* USER CODE END EXTI3_IRQn 0 */
   HAL_GPIO_EXTI_IRQHandler(Key_Down_Pin);
   /* USER CODE BEGIN EXTI3_IRQn 1 */
@@ -264,22 +257,27 @@ void TIM2_IRQHandler(void)
 }
 
 /**
+  * @brief This function handles TIM3 global interrupt.
+  */
+void TIM3_IRQHandler(void)
+{
+  /* USER CODE BEGIN TIM3_IRQn 0 */
+
+  /* USER CODE END TIM3_IRQn 0 */
+  HAL_TIM_IRQHandler(&htim3);
+  /* USER CODE BEGIN TIM3_IRQn 1 */
+
+  /* USER CODE END TIM3_IRQn 1 */
+}
+
+/**
   * @brief This function handles EXTI line[15:10] interrupts.
   */
 void EXTI15_10_IRQHandler(void)
 {
   /* USER CODE BEGIN EXTI15_10_IRQn 0 */
-	if (HAL_GPIO_ReadPin(GPIOB, Key_No_Pin) == GPIO_PIN_RESET)
-	{
-		Key_val = KEY_RETURN_PRESS;
-	}
-	if (HAL_GPIO_ReadPin(GPIOB, Key_Yes_Pin) == GPIO_PIN_RESET)
-	{
-		Key_val = KEY_ENTER_PRESS;
-	}
-	
-	Display();
-/* USER CODE END EXTI15_10_IRQn 0 */
+	HAL_TIM_Base_Start_IT(&htim3);
+  /* USER CODE END EXTI15_10_IRQn 0 */
   HAL_GPIO_EXTI_IRQHandler(Key_No_Pin);
   HAL_GPIO_EXTI_IRQHandler(Key_Yes_Pin);
   /* USER CODE BEGIN EXTI15_10_IRQn 1 */

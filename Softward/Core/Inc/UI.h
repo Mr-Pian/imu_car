@@ -17,7 +17,7 @@
 #define Chinese 0
 #define English 1
 
-#define Back_ground_color GRAY  //整体背景的颜色
+#define Back_ground_color BLACK  //整体背景的颜色
 
 #define Title_color WHITE  //标题字体颜色
 

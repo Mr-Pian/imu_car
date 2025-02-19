@@ -117,3 +117,23 @@ int Motor_Off(uint8_t L_R)
 		return 1;
 	}
 }
+
+/************************************************************************************************************
+**  Motor_StraightSpeed(uint8_t Mode,float speed, uint8_t L_R)                  				                	 **                                                              
+** 功能描述：设置一侧电机速度                                                                    		         **
+** 参数说明：速度， 左右电机                          					              										           **   
+** 参数返回：	                                                                                             **
+************************************************************************************************************/
+
+
+//void Motor_RealSpeed(float SetValue,uint8_t L_R)
+//{
+//	if(PID_Loc(SetValue,ActualValue,PID_V,Limit)>0)
+//	{
+//		Motor_SetSpeed(Foward, PID_Loc(SetValue,ActualValue,PID_V,Limit), L_R);
+//	}
+//	else
+//	{
+//		Motor_SetSpeed(Backward, PID_Loc(SetValue,ActualValue,PID_V,Limit), L_R);
+//	}
+//}
