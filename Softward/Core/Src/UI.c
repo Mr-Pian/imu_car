@@ -1,5 +1,6 @@
 #include "UI.h"
 #include "Functions.h"
+#include "M24_EEPROM.h"
 
 
 //定义菜单操作需要的全局变量
@@ -8,66 +9,67 @@ Menu *prev_item = NULL;	    //初始化上一级菜单为空
 uint8_t Key_val=0;  //键值初始化
 uint8_t item_index = 0;  //菜单栏初始化
 uint8_t pre_item_index = 0;  //先前的菜单编号
+uint8_t flag = 0;  //屏蔽按键标识
 
 //结构体初始化//菜单定义,在这里将每一个菜单的关联设置好
 Menu menu1_main[4] = // 第1级 主菜单 
 {
-	{4, "核心选项", "运行", TYPE_SUBMENU, NULL, menu2_run, NULL, Chinese, RED, 90, 70}, //注意，第一个的y不能是默认
-	{4, "", "调试", TYPE_SUBMENU, NULL, menu2_debug, NULL, Chinese, ORANGE, 90, 0}, 
-	{4, "", "设置", TYPE_SUBMENU, NULL, menu2_set, NULL, Chinese, YELLOW, 90, 0}, 
-	{4, "", "版本信息", TYPE_SUBMENU, NULL, NULL, NULL, Chinese, DARKGREEN, 70, 0},  
+	{4, "核心选项", "运行", TYPE_SUBMENU,0, NULL, menu2_run, NULL, Chinese, RED, 90, 90}, //注意，第一个的y不能是默认
+	{4, "", "调试", TYPE_SUBMENU, NULL,0, menu2_debug, NULL, Chinese, ORANGE, 90, 0}, 
+	{4, "", "设置", TYPE_SUBMENU, NULL,0, menu2_set, NULL, Chinese, YELLOW, 90, 0}, 
+	{4, "", "版本信息", TYPE_SUBMENU, NULL,0, NULL, NULL, Chinese, DARKGREEN, 70, 0},  
 }; 
 
 Menu menu2_run[4] =  // 第2级 运行菜单 
 {
-	{4, "运行菜单", "自动运行", TYPE_SUBMENU, NULL, NULL, menu1_main, Chinese, RED, 70, 70}, 
-	{4, "",     "手动运行", TYPE_SUBMENU, NULL, menu3_manual_run, menu1_main, Chinese, ORANGE, 70, 0}, 
-	{4, "",     "参数监视", TYPE_SUBMENU, NULL, NULL, menu1_main, Chinese, YELLOW, 70, 0},
-	{4, "",     "编程", TYPE_SUBMENU, NULL, NULL, menu1_main, Chinese, DARKGREEN, 90, 0},
+	{4, "运行菜单", "自动运行", TYPE_SUBMENU,0, NULL, NULL, menu1_main, Chinese, RED, 70, 90}, 
+	{4, "",     "手动运行", TYPE_SUBMENU,0, NULL, menu3_manual_run, menu1_main, Chinese, ORANGE, 70, 0}, 
+	{4, "",     "参数监视", TYPE_SUBMENU,0, NULL, NULL, menu1_main, Chinese, YELLOW, 70, 0},
+	{4, "",     "编程", TYPE_SUBMENU,0, NULL, NULL, menu1_main, Chinese, DARKGREEN, 90, 0},
 };
 
 Menu menu2_debug[6] =  // 第2级 调试菜单 
 {
-	{6, "调试菜单", "Speed_P", SPEED_P, NULL, NULL, menu1_main, English, RED, 10, 55}, 
-	{6, "", "Speed_I", SPEED_I, NULL, NULL, menu1_main, English, ORANGE, 10, 0}, 
-	{6, "", "Speed_D", SPEED_D, NULL, NULL, menu1_main, English, YELLOW, 10, 0},
-	{6, "", "Angle_P", ANGLE_P, NULL, NULL, menu1_main, English, DARKGREEN, 10, 0},
-	{6, "", "Angle_I", ANGLE_I, NULL, NULL, menu1_main, English, DODGERBLUE, 10, 0},
-	{6, "", "Angle_D", ANGLE_D, NULL, NULL, menu1_main, English, DARKBLUE, 10, 0},
+	{6, "调试菜单", "Speed_P", SPEED_P,255,(*Change_Param), NULL, menu1_main, English, RED, 10, 55}, 
+	{6, "", "Speed_I", SPEED_I,255, (*Change_Param), NULL, menu1_main, English, ORANGE, 10, 0}, 
+	{6, "", "Speed_D", SPEED_D,255,(*Change_Param), NULL, menu1_main, English, YELLOW, 10, 0},
+	{6, "", "Angle_P", ANGLE_P,255, (*Change_Param), NULL, menu1_main, English, DARKGREEN, 10, 0},
+	{6, "", "Angle_I", ANGLE_I,255, (*Change_Param), NULL, menu1_main, English, DODGERBLUE, 10, 0},
+	{6, "", "Angle_D", ANGLE_D,255, (*Change_Param), NULL, menu1_main, English, DARKBLUE, 10, 0},
 };
 
 Menu menu2_set[2] =  // 第2级 设置菜单 
 {
-	{2, "设置菜单", "小车设置", TYPE_SUBMENU, NULL, menu3_car_set, menu1_main, Chinese, RED, 70, 90}, 
-	{2, "",     "屏幕设置", TYPE_SUBMENU, NULL, menu3_LCD_set, menu1_main, Chinese, ORANGE, 70, 0}, 
+	{2, "设置菜单", "小车设置", TYPE_SUBMENU,0, NULL, menu3_car_set, menu1_main, Chinese, RED, 70, 90}, 
+	{2, "",     "屏幕设置", TYPE_SUBMENU,0, NULL, menu3_LCD_set, menu1_main, Chinese, ORANGE, 70, 0}, 
 };
 
 Menu menu3_manual_run[6] =  // 第3级 手动运行 
 {
-	{6, "手动运行", "Motor1_Speed", MOTOR1_SPEED, NULL, NULL, menu2_run, English, RED, 10, 55}, 
-	{6, "",     "Motor2_Speed", MOTOR2_SPEED, NULL, NULL, menu2_run, English, ORANGE, 10, 0}, 
-	{6, "",     "Motor1_Status", MOTOR1_STATUS, NULL, NULL, menu2_run, English, YELLOW, 10, 0},
-	{6, "",     "Motor2_Status", MOTOR2_STATUS, NULL, NULL, menu2_run, English, DARKGREEN, 10, 0},
-	{6, "",     "Run_time", RUN_TIME, NULL, NULL, menu2_run, English, DODGERBLUE, 10, 0},
-	{6, "",     "<<< Run >>>", TYPE_PARAM, NULL, NULL, menu2_run, English, DARKBLUE, 55, 0},
+	{6, "手动运行", "Motor1_Speed", MOTOR1_SPEED,100, (*Change_Param), NULL, menu2_run, English, RED, 10, 55}, 
+	{6, "",     "Motor2_Speed", MOTOR2_SPEED,100, (*Change_Param), NULL, menu2_run, English, ORANGE, 10, 0}, 
+	{6, "",     "Motor1_Status", MOTOR1_STATUS,1, (*Change_Param), NULL, menu2_run, English, YELLOW, 10, 0},
+	{6, "",     "Motor2_Status", MOTOR2_STATUS,1, (*Change_Param), NULL, menu2_run, English, DARKGREEN, 10, 0},
+	{6, "",     "Run_time", RUN_TIME,60, (*Change_Param), NULL, menu2_run, English, DODGERBLUE, 10, 0},
+	{6, "",     "<<< Run >>>", TYPE_SPECIAL_PARAM,0, NULL, NULL, menu2_run, English, DARKBLUE, 55, 0},
 };
 
 Menu menu3_car_set[6] =  //第3级 小车设置
 {
-	{6, "小车设置", "RGB_Light", RGB_LIGHT, NULL, NULL, menu2_set, English, RED, 10, 55},
-	{6, "", "Max_Speed", MAX_SPEED, NULL, NULL, menu2_set, English, ORANGE, 10, 0},
-	{6, "", "Swerve_Speed", SWERVE_SPEED, NULL, NULL, menu2_set, English, YELLOW, 10, 0},
-	{6, "", "EEPROM_Out", TYPE_PARAM, NULL, NULL, menu2_set, English, DARKGREEN, 10, 0},
-	{6, "", "EEPROM_Lock", TYPE_PARAM, NULL, NULL, menu2_set, English, DODGERBLUE, 10, 0},
-	{6, "", "EEPROM_Erase", TYPE_PARAM, NULL, NULL, menu2_set,English, DARKBLUE, 10, 0},
+	{6, "小车设置", "RGB_Light", RGB_LIGHT,1, (*Change_Param), NULL, menu2_set, English, RED, 10, 55},
+	{6, "", "Max_Speed", MAX_SPEED,100, (*Change_Param), NULL, menu2_set, English, ORANGE, 10, 0},
+	{6, "", "Swerve_Speed", SWERVE_SPEED,100, (*Change_Param), NULL, menu2_set, English, YELLOW, 10, 0},
+	{6, "", "EEPROM_Out", TYPE_SPECIAL_PARAM,0, NULL, NULL, menu2_set, English, DARKGREEN, 10, 0},
+	{6, "", "EEPROM_Lock", TYPE_SPECIAL_PARAM,0, NULL, NULL, menu2_set, English, DODGERBLUE, 10, 0},
+	{6, "", "EEPROM_Erase", TYPE_SPECIAL_PARAM,0, NULL, NULL, menu2_set,English, DARKBLUE, 10, 0},
 };
 
 Menu menu3_LCD_set[4] =  //第3级 LCD设置
 {
-	{4, "屏幕设置", "LCD_Brightness", LCD_BRIGHTLESS, NULL, NULL, menu2_set, English, RED, 10, 55},
-	{4, "", "LCD_B_color", LCD_B_COLOR, NULL, NULL, menu2_set, English, ORANGE, 10, 0},
-	{4, "", "Sleep", SLEEP, NULL, NULL, menu2_set, English, YELLOW, 10, 0},
-	{4, "", "Sleep_time", SLEEP_TIME, NULL, NULL, menu2_set, English, DARKGREEN, 10, 0},
+	{4, "屏幕设置", "LCD_Brightness", LCD_BRIGHTLESS,100, (*Change_Param), NULL, menu2_set, English, RED, 10, 55},
+	{4, "", "LCD_B_color", LCD_B_COLOR,10, (*Change_Param), NULL, menu2_set, English, ORANGE, 10, 0},
+	{4, "", "Sleep", SLEEP,1, (*Change_Param), NULL, menu2_set, English, YELLOW, 10, 0},
+	{4, "", "Sleep_time", SLEEP_TIME,255, (*Change_Param), NULL, menu2_set, English, DARKGREEN, 10, 0},
 };
 
 void DispCrtMenu(void)  //绘制当前菜单项
@@ -96,6 +98,7 @@ void DispCrtMenu(void)  //绘制当前菜单项
 	} 
 	
 	DrawTitle((uint8_t*)cur_item[0].title);  //绘制菜单栏标题
+	
 	if (cur_item[i].ce == Chinese)  //判断条目是中文还是英文
 	{
 		for (i=0; i<num; i++)
@@ -124,9 +127,11 @@ void DispCrtMenu(void)  //绘制当前菜单项
 			}
 			
 			/*一下部分为打印参数部分*/
-			if (cur_item[i].type == TYPE_PARAM)
+			if (cur_item[i].type != TYPE_SUBMENU && cur_item[i].type != TYPE_SPECIAL_PARAM)
 			{
-				;
+				uint8_t Data[4];
+				EEPROM_ReadMultipleBytes(cur_item[i].type, Data, 4);
+				LCD_ShowIntNum(195,cur_item->Y_coord+(i*30), Data[3], 3, cur_item[i].Color,Back_ground_color, 24);
 			}
 		}
 	}
@@ -166,18 +171,28 @@ void Display(void)
 							break;  //
 						}
 						break; 
-					case TYPE_PARAM:  //具有参数设置的菜单项
+					default: 
 						if(cur_item[item_index].Function != NULL)
 						{ 
-							//调用相应的动作函数,并传递参数
-							//cur_item[item_index].Function((const char *)cur_item[item_index].label);
+							//绘制选中栏
+							uint8_t Data[4];
+							LCD_Fill(cur_item[item_index].X_coord,cur_item->Y_coord+(item_index*30), 230, 24+(cur_item->Y_coord+(item_index*30)), GRAYBLUE);
+							EEPROM_ReadMultipleBytes(cur_item[item_index].type, Data, 4);
+							LCD_ShowIntNum(195,cur_item->Y_coord+(item_index*30), Data[3], 3, cur_item[item_index].Color,GRAYBLUE, 24);
+							LCD_ShowString(cur_item[item_index].X_coord,cur_item->Y_coord+(item_index*30),(u8* )cur_item[item_index].label, cur_item[item_index].Color, GRAYBLUE, 24, 0);
+							
+							//屏蔽按键
+							flag = 1;
+							//调用相应的动作函数
+							cur_item[item_index].Function();
+							//恢复按键屏蔽
+							flag = 0;
+							
 						}
 						else
 						{
 							break;  //
 						}
-						break; 
-					default: 
 						break;
 				}
 				break; 
@@ -207,4 +222,3 @@ void DrawTitle(uint8_t* Title_Name)
 {
 	LCD_ShowChinese(50, 10, Title_Name, Title_color, GRAYBLUE, 32, 0);  //打印标题
 }
-

@@ -1,6 +1,7 @@
 #include "M24_EEPROM.h"
 #include "i2c.h"
 #include "gpio.h"
+#include "Delay.h"
 
 #define M24C02_ADDR        (0xA0)
 
@@ -46,7 +47,7 @@ HAL_StatusTypeDef EEPROM_WriteByte(uint16_t MemAddress,uint8_t data)
     if (HAL_I2C_Mem_Write(&hi2c3, M24C02_ADDR, MemAddress, I2C_MEMADD_SIZE_8BIT,&data,1, 1000) == HAL_OK)
     {
         //write cycle :5ms
-        HAL_Delay(5);
+        Delay_ms(5);
         return HAL_OK;
     }
     else

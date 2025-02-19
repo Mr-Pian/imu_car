@@ -4,7 +4,7 @@
 
 //定义菜单中功能项的类型
 #define TYPE_SUBMENU 101  //具有子菜单的菜单项
-#define TYPE_PARAM   102  //参数项（用于执行参数设置）
+#define TYPE_SPECIAL_PARAM   102  //特殊参数项
 #define MENU_MAX_ROW 6  //每页最大绘制菜单栏个数
 
 //键值
@@ -28,7 +28,8 @@ typedef struct menu
 	char * title;       //当前菜单标题
 	char * label;       //功能项标题
 	uint8_t type;       //当前功能项的类型
-	uint8_t Function;  //选择某一功能后执行的功能函数
+	uint32_t up_to;      //当前参数的最大值，不是参数设为0
+	void (*Function)(void);  //选择某一功能后执行的功能函数
 	struct menu *next;  //下一级菜单
 	struct menu *prev;  //上一级菜单
 	uint8_t ce;         //语言
@@ -50,5 +51,8 @@ void DispCrtMenu(void);
 void Display(void);
 
 extern uint8_t Key_val;  //全局变量键值
+extern Menu *cur_item;  //全局当前item
+extern uint8_t item_index; //全局当前栏目位置
+extern uint8_t flag;  //屏蔽按键标志
 
 #endif

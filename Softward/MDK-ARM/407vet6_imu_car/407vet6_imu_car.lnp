@@ -17,6 +17,7 @@
 "407vet6_imu_car\stm32f4xx_it.o"
 "407vet6_imu_car\stm32f4xx_hal_msp.o"
 "407vet6_imu_car\functions.o"
+"407vet6_imu_car\delay.o"
 "407vet6_imu_car\stm32f4xx_hal_i2c.o"
 "407vet6_imu_car\stm32f4xx_hal_i2c_ex.o"
 "407vet6_imu_car\stm32f4xx_hal_rcc.o"

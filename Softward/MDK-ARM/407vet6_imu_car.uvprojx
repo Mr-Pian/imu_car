@@ -759,6 +759,11 @@
               <FileType>1</FileType>
               <FilePath>..\Core\Src\Functions.c</FilePath>
             </File>
+            <File>
+              <FileName>Delay.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Core\Src\Delay.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

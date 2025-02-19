@@ -37,3 +37,4 @@
 407vet6_imu_car\m24_eeprom.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
 407vet6_imu_car\m24_eeprom.o: ../Core/Inc/i2c.h
 407vet6_imu_car\m24_eeprom.o: ../Core/Inc/gpio.h
+407vet6_imu_car\m24_eeprom.o: ../Core/Inc/Delay.h
