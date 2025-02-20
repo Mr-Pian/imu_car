@@ -26,5 +26,11 @@
 /************************************************************************/
 
 void Change_Param(void);
+void Back_ground_change(char* name);
+void Back_ground_change_back(char* name);
+void Change_Brightness(char* name);
+void Brightness_change_back(char* name);
+void RGB_refresh(char* name);
+void EEPROM_OUT(void);
 
 #endif

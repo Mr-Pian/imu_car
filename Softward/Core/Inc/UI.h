@@ -17,8 +17,6 @@
 #define Chinese 0
 #define English 1
 
-#define Back_ground_color GRAY  //整体背景的颜色
-
 #define Title_color WHITE  //标题字体颜色
 
 //定义菜单结构体
@@ -54,5 +52,8 @@ extern uint8_t Key_val;  //全局变量键值
 extern Menu *cur_item;  //全局当前item
 extern uint8_t item_index; //全局当前栏目位置
 extern uint8_t flag;  //屏蔽按键标志
+
+extern uint16_t Back_ground_color;  //整体背景的颜色
+extern uint16_t Back_ground_color_array[11];  //储存颜色的数组
 
 #endif

@@ -1,6 +1,9 @@
 #include "lcd.h"
 #include "lcd_init.h"
 #include "lcdfont.h"
+#include "M24_EEPROM.h"
+#include "UI.h"
+#include "Functions.h"
 
 
 
@@ -13,6 +16,14 @@
 ******************************************************************************/
 void LCD_Fill(u16 xsta,u16 ysta,u16 xend,u16 yend,u16 color)
 {          
+	if (color == 0xFFFE)
+	{
+		uint8_t Data[4];
+		EEPROM_ReadMultipleBytes(LCD_B_COLOR, Data, 4);
+		Back_ground_color = Back_ground_color_array[Data[3]];
+		color = Back_ground_color;
+	}
+	
 	u16 i,j; 
 	LCD_Address_Set(xsta,ysta,xend-1,yend-1);//…Ë÷√œ‘ æ∑∂Œß
 	for(i=ysta;i<yend;i++)
@@ -21,7 +32,7 @@ void LCD_Fill(u16 xsta,u16 ysta,u16 xend,u16 yend,u16 color)
 		{
 			LCD_WR_DATA(color);
 		}
-	} 					  	    
+	} 						  	    
 }
 
 /******************************************************************************

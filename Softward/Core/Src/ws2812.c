@@ -1,4 +1,6 @@
 #include "ws2812.h"
+#include "M24_EEPROM.h"
+#include "Functions.h"
 
 Color_tpye color={0,0,0};//灯带rgb值储存处
 long dif_l,dif_r;
@@ -33,31 +35,37 @@ void WS2812_Init()
   {
 			WS2812_Set(i,0,0,0);
   }
-  //作用：调用DMA将显存中的内容实时搬运至定时器的比较寄存器
-  HAL_TIM_PWM_Start_DMA(&htim2,TIM_CHANNEL_4,(uint32_t *)WS2812_RGB_Buff,sizeof(WS2812_RGB_Buff)/sizeof(uint32_t)); 
 	
+	uint8_t Data[4] = {0};
+	EEPROM_ReadMultipleBytes(RGB_LIGHT, Data, 4);
+	
+	if (Data[3] == 1)
+	{
+		WS2812_Set_Color(106, 90, 205);
+	}
 }
 
 /************************************************************************************************************
 ** WS2812_Set_Color(uint8_t R,uint8_t G,uint8_t B)                  				                               **                                                              
-** 功能描述：跑马灯效果开启函数                                                                        		   **
-** 参数说明：R、G、B分别为三个颜色通道的亮度，最大值为255                          					                   **   
-** 参数返回：无                                                                                             **
+** 功能描述：跑马灯效果开启函数                                                                      		   **
+** 参数说明：R、G、B分别为三个颜色通道的亮度，最大值为255                          					               **   
+** 参数返回：无                                                                                            **
 ************************************************************************************************************/
 void WS2812_Set_Color(uint8_t R,uint8_t Gr,uint8_t B)
 {
 	color.B=B;
 	color.R=R;
 	color.Gr=Gr;
-	HAL_TIM_Base_Start_IT(&htim2);  //开启定时器
+	//作用：调用DMA将显存中的内容实时搬运至定时器的比较寄存器
+  HAL_TIM_PWM_Start_DMA(&htim2,TIM_CHANNEL_4,(uint32_t *)WS2812_RGB_Buff,sizeof(WS2812_RGB_Buff)/sizeof(uint32_t)); 
 }
 
 
 /************************************************************************************************************
 ** void WS2812_Off(void)                  				                                                         **                                                              
-** 功能描述：跑马灯效果关闭函数                                                                        		   **
+** 功能描述：跑马灯效果关闭函数                                                                        		 **
 ** 参数说明：无                                                                					                   **   
-** 参数返回：无                                                                                             **
+** 参数返回：无                                                                                            **
 ************************************************************************************************************/
 void WS2812_Off(void)
 {

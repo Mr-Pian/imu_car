@@ -1,5 +1,7 @@
 #include "lcd_init.h"
-
+#include "M24_EEPROM.h"
+#include "Functions.h"
+#include "TIM.h"
 
 
 void LCD_GPIO_Init(void)
@@ -117,7 +119,16 @@ void LCD_Init(void)
 	//LCD_RES_Set();
 	HAL_Delay(100);
 	
-	LCD_BLK_Set();//打开背光
+	//读取背光数据
+	uint8_t Data[4] = {0};
+	EEPROM_ReadMultipleBytes(LCD_BRIGHTLESS, Data, 4);
+	
+	//打开pwm背光
+	if (Data[3] == 0) Data[3]=1;
+	HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_2);
+	__HAL_TIM_SetCompare(&htim3, TIM_CHANNEL_2, Data[3]);
+	
+	//LCD_BLK_Set();//打开背光
   HAL_Delay(100);
 	
 	//************* Start Initial Sequence **********//

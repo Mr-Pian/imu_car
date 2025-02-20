@@ -10,6 +10,8 @@ uint8_t Key_val=0;  //键值初始化
 uint8_t item_index = 0;  //菜单栏初始化
 uint8_t pre_item_index = 0;  //先前的菜单编号
 uint8_t flag = 0;  //屏蔽按键标识
+uint16_t Back_ground_color = 0x00;
+uint16_t Back_ground_color_array[11] = {LGRAY, GRAY, WHITE, BLACK, LGRAYBLUE, YELLOW, GBLUE, MAGENTA, DARKBLUE, DARKGREEN, CYAN};
 
 //结构体初始化//菜单定义,在这里将每一个菜单的关联设置好
 Menu menu1_main[4] = // 第1级 主菜单 
@@ -59,14 +61,14 @@ Menu menu3_car_set[6] =  //第3级 小车设置
 	{6, "小车设置", "RGB_Light", RGB_LIGHT,1, (*Change_Param), NULL, menu2_set, English, RED, 10, 55},
 	{6, "", "Max_Speed", MAX_SPEED,100, (*Change_Param), NULL, menu2_set, English, ORANGE, 10, 0},
 	{6, "", "Swerve_Speed", SWERVE_SPEED,100, (*Change_Param), NULL, menu2_set, English, YELLOW, 10, 0},
-	{6, "", "EEPROM_Out", TYPE_SPECIAL_PARAM,0, NULL, NULL, menu2_set, English, DARKGREEN, 10, 0},
+	{6, "", "EEPROM_Out", TYPE_SPECIAL_PARAM,0, (*EEPROM_OUT), NULL, menu2_set, English, DARKGREEN, 10, 0},
 	{6, "", "EEPROM_Lock", TYPE_SPECIAL_PARAM,0, NULL, NULL, menu2_set, English, DODGERBLUE, 10, 0},
 	{6, "", "EEPROM_Erase", TYPE_SPECIAL_PARAM,0, NULL, NULL, menu2_set,English, DARKBLUE, 10, 0},
 };
 
 Menu menu3_LCD_set[4] =  //第3级 LCD设置
 {
-	{4, "屏幕设置", "LCD_Brightness", LCD_BRIGHTLESS,100, (*Change_Param), NULL, menu2_set, English, RED, 10, 55},
+	{4, "屏幕设置", "LCD_Brightness", LCD_BRIGHTLESS,99, (*Change_Param), NULL, menu2_set, English, RED, 10, 55},
 	{4, "", "LCD_B_color", LCD_B_COLOR,10, (*Change_Param), NULL, menu2_set, English, ORANGE, 10, 0},
 	{4, "", "Sleep", SLEEP,1, (*Change_Param), NULL, menu2_set, English, YELLOW, 10, 0},
 	{4, "", "Sleep_time", SLEEP_TIME,255, (*Change_Param), NULL, menu2_set, English, DARKGREEN, 10, 0},
@@ -172,7 +174,7 @@ void Display(void)
 						}
 						break; 
 					default: 
-						if(cur_item[item_index].Function != NULL)
+						if(cur_item[item_index].Function != NULL && cur_item[item_index].type != TYPE_SPECIAL_PARAM)
 						{ 
 							//绘制选中栏
 							uint8_t Data[4];
@@ -191,7 +193,15 @@ void Display(void)
 						}
 						else
 						{
-							break;  //
+							LCD_ShowString(cur_item[item_index].X_coord,cur_item->Y_coord+(item_index*30),(u8* )cur_item[item_index].label, cur_item[item_index].Color, GRAYBLUE, 24, 0);
+							LCD_Fill(cur_item[item_index].X_coord,cur_item->Y_coord+(item_index*30), 230, 24+(cur_item->Y_coord+(item_index*30)), GRAYBLUE);
+							//屏蔽按键
+							flag = 1;
+							//调用相应的动作函数
+							cur_item[item_index].Function();
+							//恢复按键屏蔽
+							flag = 0;
+							
 						}
 						break;
 				}
