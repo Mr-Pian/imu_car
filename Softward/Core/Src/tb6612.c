@@ -1,6 +1,6 @@
 #include "tb6612.h"
 #include "tim.h"
-
+#include "ws2812.h"
 
 /************************************************************************************************************
 ** int Motor_SetSpeed(uint8_t Mode,float speed, uint8_t L_R)                  				                     **                                                              
@@ -119,14 +119,34 @@ int Motor_Off(uint8_t L_R)
 }
 
 /************************************************************************************************************
-** void Motor_RealSpeed(uint8_t L_R)                  				                                                     **                                                              
+** void Motor_RealSpeed(uint8_t L_R)                  				                                             **                                                              
 ** 功能描述：停止一侧电机                                                                        		         **
 ** 参数说明：左右电机                          					                                                   **   
 ** 参数返回：uint8_t                                                                                        **
+************************************************************************************************************/
+long Get_Speed(uint8_t L_R)
+{
+	if(L_R==L) return dif_l;
+	if(L_R==R) return dif_r;
+}
+
+/************************************************************************************************************
+** void Motor_RealSpeed(uint8_t L_R)                  				                                             **                                                              
+** 功能描述：PID保持稳定速度                                                                     		         **
+** 参数说明：左右电机，速度                          					                                               **   
+** 参数返回：				                                                                                       **
 ************************************************************************************************************/
 
 void Motor_RealSpeed(int speed,uint8_t L_R)
 {
 	
+	if(PID_Loc_V(speed,Get_Speed(L_R),PID_V,0)>0)
+	{
+		Motor_SetSpeed(Foward, (int)(PID_Loc_V(speed,Get_Speed(L_R),PID_V,0)), L_R);
+	}
+	else
+	{
+		Motor_SetSpeed(Backward, (int)(-PID_Loc_V(speed,Get_Speed(L_R),PID_V,0)), L_R);
+	}
 }
 

@@ -4,9 +4,11 @@ PID_LocTypeDef *PID_AV;
 PID_LocTypeDef *PID_A;
 PID_LocTypeDef *PID_V;
 
+
+
 /************************************************
 函数名称 ： PID_Init
-功    能 ： PID位置(Location)计算
+功    能 ： PID初始化
 参    数 ：
 返 回 值 ： 
 *************************************************/
@@ -24,6 +26,12 @@ void PID_Init(void)
 	PID_A->Ek=0;
 	PID_A->Ek1=0;
 	PID_A->LocSum=0;
+	PID_V->Kp=1;
+	PID_V->Ki=0;
+	PID_V->Kd=0;
+	PID_V->Ek=0;
+	PID_V->Ek1=0;
+	PID_V->LocSum=0;
 }
 
 

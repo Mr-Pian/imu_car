@@ -1,6 +1,6 @@
 #include "main.h"
 #include "tim.h"
-#include "UI.h"
+
 
 #define WS_H           70   // 1 码相对计数值
 #define WS_L           35   // 0 码相对计数值
@@ -11,14 +11,18 @@
 
 typedef struct 
 {
-	uint8_t R;
-	uint8_t Gr;
+	
+	uint8_t G;
 	uint8_t B;
-}Color_tpye;
+	uint8_t Re;
+}Color_type;
 
-extern long dif_l,dif_r;
 
+
+void WS2812_Set(uint16_t num,uint8_t Re,uint8_t G,uint8_t B);
+void WS2812_Set_Color(uint8_t Re,uint8_t G,uint8_t B);
 void WS2812_Init(void);
-void WS2812_Set(uint16_t num,uint8_t R,uint8_t Gr,uint8_t B);
-void WS2812_Set_Color(uint8_t R,uint8_t Gr,uint8_t B);
 void WS2812_Off(void);
+
+extern long dif_l;
+extern long dif_r;
