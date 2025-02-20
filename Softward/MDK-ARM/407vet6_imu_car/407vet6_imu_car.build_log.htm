@@ -17,12 +17,12 @@ Library Manager: ArmAr.exe V5.06 update 7 (build 960)
 Hex Converter:   FromElf.exe V5.06 update 7 (build 960)
 CPU DLL:         SARMCM3.DLL V5.35.0.2
 Dialog DLL:      DCM.DLL V1.17.3.0
-Target DLL:      CMSIS_AGDI.dll V1.33.0.0
+Target DLL:      UL2CM3.DLL V1.164.0.0
 Dialog DLL:      TCM.DLL V1.53.0.0
  
 <h2>Project:</h2>
 D:\stm32cubemx\git\car1.0.4\Softward\MDK-ARM\407vet6_imu_car.uvprojx
-Project File Date:  02/18/2025
+Project File Date:  02/20/2025
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'D:\Keil_v5\ARM\ARMCC\Bin'
@@ -30,14 +30,137 @@ Build target '407vet6_imu_car'
 Note: source file '..\Core\Src\angle.c' - object file renamed from '407vet6_imu_car\angle.o' to '407vet6_imu_car\angle_1.o'.
 Note: source file '..\Core\Src\filter.c' - object file renamed from '407vet6_imu_car\filter.o' to '407vet6_imu_car\filter_1.o'.
 Note: source file '..\Core\Src\HANA_math.c' - object file renamed from '407vet6_imu_car\HANA_math.o' to '407vet6_imu_car\hana_math_1.o'.
+compiling tim.c...
+../Core/Src/tim.c(398): error:  #29: expected an expression
+  <<<<<<< Updated upstream
+../Core/Src/tim.c(431): warning:  #12-D: parsing restarts here after previous syntax error
+  }
+../Core/Src/tim.c(431): error:  #65: expected a ";"
+  }
+../Core/Src/tim.c(598): error:  #29: expected an expression
+  <<<<<<< Updated upstream
+../Core/Src/tim.c(636): warning:  #12-D: parsing restarts here after previous syntax error
+  }
+../Core/Src/tim.c(636): error:  #65: expected a ";"
+  }
+../Core/Src/tim.c: 2 warnings, 4 errors
+compiling ws2812.c...
+..\Core\Src\ws2812.c(54): error:  #29: expected an expression
+  <<<<<<< Updated upstream
+..\Core\Src\ws2812.c(58): error:  #20: identifier "turn_1" is undefined
+  		turn_1++;
+..\Core\Src\ws2812.c(59): error:  #20: identifier "turn_2" is undefined
+  		turn_2++;
+..\Core\Src\ws2812.c(61): error:  #20: identifier "turn_1" is undefined
+  	if(turn_1==800000)
+..\Core\Src\ws2812.c(64): error:  #29: expected an expression
+  =======
+..\Core\Src\ws2812.c(70): error:  #20: identifier "turn" is undefined
+  		turn++;
+..\Core\Src\ws2812.c(72): error:  #20: identifier "turn" is undefined
+  	if(turn==80000)
+..\Core\Src\ws2812.c(77): error:  #20: identifier "dif_l" is undefined
+  		dif_l=-com_l+last_com_l;
+..\Core\Src\ws2812.c(80): error:  #20: identifier "dif_r" is undefined
+  		dif_r=com_r-last_com_r;
+..\Core\Src\ws2812.c(85): error:  #29: expected an expression
+  >>>>>>> Stashed changes
+..\Core\Src\ws2812.c(90): warning:  #12-D: parsing restarts here after previous syntax error
+  		if(Num<=3)WS2812_Set(Num%4,color.R/10,color.Gr/10,color.B/10);
+..\Core\Src\ws2812.c(91): error:  #20: identifier "Num" is undefined
+  		if(Num>=1&&Num<=4)WS2812_Set((Num-1)%4,color.R,color.Gr,color.B);
+..\Core\Src\ws2812.c(92): error:  #20: identifier "Num" is undefined
+  		if(Num>=2&&Num<=5)WS2812_Set((Num-2)%4,color.R/10,color.Gr/10,color.B/10);
+..\Core\Src\ws2812.c(93): error:  #20: identifier "Num" is undefined
+  		if(Num<=3)WS2812_Set(7-((Num-0)%4),color.R/10,color.Gr/10,color.B/10);
+..\Core\Src\ws2812.c(94): error:  #20: identifier "Num" is undefined
+  		if(Num>=1&&Num<=4)WS2812_Set(7-((Num-1)%4),color.R,color.Gr,color.B);
+..\Core\Src\ws2812.c(95): error:  #20: identifier "Num" is undefined
+  		if(Num>=2&&Num<=5)WS2812_Set(7-((Num-2)%4),color.R/10,color.Gr/10,color.B/10);
+..\Core\Src\ws2812.c(96): error:  #20: identifier "Num" is undefined
+  		Num++;
+..\Core\Src\ws2812.c(102): error:  #29: expected an expression
+  <<<<<<< Updated upstream
+..\Core\Src\ws2812.c(117): warning:  #12-D: parsing restarts here after previous syntax error
+  }
+..\Core\Src\ws2812.c(117): error:  #65: expected a ";"
+  }
+..\Core\Src\ws2812.c(119): error:  #65: expected a ";"
+  {
+..\Core\Src\ws2812.c(125): warning: At end of source:  #12-D: parsing restarts here after previous syntax error
+..\Core\Src\ws2812.c(125): error: At end of source:  #67: expected a "}"
+..\Core\Src\ws2812.c: 3 warnings, 20 errors
+compiling stm32f4xx_it.c...
+../Core/Src/stm32f4xx_it.c(61): error:  #169: expected a declaration
+  <<<<<<< Updated upstream
+../Core/Src/stm32f4xx_it.c(66): error:  #169: expected a declaration
+  >>>>>>> Stashed changes
+../Core/Src/stm32f4xx_it.c(278): warning: At end of source:  #12-D: parsing restarts here after previous syntax error
+../Core/Src/stm32f4xx_it.c: 1 warning, 2 errors
+compiling dma.c...
+compiling usart.c...
 compiling main.c...
-../Core/Src/main.c(140): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "const uint8_t *"
-  		LCD_ShowString(0,0,y_char,BLACK,WHITE,16,0);
-../Core/Src/main.c: 1 warning, 0 errors
-linking...
-Program Size: Code=26056 RO-data=15160 RW-data=172 ZI-data=2860  
-FromELF: creating hex file...
-"407vet6_imu_car\407vet6_imu_car.axf" - 0 Error(s), 1 Warning(s).
+../Core/Src/main.c(109): error:  #29: expected an expression
+  <<<<<<< Updated upstream
+../Core/Src/main.c(112): warning:  #223-D: function "MX_TIM9_Init" declared implicitly
+    MX_TIM9_Init();
+../Core/Src/main.c(114): error:  #29: expected an expression
+  >>>>>>> Stashed changes
+../Core/Src/main.c(119): error:  #29: expected an expression
+  <<<<<<< Updated upstream
+../Core/Src/main.c(124): error:  #29: expected an expression
+  =======
+../Core/Src/main.c(130): warning:  #12-D: parsing restarts here after previous syntax error
+  	HAL_TIM_Base_Start_IT(&htim7);	
+../Core/Src/main.c(132): error:  #29: expected an expression
+  >>>>>>> Stashed changes
+../Core/Src/main.c(135): warning:  #12-D: parsing restarts here after previous syntax error
+  	HAL_TIM_Base_Start_IT(&htim2);
+../Core/Src/main.c(152): error:  #29: expected an expression
+  <<<<<<< Updated upstream
+../Core/Src/main.c(198): warning:  #12-D: parsing restarts here after previous syntax error
+      Error_Handler();
+../Core/Src/main.c(140): warning:  #177-D: variable "y_char"  was declared but never referenced
+  	char y_char[10]={0};
+../Core/Src/main.c(203): error:  #77-D: this declaration has no storage class or type specifier
+    RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
+../Core/Src/main.c(203): error:  #65: expected a ";"
+    RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
+../Core/Src/main.c(205): error:  #77-D: this declaration has no storage class or type specifier
+    RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
+../Core/Src/main.c(205): error:  #65: expected a ";"
+    RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
+../Core/Src/main.c(206): error:  #77-D: this declaration has no storage class or type specifier
+    RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
+../Core/Src/main.c(206): error:  #65: expected a ";"
+    RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
+../Core/Src/main.c(207): error:  #77-D: this declaration has no storage class or type specifier
+    RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV4;
+../Core/Src/main.c(207): error:  #65: expected a ";"
+    RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV4;
+../Core/Src/main.c(208): error:  #77-D: this declaration has no storage class or type specifier
+    RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV2;
+../Core/Src/main.c(208): error:  #65: expected a ";"
+    RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV2;
+../Core/Src/main.c(210): error:  #169: expected a declaration
+    if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_5) != HAL_OK)
+../Core/Src/main.c(250): warning: At end of source:  #12-D: parsing restarts here after previous syntax error
+../Core/Src/main.c: 6 warnings, 17 errors
+compiling tb6612.c...
+compiling i2c.c...
+compiling lcd_init.c...
+compiling lcd.c...
+compiling spi.c...
+compiling gpio.c...
+compiling ICM42688.c...
+compiling stm32f4xx_hal_msp.c...
+compiling filter.c...
+compiling HANA_math.c...
+compiling angle.c...
+..\Core\Src\angle.c(170): warning:  #550-D: variable "acc_LPF_out"  was set but never used
+  	int16_t acc_LPF_in[3],acc_LPF_out[3];
+..\Core\Src\angle.c: 1 warning, 0 errors
+"407vet6_imu_car\407vet6_imu_car.axf" - 43 Error(s), 13 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -60,7 +183,8 @@ Package Vendor: Keil
 
    * Component: ARM::CMSIS:CORE:5.5.0
       Include file:  CMSIS\Core\Include\tz_context.h
-Build Time Elapsed:  00:00:01
+Target not created.
+Build Time Elapsed:  00:00:03
 </pre>
 </body>
 </html>

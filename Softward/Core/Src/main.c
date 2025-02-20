@@ -106,14 +106,30 @@ int main(void)
   MX_TIM4_Init();
   MX_TIM5_Init();
   MX_TIM8_Init();
+<<<<<<< Updated upstream
+=======
+  MX_TIM3_Init();
+  MX_TIM9_Init();
+  MX_TIM7_Init();
+>>>>>>> Stashed changes
   /* USER CODE BEGIN 2 */
 	HAL_Delay(20);
 	icm42688_init ();
 	IMU_Calibration();
+<<<<<<< Updated upstream
 	
 	LCD_Init();
 	LCD_Fill(0,0,LCD_W,LCD_H,WHITE);
 
+=======
+//	WS2812_Init();  //WS2812 Init
+
+//	if (M24C02_Check()) Error_Handler();  //EEPROM初始化	
+//	HAL_TIM_Encoder_Start(&htim4, TIM_CHANNEL_ALL);  //编码器初始化
+//	HAL_TIM_Encoder_Start(&htim8, TIM_CHANNEL_ALL);
+	HAL_TIM_Base_Start_IT(&htim7);	
+//	PID_Init();
+>>>>>>> Stashed changes
 	
 	
 	HAL_TIM_Base_Start_IT(&htim2);
@@ -133,6 +149,7 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 	while (1)
+<<<<<<< Updated upstream
   { 
 //		Count_L = __HAL_TIM_GET_COUNTER(&htim4);
 //		Count_R = __HAL_TIM_GET_COUNTER(&htim8);
@@ -140,6 +157,11 @@ int main(void)
 		LCD_ShowString(0,0,y_char,BLACK,WHITE,16,0);
 		
    /* USER CODE END WHILE */
+=======
+	{	
+		
+    /* USER CODE END WHILE */
+>>>>>>> Stashed changes
 
     /* USER CODE BEGIN 3 */
   }

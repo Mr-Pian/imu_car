@@ -51,6 +51,7 @@ void WS2812_Set_Color(uint8_t R,uint8_t Gr,uint8_t B)
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
+<<<<<<< Updated upstream
 	static uint32_t turn_1=0,Num=0,turn_2=0;
 	if(htim==&htim2)
 	{
@@ -60,6 +61,28 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 	if(turn_1==800000)
 	{
 		turn_1=0;
+=======
+	static uint32_t turn=0,Num=0;
+	static int com_l=0,last_com_l=0,com_r=0,last_com_r=0;
+	
+	if(htim==&htim2)
+	{
+		turn++;
+	}
+	if(turn==80000)
+	{
+		turn=0;
+		com_l=__HAL_TIM_GET_COUNTER(&htim4);//×ó
+		com_r=__HAL_TIM_GET_COUNTER(&htim8);//ÓÒ
+		dif_l=-com_l+last_com_l;
+		if(dif_l>65535)dif_l-=65535;
+		if(dif_l<-65535)dif_l+=65535;
+		dif_r=com_r-last_com_r;
+		if(dif_r>65535)dif_r-=65535;
+		if(dif_r<-65535)dif_r+=65535;
+		last_com_l=com_l;
+		last_com_r=com_r;
+>>>>>>> Stashed changes
 		for(int i=0;i<LED_NUM;i++)
 		{
 			WS2812_Set(i,0,0,0);
@@ -76,7 +99,16 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 			Num=0;
 		}	
 	}
+<<<<<<< Updated upstream
 	if(turn_2==80000)
+=======
+	if(htim==&htim7)
+	{
+		IMU_DataUpdate();
+		IMU_GetAngle(0.1);
+	}
+	if(htim==&htim9)
+>>>>>>> Stashed changes
 	{
 		turn_2=0;
 		IMU_DataUpdate();

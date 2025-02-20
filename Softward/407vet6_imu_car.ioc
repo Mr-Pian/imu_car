@@ -21,9 +21,18 @@ Mcu.CPN=STM32F407VET6
 Mcu.Family=STM32F4
 Mcu.IP0=DMA
 Mcu.IP1=I2C3
+<<<<<<< Updated upstream
 Mcu.IP10=TIM5
 Mcu.IP11=TIM8
 Mcu.IP12=USART1
+=======
+Mcu.IP10=TIM4
+Mcu.IP11=TIM5
+Mcu.IP12=TIM7
+Mcu.IP13=TIM8
+Mcu.IP14=TIM9
+Mcu.IP15=USART1
+>>>>>>> Stashed changes
 Mcu.IP2=NVIC
 Mcu.IP3=RCC
 Mcu.IP4=SPI1
@@ -31,8 +40,13 @@ Mcu.IP5=SPI3
 Mcu.IP6=SYS
 Mcu.IP7=TIM1
 Mcu.IP8=TIM2
+<<<<<<< Updated upstream
 Mcu.IP9=TIM4
 Mcu.IPNb=13
+=======
+Mcu.IP9=TIM3
+Mcu.IPNb=16
+>>>>>>> Stashed changes
 Mcu.Name=STM32F407V(E-G)Tx
 Mcu.Package=LQFP100
 Mcu.Pin0=PE2
@@ -66,14 +80,25 @@ Mcu.Pin33=PB5
 Mcu.Pin34=VP_SYS_VS_Systick
 Mcu.Pin35=VP_TIM1_VS_ClockSourceINT
 Mcu.Pin36=VP_TIM2_VS_ClockSourceINT
+<<<<<<< Updated upstream
 Mcu.Pin37=VP_TIM5_VS_ClockSourceINT
+=======
+Mcu.Pin37=VP_TIM3_VS_ClockSourceINT
+Mcu.Pin38=VP_TIM5_VS_ClockSourceINT
+Mcu.Pin39=VP_TIM7_VS_ClockSourceINT
+>>>>>>> Stashed changes
 Mcu.Pin4=PC3
+Mcu.Pin40=VP_TIM9_VS_ClockSourceINT
 Mcu.Pin5=PA0-WKUP
 Mcu.Pin6=PA1
 Mcu.Pin7=PA2
 Mcu.Pin8=PA3
 Mcu.Pin9=PA5
+<<<<<<< Updated upstream
 Mcu.PinsNb=38
+=======
+Mcu.PinsNb=41
+>>>>>>> Stashed changes
 Mcu.ThirdPartyNb=0
 Mcu.UserConstants=
 Mcu.UserName=STM32F407VETx
@@ -92,6 +117,11 @@ NVIC.PriorityGroup=NVIC_PRIORITYGROUP_4
 NVIC.SVCall_IRQn=true\:0\:0\:false\:false\:true\:false\:false\:false
 NVIC.SysTick_IRQn=true\:15\:0\:false\:false\:true\:false\:true\:false
 NVIC.TIM2_IRQn=true\:0\:0\:false\:false\:true\:true\:true\:true
+<<<<<<< Updated upstream
+=======
+NVIC.TIM3_IRQn=true\:0\:0\:false\:false\:true\:true\:true\:true
+NVIC.TIM7_IRQn=true\:0\:0\:false\:false\:true\:true\:true\:true
+>>>>>>> Stashed changes
 NVIC.UsageFault_IRQn=true\:0\:0\:false\:false\:true\:false\:false\:false
 PA0-WKUP.Locked=true
 PA0-WKUP.Signal=S_TIM5_CH1
@@ -235,7 +265,11 @@ ProjectManager.ToolChainLocation=
 ProjectManager.UAScriptAfterPath=
 ProjectManager.UAScriptBeforePath=
 ProjectManager.UnderRoot=false
+<<<<<<< Updated upstream
 ProjectManager.functionlistsort=1-SystemClock_Config-RCC-false-HAL-false,2-MX_GPIO_Init-GPIO-false-HAL-true,3-MX_DMA_Init-DMA-false-HAL-true,4-MX_I2C3_Init-I2C3-false-HAL-true,5-MX_SPI1_Init-SPI1-false-HAL-true,6-MX_SPI3_Init-SPI3-false-HAL-true,7-MX_TIM2_Init-TIM2-false-HAL-true,8-MX_USART1_UART_Init-USART1-false-HAL-true,9-MX_TIM1_Init-TIM1-false-HAL-true,10-MX_TIM4_Init-TIM4-false-HAL-true,11-MX_TIM5_Init-TIM5-false-HAL-true,12-MX_TIM8_Init-TIM8-false-HAL-true
+=======
+ProjectManager.functionlistsort=1-SystemClock_Config-RCC-false-HAL-false,2-MX_GPIO_Init-GPIO-false-HAL-true,3-MX_DMA_Init-DMA-false-HAL-true,4-MX_I2C3_Init-I2C3-false-HAL-true,5-MX_SPI1_Init-SPI1-false-HAL-true,6-MX_SPI3_Init-SPI3-false-HAL-true,7-MX_TIM2_Init-TIM2-false-HAL-true,8-MX_USART1_UART_Init-USART1-false-HAL-true,9-MX_TIM1_Init-TIM1-false-HAL-true,10-MX_TIM4_Init-TIM4-false-HAL-true,11-MX_TIM5_Init-TIM5-false-HAL-true,12-MX_TIM8_Init-TIM8-false-HAL-true,13-MX_TIM3_Init-TIM3-false-HAL-true,14-MX_TIM9_Init-TIM9-false-HAL-true,15-MX_TIM7_Init-TIM7-false-HAL-true
+>>>>>>> Stashed changes
 RCC.48MHZClocksFreq_Value=84000000
 RCC.AHBFreq_Value=168000000
 RCC.APB1CLKDivider=RCC_HCLK_DIV4
@@ -325,6 +359,17 @@ TIM5.IPParameters=Channel-PWM Generation1 CH1,Period,Prescaler,OCMode_PWM-PWM Ge
 TIM5.OCMode_PWM-PWM\ Generation1\ CH1=TIM_OCMODE_PWM2
 TIM5.Period=999
 TIM5.Prescaler=83
+<<<<<<< Updated upstream
+=======
+TIM7.AutoReloadPreload=TIM_AUTORELOAD_PRELOAD_ENABLE
+TIM7.IPParameters=Prescaler,Period,AutoReloadPreload
+TIM7.Period=999
+TIM7.Prescaler=8399
+TIM9.AutoReloadPreload=TIM_AUTORELOAD_PRELOAD_ENABLE
+TIM9.IPParameters=Prescaler,Period,AutoReloadPreload
+TIM9.Period=199
+TIM9.Prescaler=8399
+>>>>>>> Stashed changes
 USART1.IPParameters=VirtualMode
 USART1.VirtualMode=VM_ASYNC
 VP_SYS_VS_Systick.Mode=SysTick
@@ -335,4 +380,11 @@ VP_TIM2_VS_ClockSourceINT.Mode=Internal
 VP_TIM2_VS_ClockSourceINT.Signal=TIM2_VS_ClockSourceINT
 VP_TIM5_VS_ClockSourceINT.Mode=Internal
 VP_TIM5_VS_ClockSourceINT.Signal=TIM5_VS_ClockSourceINT
+<<<<<<< Updated upstream
+=======
+VP_TIM7_VS_ClockSourceINT.Mode=Enable_Timer
+VP_TIM7_VS_ClockSourceINT.Signal=TIM7_VS_ClockSourceINT
+VP_TIM9_VS_ClockSourceINT.Mode=Internal
+VP_TIM9_VS_ClockSourceINT.Signal=TIM9_VS_ClockSourceINT
+>>>>>>> Stashed changes
 board=custom
