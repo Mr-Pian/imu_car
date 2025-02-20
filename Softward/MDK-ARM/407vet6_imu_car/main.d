@@ -41,6 +41,9 @@
 407vet6_imu_car\main.o: ../Core/Inc/usart.h
 407vet6_imu_car\main.o: ../Core/Inc/gpio.h
 407vet6_imu_car\main.o: ../Core/Inc/ws2812.h
+407vet6_imu_car\main.o: ../Core/Inc/angle.h
+407vet6_imu_car\main.o: ../Core/Inc/HANA_math.h
+407vet6_imu_car\main.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
 407vet6_imu_car\main.o: ../Core/Inc/lcd.h 
 407vet6_imu_car\main.o: ../Core/Inc/lcd_init.h 
 407vet6_imu_car\main.o: ../Core/Inc/tb6612.h

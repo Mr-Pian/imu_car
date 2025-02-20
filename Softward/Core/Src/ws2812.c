@@ -49,7 +49,7 @@ void WS2812_Set_Color(uint8_t Re,uint8_t G,uint8_t B)
 	color.B=B;
 	color.Re=Re;
 	color.G=G;
-	HAL_TIM_Base_Start_IT(&htim2);  //¿ªÆô¶¨Ê±Æ÷
+	HAL_TIM_PWM_Start_DMA(&htim2,TIM_CHANNEL_4,(uint32_t *)WS2812_RGB_Buff,sizeof(WS2812_RGB_Buff)/sizeof(uint32_t)); 
 }
 
 
@@ -61,7 +61,7 @@ void WS2812_Set_Color(uint8_t Re,uint8_t G,uint8_t B)
 ************************************************************************************************************/
 void WS2812_Off(void)
 {
-	HAL_TIM_Base_Stop_IT(&htim2);
+	HAL_TIM_PWM_Stop_DMA(&htim2,TIM_CHANNEL_4);
 	for(int i=0;i<LED_NUM;i++)
 		{
 			WS2812_Set(i,0,0,0);
@@ -70,12 +70,19 @@ void WS2812_Off(void)
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
-	static uint32_t turn=0,Num=0;
+	static uint32_t turn=0,Num=0,turn_dmp=0;
 	static int com_l=0,last_com_l=0,com_r=0,last_com_r=0;
 	
 	if(htim==&htim2)
 	{
 		turn++;
+		turn_dmp++;
+	}
+	if(turn_dmp==80000)
+	{
+		turn_dmp=0;
+		IMU_DataUpdate();
+		IMU_GetAngle(0.1);
 	}
 	if(turn==80000)
 	{
@@ -83,11 +90,11 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 		com_l=__HAL_TIM_GET_COUNTER(&htim4);//×ó
 		com_r=__HAL_TIM_GET_COUNTER(&htim8);//ÓÒ
 		dif_l=-com_l+last_com_l;
-		if(dif_l>500)dif_l=500;
-		if(dif_l<-500)dif_l=-500;
+		if(dif_l>65535)dif_l-=65535;
+		if(dif_l<-65535)dif_l+=65535;
 		dif_r=com_r-last_com_r;
-		if(dif_r>500)dif_r=500;
-		if(dif_r<-500)dif_r=-500;
+		if(dif_r>65535)dif_r-=65535;
+		if(dif_r<-65535)dif_r+=65535;
 		last_com_l=com_l;
 		last_com_r=com_r;
 		for(int i=0;i<LED_NUM;i++)

@@ -15,9 +15,9 @@
 
 typedef struct
 {
-  uint8_t Kp;                       //比例系数Proportional
-  uint8_t Ki;                       //积分系数Integral
-  uint8_t Kd;                       //微分系数Derivative
+  float Kp;                       //比例系数Proportional
+  float Ki;                       //积分系数Integral
+  float Kd;                       //微分系数Derivative
  
   float Ek;                       //当前误差
   float Ek1;                      //前一次误差 e(k-1)
@@ -26,8 +26,8 @@ typedef struct
 
 extern PID_LocTypeDef *PID_AV;
 extern PID_LocTypeDef *PID_A;
-extern PID_LocTypeDef *PID_V;
-
+extern PID_LocTypeDef PID_VL;
+extern PID_LocTypeDef PID_VR;
 void PID_Init(void);
 float PID_Loc(float SetValue, float ActualValue, PID_LocTypeDef *PID,float Limit);
 float PID_Loc_V(float SetValue, float ActualValue, PID_LocTypeDef *PID,float Limit);

@@ -1,6 +1,6 @@
 #include "main.h"
 #include "tim.h"
-
+#include "angle.h"
 
 #define WS_H           70   // 1 码相对计数值
 #define WS_L           35   // 0 码相对计数值

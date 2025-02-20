@@ -139,14 +139,16 @@ long Get_Speed(uint8_t L_R)
 
 void Motor_RealSpeed(int speed,uint8_t L_R)
 {
-	
-	if(PID_Loc_V(speed,Get_Speed(L_R),PID_V,0)>0)
+	int PID_FINAL=PID_Loc_V(speed,Get_Speed(L_R),L_R?(&PID_VR):(&PID_VL),2999);
+	if(PID_FINAL>500)	PID_FINAL=500;
+	if(PID_FINAL<-500)	PID_FINAL=-500;
+	if(PID_FINAL>0)
 	{
-		Motor_SetSpeed(Foward, (int)(PID_Loc_V(speed,Get_Speed(L_R),PID_V,0)), L_R);
+		Motor_SetSpeed(Foward, (PID_FINAL), L_R);
 	}
 	else
 	{
-		Motor_SetSpeed(Backward, (int)(-PID_Loc_V(speed,Get_Speed(L_R),PID_V,0)), L_R);
+		Motor_SetSpeed(Backward, (PID_FINAL), L_R);
 	}
 }
 

@@ -2,8 +2,8 @@
 
 PID_LocTypeDef *PID_AV;
 PID_LocTypeDef *PID_A;
-PID_LocTypeDef *PID_V;
-
+PID_LocTypeDef PID_VL={4.0,0.9,8.9};
+PID_LocTypeDef PID_VR={4.0,0.9,8.9};
 
 
 /************************************************
@@ -14,24 +14,19 @@ PID_LocTypeDef *PID_V;
 *************************************************/
 void PID_Init(void)
 {
-	EEPROM_ReadByte(SPEED_P+3, &(PID_AV->Kp));
-	EEPROM_ReadByte(SPEED_I+3, &(PID_AV->Ki));
-	EEPROM_ReadByte(SPEED_D+3, &(PID_AV->Kd));
+//	EEPROM_ReadByte(SPEED_P+3, &(PID_AV->Kp));
+//	EEPROM_ReadByte(SPEED_I+3, &(PID_AV->Ki));
+//	EEPROM_ReadByte(SPEED_D+3, &(PID_AV->Kd));
 	PID_AV->Ek=0;
 	PID_AV->Ek1=0;
 	PID_AV->LocSum=0;
-	EEPROM_ReadByte(ANGLE_P+3, &(PID_A->Kp));
-	EEPROM_ReadByte(ANGLE_I+3, &(PID_A->Ki));
-	EEPROM_ReadByte(ANGLE_D+3, &(PID_A->Kd));
+//	EEPROM_ReadByte(ANGLE_P+3, &(PID_A->Kp));
+//	EEPROM_ReadByte(ANGLE_I+3, &(PID_A->Ki));
+//	EEPROM_ReadByte(ANGLE_D+3, &(PID_A->Kd));
 	PID_A->Ek=0;
 	PID_A->Ek1=0;
 	PID_A->LocSum=0;
-	PID_V->Kp=1;
-	PID_V->Ki=0;
-	PID_V->Kd=0;
-	PID_V->Ek=0;
-	PID_V->Ek1=0;
-	PID_V->LocSum=0;
+
 }
 
 
