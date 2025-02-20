@@ -149,6 +149,7 @@ int main(void)
 	while (1)
 	{	
 		Motor_RealSpeed(100,L);
+		Motor_RealSpeed(100,R);
 //		Motor_RealSpeed(100,R);
 
 //		IMU_DataUpdate();

@@ -2,8 +2,8 @@
 
 PID_LocTypeDef *PID_AV;
 PID_LocTypeDef PID_A={0.0,0.0,0.0,0,0,0};
-PID_LocTypeDef PID_VL={4500.0/1000.0,20.0/1000.0,28000.0/1000.0,0,0,0};
-PID_LocTypeDef PID_VR={4000.0/1000.0,90.0/1000.0,900.0/1000.0,0,0,0};
+PID_LocTypeDef PID_VL={3900.0/1000.0,9.0/1000.0,50000.0/1000.0,0,0,0};
+PID_LocTypeDef PID_VR={3900.0/1000.0,9.0/1000.0,50000.0/1000.0,0,0,0};
 
 
 /************************************************
@@ -64,8 +64,8 @@ float PID_Loc_V(float SetValue, float ActualValue, PID_LocTypeDef *PID,float Lim
  	PID->Ek = SetValue - ActualValue;
  	PID->LocSum += PID->Ek;                         //ÀÛ¼ÆÎó²î
 	
-	if(PID->LocSum>Limit)		PID->LocSum=Limit;
-	if(PID->LocSum<-Limit)		PID->LocSum=-Limit;
+//	if(PID->LocSum>Limit)		PID->LocSum=Limit;
+//	if(PID->LocSum<-Limit)		PID->LocSum=-Limit;
  	PIDLoc = PID->Kp * PID->Ek + (PID->Ki * PID->LocSum) + PID->Kd * (PID->Ek - PID->Ek1);
 	
  	PID->Ek1 = PID->Ek;  

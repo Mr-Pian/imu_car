@@ -84,7 +84,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 		IMU_DataUpdate();
 		IMU_GetAngle(0.1);
 	}
-	if(turn==80000)
+	if(turn==8000)
 	{
 		turn=0;
 		com_l=__HAL_TIM_GET_COUNTER(&htim4);//×ó
