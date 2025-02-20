@@ -186,7 +186,6 @@
             <RvdsVP>2</RvdsVP>
             <RvdsMve>0</RvdsMve>
             <RvdsCdeCp>0</RvdsCdeCp>
-            <nBranchProt>0</nBranchProt>
             <hadIRAM2>1</hadIRAM2>
             <hadIROM2>0</hadIROM2>
             <StupSel>8</StupSel>
@@ -453,6 +452,26 @@
               <FileName>UI.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Core\Src\UI.c</FilePath>
+            </File>
+            <File>
+              <FileName>Functions.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Core\Src\Functions.c</FilePath>
+            </File>
+            <File>
+              <FileName>Delay.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Core\Src\Delay.c</FilePath>
+            </File>
+            <File>
+              <FileName>control.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Core\Src\control.c</FilePath>
+            </File>
+            <File>
+              <FileName>control.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Core\Inc\control.h</FilePath>
             </File>
             <File>
               <FileName>main.c</FileName>
@@ -753,16 +772,6 @@
               <FileName>stm32f4xx_hal_msp.c</FileName>
               <FileType>1</FileType>
               <FilePath>../Core/Src/stm32f4xx_hal_msp.c</FilePath>
-            </File>
-            <File>
-              <FileName>Functions.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Core\Src\Functions.c</FilePath>
-            </File>
-            <File>
-              <FileName>Delay.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Core\Src\Delay.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1077,6 +1086,41 @@
               <FileName>system_stm32f4xx.c</FileName>
               <FileType>1</FileType>
               <FilePath>../Core/Src/system_stm32f4xx.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>DMP</GroupName>
+          <Files>
+            <File>
+              <FileName>angle.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Core\Inc\angle.h</FilePath>
+            </File>
+            <File>
+              <FileName>HANA_math.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Core\Inc\HANA_math.h</FilePath>
+            </File>
+            <File>
+              <FileName>filter.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Core\Inc\filter.h</FilePath>
+            </File>
+            <File>
+              <FileName>angle.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Core\Src\angle.c</FilePath>
+            </File>
+            <File>
+              <FileName>filter.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Core\Src\filter.c</FilePath>
+            </File>
+            <File>
+              <FileName>HANA_math.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Core\Src\HANA_math.c</FilePath>
             </File>
           </Files>
         </Group>

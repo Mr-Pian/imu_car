@@ -1,7 +1,7 @@
 #ifndef __TB6612_H__
 #define __TB6612_H__
 #include "main.h"
-
+#include "control.h"
 #define R 1
 #define L 0
 #define Both 2
