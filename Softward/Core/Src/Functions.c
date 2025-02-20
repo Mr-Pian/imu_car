@@ -56,8 +56,8 @@ void Change_Param(void)
 		{
 			if (EEPROM_WriteMultipleBytes(cur_item[item_index].type, Data, 4) != HAL_ERROR)  //eeprom写入
 			{
-				LCD_Fill(70, 95, 170, 140, GRAYBLUE);
-				LCD_ShowString(78, 103, (uint8_t*)"success", WHITE, GRAYBLUE, 24, 0);
+				LCD_Fill(70, 95, 170, 140, DARKGREEN);
+				LCD_ShowString(78, 103, (uint8_t*)"success", WHITE, DARKGREEN, 24, 0);
 				
 				Delay_ms(1500);  //延时一会儿
 						

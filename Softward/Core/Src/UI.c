@@ -10,6 +10,8 @@ uint8_t Key_val=0;  //键值初始化
 uint8_t item_index = 0;  //菜单栏初始化
 uint8_t pre_item_index = 0;  //先前的菜单编号
 uint8_t flag = 0;  //屏蔽按键标识
+uint16_t Back_ground_color = 0x00;
+uint16_t Back_ground_color_array[11] = {LGRAY, GRAY, WHITE, BLACK, LGRAYBLUE, YELLOW, GBLUE, MAGENTA, DARKBLUE, DARKGREEN, CYAN};
 
 //结构体初始化//菜单定义,在这里将每一个菜单的关联设置好
 Menu menu1_main[4] = // 第1级 主菜单 

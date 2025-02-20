@@ -113,17 +113,21 @@ int main(void)
 	icm42688_init ();  //IMU Init
 	
 //	WS2812_Init();  //WS2812 Init
-	HAL_TIM_Base_Start_IT(&htim2);
-	LCD_Init();  //LCD_Init
-	LCD_Fill(0,0,LCD_W,LCD_H,Back_ground_color);
-	LCD_Fill(0, 0, 240, 50, GRAYBLUE);  //第一次打印标题框
-    
-	HAL_TIM_Encoder_Start(&htim4, TIM_CHANNEL_ALL);  //编码器初始化
+
+	
+  HAL_TIM_Encoder_Start(&htim4, TIM_CHANNEL_ALL);  //编码器初始化
 	HAL_TIM_Encoder_Start(&htim8, TIM_CHANNEL_ALL);
 	
 	if (M24C02_Check()) Error_Handler();  //EEPROM初始化
 	char lv[10]={0},rv[10]={0};
-//	DispCrtMenu();  //UI初始化
+	
+	LCD_Init();  //LCD_Init
+	LCD_Fill(0,0,LCD_W,LCD_H,0xFFFE);
+	LCD_Fill(0, 0, 240, 50, GRAYBLUE);  //第一次打印标题框
+	
+	HAL_TIM_Base_Start_IT(&htim2);
+	
+	DispCrtMenu();  //UI初始化
 	
   /* USER CODE END 2 */
 
@@ -131,11 +135,11 @@ int main(void)
   /* USER CODE BEGIN WHILE */
 	while (1)
 	{		
-		sprintf(lv,"%ld",dif_l);
-		sprintf(rv,"%ld",dif_r);
-		LCD_ShowString(0,0,lv,WHITE,BLACK,16,0);
-		LCD_ShowString(20,0,rv,WHITE,BLACK,16,0);
-		LCD_Fill(0,0,50,50,BLACK);
+//		sprintf(lv,"%ld",dif_l);
+//		sprintf(rv,"%ld",dif_r);
+//		LCD_ShowString(0,0,lv,WHITE,BLACK,16,0);
+//		LCD_ShowString(20,0,rv,WHITE,BLACK,16,0);
+//		LCD_Fill(0,0,50,50,BLACK);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
