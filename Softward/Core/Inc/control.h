@@ -25,7 +25,7 @@ typedef struct
 }PID_LocTypeDef;
 
 extern PID_LocTypeDef *PID_AV;
-extern PID_LocTypeDef *PID_A;
+extern PID_LocTypeDef PID_A;
 extern PID_LocTypeDef PID_VL;
 extern PID_LocTypeDef PID_VR;
 void PID_Init(void);

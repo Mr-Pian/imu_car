@@ -12,7 +12,7 @@
 #include "HANA_math.h"
 #include "stdio.h"
 
-#define Gyro_NUM	100 // 角速度零漂采样个数
+#define Gyro_NUM	20 // 角速度零漂采样个数
 #define Acc_NUM   20 // 加速度零漂采样个数
 
 #define G		        9.80665f		      	// m/s^2	
@@ -129,8 +129,7 @@ void IMU_Calibration(void)
 			acc_var.z += (float) (1.0f/(Acc_NUM-1)) * (acc[i].z - acc_avg.z) * (acc[i].z - acc_avg.z);
 		}
 
-//		printf("gyro_var\nx:%d\ny:%d\nz:%d\n",(int)(1000.0f*gyro_var.x),(int)(1000.0f*gyro_var.y),(int)(1000.0f*gyro_var.z));
-//		printf("acc_var\nx:%d\ny:%d\nz:%d\n",(int)acc_var.x,(int)acc_var.y,(int)acc_var.z);
+
 		
 
 		//判断并保存静止时的零偏
@@ -144,13 +143,7 @@ void IMU_Calibration(void)
 			IMU_Data.acc_offset.y  = (int16_t)acc_avg.y;
 			IMU_Data.acc_offset.z  = (int16_t)acc_avg.z;
 			/***零漂获取end***/
-			
-//			printf("gyro_offset.x:%d\r\n",IMU_Data.gyro_offset.x);
-//			printf("gyro_offset.y:%d\r\n",IMU_Data.gyro_offset.y);
-//			printf("gyro_offset.z:%d\r\n",IMU_Data.gyro_offset.z);
-//			printf("acc_offset.x:%d\r\n",IMU_Data.acc_offset.x);
-//			printf("acc_offset.y:%d\r\n",IMU_Data.acc_offset.y);
-//			printf("acc_offset.z:%d\r\n",IMU_Data.acc_offset.z);
+
 			return;
 		}
 
@@ -178,25 +171,25 @@ void IMU_DataUpdate(void)
 	volatile vector3float_t gyro_temp = {0,0,0};
 	volatile vector3float_t acc_trans={0,0,0};
 	volatile vector3float_t acc_temp = {0,0,0};
-//	int16_t acc_LPF_in[3],acc_LPF_out[3];
+	int16_t acc_LPF_in[3],acc_LPF_out[3];
 
 	
 	icm42688_get_gyro();// 获取陀螺仪数据 
 	icm42688_get_acc();//获取加速度计数据 
 	
-//	static  kalman_1_struct ekf[3] = {{0.02,0,0,0,0.001,0.543},{0.02,0,0,0,0.001,0.543},{0.02,0,0,0,0.001,0.543}};
-//	
-//	kalman_1(&ekf[0],(float)icm42688_gyro_x);  //对x轴角速度一维卡尔曼滤波
-//	gyro_temp.x=(short)ekf[0].out;
-//	gyro_temp.x=(gyro_temp.x/10)*10;//降低角速度值的精确度来获得相对稳定的积分值
-//  
-//	kalman_1(&ekf[1],(float)icm42688_gyro_y);  //对y轴角速度一维卡尔曼滤波
-//	gyro_temp.y=(short)ekf[1].out;
-//	gyro_temp.y=(gyro_temp.y/10)*10;//降低角速度值的精确度来获得相对稳定的积分值
-//  
-//	kalman_1(&ekf[2],(float)icm42688_gyro_z);  //对Z轴角速度一维卡尔曼滤波
-//	gyro_temp.z=(short)ekf[2].out;
-//	gyro_temp.z=(gyro_temp.z/10)*10;//降低角速度值的精确度来获得相对稳定的积分值
+	static  kalman_1_struct ekf[3] = {{0.02,0,0,0,0.001,0.543},{0.02,0,0,0,0.001,0.543},{0.02,0,0,0,0.001,0.543}};
+	
+	kalman_1(&ekf[0],(float)icm42688_data.gyro_x);  //对x轴角速度一维卡尔曼滤波
+	gyro_temp.x=(short)ekf[0].out;
+	gyro_temp.x=(gyro_temp.x/10)*10;//降低角速度值的精确度来获得相对稳定的积分值
+  
+	kalman_1(&ekf[1],(float)icm42688_data.gyro_y);  //对y轴角速度一维卡尔曼滤波
+	gyro_temp.y=(short)ekf[1].out;
+	gyro_temp.y=(gyro_temp.y/10)*10;//降低角速度值的精确度来获得相对稳定的积分值
+  
+	kalman_1(&ekf[2],(float)icm42688_data.gyro_z);  //对Z轴角速度一维卡尔曼滤波
+	gyro_temp.z=(short)ekf[2].out;
+	gyro_temp.z=(gyro_temp.z/10)*10;//降低角速度值的精确度来获得相对稳定的积分值
   
 		
 		
@@ -205,16 +198,16 @@ void IMU_DataUpdate(void)
 	IMU_Data.gyro.z= icm42688_data.gyro_z-IMU_Data.gyro_offset.z;
 	
 	
-//	static Filter_LPF_1 LPF1[3]={{100,0,10},{100,0,10},{8330,0,10}};//加速度收敛
-//	acc_LPF_in[0] = icm42688_acc_x;
-//	acc_LPF_in[1] = icm42688_acc_y;
-//	acc_LPF_in[2] = icm42688_acc_z;
-//	for(int i=0;i<3;i++)//低通滤波处理
-//	{
-//		LPF1[i].new_data = acc_LPF_in[i];
-//		acc_LPF_out[i] = (int16_t)LPF_1_Filter_2(&LPF1[i],0.005f);
-//		LPF1[i].old_data = acc_LPF_in[i];
-//	}
+	static Filter_LPF_1 LPF1[3]={{100,0,10},{100,0,10},{8330,0,10}};//加速度收敛
+	acc_LPF_in[0] = icm42688_data.acc_x;
+	acc_LPF_in[1] = icm42688_data.acc_y;
+	acc_LPF_in[2] = icm42688_data.acc_z;
+	for(int i=0;i<3;i++)//低通滤波处理
+	{
+		LPF1[i].new_data = acc_LPF_in[i];
+		acc_LPF_out[i] = (int16_t)LPF_1_Filter_2(&LPF1[i],0.005f);
+		LPF1[i].old_data = acc_LPF_in[i];
+	}
 	
 	IMU_Data.acc.x=icm42688_data.acc_x - IMU_Data.acc_offset.x;//IMU加速度数据更新+
 	IMU_Data.acc.y=icm42688_data.acc_y - IMU_Data.acc_offset.x;

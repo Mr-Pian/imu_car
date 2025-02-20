@@ -1,9 +1,9 @@
 #include "control.h"
 
 PID_LocTypeDef *PID_AV;
-PID_LocTypeDef *PID_A;
-PID_LocTypeDef PID_VL={4.0,0.9,8.9};
-PID_LocTypeDef PID_VR={4.0,0.9,8.9};
+PID_LocTypeDef PID_A={0.0,0.0,0.0,0,0,0};
+PID_LocTypeDef PID_VL={4500.0/1000.0,20.0/1000.0,28000.0/1000.0,0,0,0};
+PID_LocTypeDef PID_VR={4000.0/1000.0,90.0/1000.0,900.0/1000.0,0,0,0};
 
 
 /************************************************
@@ -17,15 +17,15 @@ void PID_Init(void)
 //	EEPROM_ReadByte(SPEED_P+3, &(PID_AV->Kp));
 //	EEPROM_ReadByte(SPEED_I+3, &(PID_AV->Ki));
 //	EEPROM_ReadByte(SPEED_D+3, &(PID_AV->Kd));
-	PID_AV->Ek=0;
-	PID_AV->Ek1=0;
-	PID_AV->LocSum=0;
+//	PID_AV->Ek=0;
+//	PID_AV->Ek1=0;
+//	PID_AV->LocSum=0;
 //	EEPROM_ReadByte(ANGLE_P+3, &(PID_A->Kp));
 //	EEPROM_ReadByte(ANGLE_I+3, &(PID_A->Ki));
 //	EEPROM_ReadByte(ANGLE_D+3, &(PID_A->Kd));
-	PID_A->Ek=0;
-	PID_A->Ek1=0;
-	PID_A->LocSum=0;
+//	PID_A->Ek=0;
+//	PID_A->Ek1=0;
+//	PID_A->LocSum=0;
 
 }
 
@@ -62,7 +62,6 @@ float PID_Loc_V(float SetValue, float ActualValue, PID_LocTypeDef *PID,float Lim
   float PIDLoc;                                  //Î»ÖÃ
 	
  	PID->Ek = SetValue - ActualValue;
-	PID->Ek	= 0.3*PID->Ek+0.7*PID->Ek1;
  	PID->LocSum += PID->Ek;                         //ÀÛ¼ÆÎó²î
 	
 	if(PID->LocSum>Limit)		PID->LocSum=Limit;

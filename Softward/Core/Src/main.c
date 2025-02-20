@@ -56,6 +56,12 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
+int fputc(int ch, FILE *f)
+{      
+	while((USART1->SR&0X40)==0);//循环发送,直到发送完毕   
+    USART1->DR = (u8) ch;      
+	return ch;
+}
 
 /* USER CODE END PV */
 
@@ -112,21 +118,26 @@ int main(void)
   MX_TIM9_Init();
   /* USER CODE BEGIN 2 */
 	/* 外设初始化 */
-	icm42688_init ();  //IMU Init
-	IMU_Calibration();
-//	WS2812_Init();  //WS2812 Init
-	HAL_TIM_Base_Start_IT(&htim2);	
+//	HAL_Delay(20);	
+//	icm42688_init ();  //IMU Init
+//	IMU_Calibration();
+//	
 	if (M24C02_Check()) Error_Handler();  //EEPROM初始化	
+	
 	HAL_TIM_Encoder_Start(&htim4, TIM_CHANNEL_ALL);  //编码器初始化
 	HAL_TIM_Encoder_Start(&htim8, TIM_CHANNEL_ALL);
+	
+	HAL_TIM_Base_Start_IT(&htim2);
+//	WS2812_Init();  //WS2812 Init
+//	WS2812_Set_Color(255,55,55);
 	
 	PID_Init();
 	
 //	LCD_Init();  //LCD_Init
 //	LCD_Fill(0,0,LCD_W,LCD_H,Back_ground_color);
 //	LCD_Fill(0, 0, 240, 50, GRAYBLUE);  //第一次打印标题框
-
-//	Motor_Start(Both);
+	
+	Motor_Start(Both);
 
 //	DispCrtMenu();  //UI初始化
 	
@@ -134,9 +145,15 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+	
 	while (1)
 	{	
+		Motor_RealSpeed(100,L);
+//		Motor_RealSpeed(100,R);
 
+//		IMU_DataUpdate();
+//		IMU_GetAngle(0.1);
+//		HAL_Delay(100);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

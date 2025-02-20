@@ -90,11 +90,11 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 		com_l=__HAL_TIM_GET_COUNTER(&htim4);//×ó
 		com_r=__HAL_TIM_GET_COUNTER(&htim8);//ÓÒ
 		dif_l=-com_l+last_com_l;
-		if(dif_l>65535)dif_l-=65535;
-		if(dif_l<-65535)dif_l+=65535;
+		if(dif_l>60000)dif_l=dif_l-65535;
+		if(dif_l<-60000)dif_l=dif_l+65535;
 		dif_r=com_r-last_com_r;
-		if(dif_r>65535)dif_r-=65535;
-		if(dif_r<-65535)dif_r+=65535;
+		if(dif_r>60000)dif_r-=65535;
+		if(dif_r<-60000)dif_r+=65535;
 		last_com_l=com_l;
 		last_com_r=com_r;
 		for(int i=0;i<LED_NUM;i++)
