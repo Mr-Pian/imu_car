@@ -2,7 +2,7 @@
 
 Color_tpye color={0,0,0};//灯带rgb值储存处
 
-uint16_t dif_l=0,dif_r=0;
+long dif_l=0,dif_r=0;
 
 //使用PWM+DMA驱动ws2812时要注意定时器是多少位的，如果是16位计数器则DMA为半字，如果是32位计数器则DMA为全字 
  
@@ -98,7 +98,6 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 		{
 			dif_r=65535-dif_r;
 		}
-
 		last_com_l=com_l;
 		last_com_r=com_r;
 		for(int i=0;i<LED_NUM;i++)

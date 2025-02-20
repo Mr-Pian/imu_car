@@ -15,7 +15,7 @@ typedef struct
 	uint8_t B;
 }Color_tpye;
 
-extern uint16_t dif_l,dif_r;
+extern long dif_l,dif_r;
 
 void WS2812_Init(void);
 void WS2812_Set(uint16_t num,uint8_t R,uint8_t Gr,uint8_t B);
