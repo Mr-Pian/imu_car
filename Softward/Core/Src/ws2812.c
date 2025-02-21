@@ -41,7 +41,7 @@ void WS2812_Init()
 	
 	if (Data[3] == 1)
 	{
-		WS2812_Set_Color(106, 90, 205);
+		WS2812_Set_Color(255, 105, 180);
 	}
 }
 

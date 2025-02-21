@@ -109,6 +109,19 @@ void Change_Param(void)
 				
 				Key_set = 0;  //防止反复进入
 			}
+			else
+			{
+				LCD_Fill(70, 95, 170, 140, Back_ground_color);
+				LCD_Fill(cur_item[item_index].X_coord,cur_item->Y_coord+(item_index*30), 230, 24+(cur_item->Y_coord+(item_index*30)), Back_ground_color);
+				Failed();
+				
+				//重绘选项
+				Key_val = KEY_RETURN_PRESS;
+				
+				//功能函数
+				Back_ground_change_back(cur_item[item_index].label);
+				Brightness_change_back(cur_item[item_index].label);
+			}
 			break;  //退出
 		}
 		
@@ -119,21 +132,12 @@ void Change_Param(void)
 /************************************************************************************************************************************/
 //以下为特殊功能的函数
 
+//eeprom输出
 void EEPROM_OUT(void)
 {
-	uint8_t first_time_in = 0;
 	
-	if (first_time_in == 0 && HAL_GPIO_ReadPin(Key_Yes_GPIO_Port, Key_Yes_Pin) == GPIO_PIN_RESET)
-	{
-		while (HAL_GPIO_ReadPin(Key_Yes_GPIO_Port, Key_Yes_Pin) == GPIO_PIN_RESET)
-		{
-			;
-		}
-		
-		//弹起效果
-		LCD_Fill(cur_item[item_index].X_coord,cur_item->Y_coord+(item_index*30), 230, 24+(cur_item->Y_coord+(item_index*30)), Back_ground_color);
-		LCD_ShowString(cur_item[item_index].X_coord,cur_item->Y_coord+(item_index*30),(u8* )cur_item[item_index].label, cur_item[item_index].Color, Back_ground_color, 24, 0);
-	}
+	Enter_Bounce();
+	
 	if(HAL_UART_Transmit(&huart1, (uint8_t*)"baud_rate_115200,from_0x00_to_0xff,send'Y'to_verify", 51, 0x1000) != HAL_ERROR)
 	{
 		LCD_Fill(70, 95, 170, 140, GRAYBLUE);
@@ -141,28 +145,15 @@ void EEPROM_OUT(void)
 	}
 	else
 	{
-		LCD_Fill(70, 95, 170, 140, RED);
-		LCD_ShowString(78, 103, (uint8_t*)"Failed", WHITE, RED, 24, 0);
-		Delay_ms(1500);
-		LCD_Fill(70, 95, 170, 140, Back_ground_color);
-		Key_val = 0;
-		DispCrtMenu();
+		Failed();
 		return;
 	}
 	
 	uint8_t Receive_data[1] = {0};
-	if(HAL_UART_Receive(&huart1, Receive_data, 1, 100) == HAL_TIMEOUT)
-	{
-//		LCD_Fill(70, 95, 170, 140, RED);
-//		LCD_ShowString(78, 103, (uint8_t*)"TimeOut", WHITE, RED, 24, 0);
-//		Delay_ms(1500);
-//		LCD_Fill(70, 95, 170, 140, Back_ground_color);
-//		Key_val = 0;
-//		DispCrtMenu();
-//		return;
-//    在循环里，超时无用，懒得写了
-	}
-	else if(*Receive_data == 'Y')
+	
+	HAL_UART_Receive(&huart1, Receive_data, 1, 100);  //由于在中断里面，系统滴答没法用，导致永远都不会超时
+	
+	if(*Receive_data == 'Y' || *Receive_data == 'y')
 	{
 		LCD_Fill(70, 95, 170, 140, GRAYBLUE);
 		LCD_ShowString(78, 103, (uint8_t*)"Sending", WHITE, GRAYBLUE, 24, 0);
@@ -171,38 +162,89 @@ void EEPROM_OUT(void)
 		EEPROM_ReadMultipleBytes(0x00, Data_Out, 256);
 		if (HAL_UART_Transmit(&huart1, Data_Out, 256, 0x1000) == HAL_OK)
 		{
-			LCD_Fill(70, 95, 170, 140, DARKGREEN);
-			LCD_ShowString(78, 103, (uint8_t*)"Success", WHITE, DARKGREEN, 24, 0);
-			Delay_ms(1500);
-			LCD_Fill(70, 95, 170, 140, Back_ground_color);
-			Key_val = 0;
-			DispCrtMenu();
+			Success();
 			return;
 		}
 		else
 		{
-			LCD_Fill(70, 95, 170, 140, RED);
-			LCD_ShowString(78, 103, (uint8_t*)"Failed", WHITE, RED, 24, 0);
-			Delay_ms(1500);
-			LCD_Fill(70, 95, 170, 140, Back_ground_color);
-			Key_val = 0;
-			DispCrtMenu();
+			Failed();
 			return;
 		}
 	}
 	else
 	{
-		LCD_Fill(70, 95, 170, 140, RED);
-		LCD_ShowString(78, 103, (uint8_t*)"Failed", WHITE, RED, 24, 0);
-		Delay_ms(1500);
-		LCD_Fill(70, 95, 170, 140, Back_ground_color);
-		Key_val = 0;
-		DispCrtMenu();
+		Failed();
 		return;
 	}
 }
-	
 
+//eeprom写锁定
+void EEPROM_Lock(void)
+{
+	
+	Enter_Bounce();
+	
+	//先判断eeprom处于锁定状态还是未锁定状态
+	uint8_t EEPROM_Status = 0x00;
+	EEPROM_ReadByte(0xFE, &EEPROM_Status);
+	
+	if (EEPROM_Status == 0x12)  //处于锁定状态——解锁
+	{
+		if(Only_Read_Mode_0())  //解锁eeprom
+		{
+			Failed();
+			return;
+		}
+		else
+		{
+			Unlocked();
+			return;
+		}
+	}
+	else if (EEPROM_Status == 0x00)
+	{
+		if(Only_Read_Mode_1())  //锁定eeprom
+		{
+			Failed();
+			return;
+		}
+		else
+		{
+			Locked();
+			return;
+		}
+	}
+}
+
+void EEPROM_Erase(void)
+{
+	Enter_Bounce();
+	
+	LCD_Fill(75, 95, 170, 140, RED);
+	LCD_ShowString(87, 103, (uint8_t*)"Resure", WHITE, RED, 24, 0);
+	
+	uint8_t Key_set = 0;
+	while(1)
+	{
+		if (HAL_GPIO_ReadPin(Key_Yes_GPIO_Port, Key_Yes_Pin) == GPIO_PIN_SET)
+		{
+			Key_set = 1;  //防止长按
+		}
+		if (HAL_GPIO_ReadPin(Key_Yes_GPIO_Port, Key_Yes_Pin) == GPIO_PIN_RESET && Key_set == 1)
+		{
+			Erase_Full_Chip();
+			Success();//清除eeprom数据
+			break;
+		}
+		if (HAL_GPIO_ReadPin(Key_No_GPIO_Port, Key_No_Pin) == GPIO_PIN_RESET)
+		{
+			Cancle();
+			break;
+		}
+		Delay_ms(10);
+	}
+	
+}
 /************************************************************************************************************************************/
 //以下为不同功能的执行函数
 
@@ -254,11 +296,83 @@ void RGB_refresh(char* name)
 		if (Data[3] == 1)
 		{
 			HAL_TIM_Base_Start_IT(&htim2);
-			WS2812_Set_Color(106, 90, 205);			
+			WS2812_Set_Color(255, 105, 180);			
 		}
 		else
 		{
 			WS2812_Off();
 		}
+	}
+}
+
+/************************************************************************************************************************************/
+//以下为弹窗函数
+
+void Success(void)
+{
+	LCD_Fill(70, 95, 170, 140, DARKGREEN);
+	LCD_ShowString(78, 103, (uint8_t*)"Success", WHITE, DARKGREEN, 24, 0);
+	Delay_ms(1500);
+	LCD_Fill(70, 95, 170, 140, Back_ground_color);
+	Key_val = 0;
+	DispCrtMenu();
+}
+
+void Failed(void)
+{
+	LCD_Fill(75, 95, 170, 140, RED);
+	LCD_ShowString(87, 103, (uint8_t*)"Failed", WHITE, RED, 24, 0);
+	Delay_ms(1500);
+	LCD_Fill(75, 95, 170, 140, Back_ground_color);
+	Key_val = 0;
+	DispCrtMenu();
+}
+
+void Locked(void)
+{
+	LCD_Fill(75, 95, 170, 140, DARKGREEN);
+	LCD_ShowString(87, 103, (uint8_t*)"Locked", WHITE, DARKGREEN, 24, 0);
+	Delay_ms(1500);
+	LCD_Fill(75, 95, 170, 140, Back_ground_color);
+	Key_val = 0;
+	DispCrtMenu();
+}
+
+void Unlocked(void)
+{
+	LCD_Fill(75, 95, 170, 140, DARKGREEN);
+	LCD_ShowString(87, 103, (uint8_t*)"Unlock", WHITE, DARKGREEN, 24, 0);
+	Delay_ms(1500);
+	LCD_Fill(75, 95, 170, 140, Back_ground_color);
+	Key_val = 0;
+	DispCrtMenu();
+}
+
+void Cancle(void)
+{
+	LCD_Fill(75, 95, 170, 140, RED);
+	LCD_ShowString(87, 103, (uint8_t*)"Cancle", WHITE, RED, 24, 0);
+	Delay_ms(1500);
+	LCD_Fill(75, 95, 170, 140, Back_ground_color);
+	Key_val = 0;
+	DispCrtMenu();
+}
+
+/************************************************************************************************************************************/
+//以下为进入弹起函数
+
+void Enter_Bounce(void)
+{
+	uint8_t first_time_in = 0;
+	if (first_time_in == 0 && HAL_GPIO_ReadPin(Key_Yes_GPIO_Port, Key_Yes_Pin) == GPIO_PIN_RESET)
+	{
+		while (HAL_GPIO_ReadPin(Key_Yes_GPIO_Port, Key_Yes_Pin) == GPIO_PIN_RESET)
+		{
+			;
+		}
+		
+		//弹起效果
+		LCD_Fill(cur_item[item_index].X_coord,cur_item->Y_coord+(item_index*30), 230, 24+(cur_item->Y_coord+(item_index*30)), Back_ground_color);
+		LCD_ShowString(cur_item[item_index].X_coord,cur_item->Y_coord+(item_index*30),(u8* )cur_item[item_index].label, cur_item[item_index].Color, Back_ground_color, 24, 0);
 	}
 }

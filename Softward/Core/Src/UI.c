@@ -62,8 +62,8 @@ Menu menu3_car_set[6] =  //第3级 小车设置
 	{6, "", "Max_Speed", MAX_SPEED,100, (*Change_Param), NULL, menu2_set, English, ORANGE, 10, 0},
 	{6, "", "Swerve_Speed", SWERVE_SPEED,100, (*Change_Param), NULL, menu2_set, English, YELLOW, 10, 0},
 	{6, "", "EEPROM_Out", TYPE_SPECIAL_PARAM,0, (*EEPROM_OUT), NULL, menu2_set, English, DARKGREEN, 10, 0},
-	{6, "", "EEPROM_Lock", TYPE_SPECIAL_PARAM,0, NULL, NULL, menu2_set, English, DODGERBLUE, 10, 0},
-	{6, "", "EEPROM_Erase", TYPE_SPECIAL_PARAM,0, NULL, NULL, menu2_set,English, DARKBLUE, 10, 0},
+	{6, "", "EEPROM_Lock", TYPE_SPECIAL_PARAM,0, (*EEPROM_Lock), NULL, menu2_set, English, DODGERBLUE, 10, 0},
+	{6, "", "EEPROM_Erase", TYPE_SPECIAL_PARAM,0, (*EEPROM_Erase), NULL, menu2_set,English, DARKBLUE, 10, 0},
 };
 
 Menu menu3_LCD_set[4] =  //第3级 LCD设置

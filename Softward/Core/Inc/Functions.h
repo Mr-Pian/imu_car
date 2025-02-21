@@ -32,5 +32,13 @@ void Change_Brightness(char* name);
 void Brightness_change_back(char* name);
 void RGB_refresh(char* name);
 void EEPROM_OUT(void);
+void Success(void);
+void Failed(void);
+void Enter_Bounce(void);
+void Locked(void);
+void Unlocked(void);
+void EEPROM_Lock(void);
+void Cancle(void);
+void EEPROM_Erase(void);
 
 #endif
