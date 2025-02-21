@@ -145,12 +145,27 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+//int i = 0;
 	
 	while (1)
 	{	
-		Motor_RealSpeed(100,L);
-		Motor_RealSpeed(100,R);
-//		Motor_RealSpeed(100,R);
+//	//Motor_RealSpeed(100,L);
+//	if (i <1000)
+//	{
+//		Motor_RealSpeed(50,L);
+//	}
+//	else if (i >2000)
+//	{
+//		i = 0;
+//	}
+//	else 
+//	{
+//		Motor_RealSpeed(500,L);
+//	}
+//	  //极速680的样子
+//	i++;
+  Motor_RealSpeed(100,R);
+	Motor_RealSpeed(100,L);
 
 //		IMU_DataUpdate();
 //		IMU_GetAngle(0.1);
