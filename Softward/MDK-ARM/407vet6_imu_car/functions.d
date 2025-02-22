@@ -42,4 +42,7 @@
 407vet6_imu_car\functions.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 407vet6_imu_car\functions.o: ../Core/Inc/TIM.h
 407vet6_imu_car\functions.o: ../Core/Inc/ws2812.h
+407vet6_imu_car\functions.o: ../Core/Inc/angle.h
+407vet6_imu_car\functions.o: ../Core/Inc/HANA_math.h
+407vet6_imu_car\functions.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
 407vet6_imu_car\functions.o: ../Core/Inc/usart.h

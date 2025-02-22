@@ -12,6 +12,8 @@
 int Motor_Start(uint8_t L_R);
 int Motor_SetSpeed(int Mode,int speed, uint8_t L_R);
 int Motor_Off(uint8_t L_R);
+long Get_Speed(uint8_t L_R);
+void Motor_RealSpeed(int speed,uint8_t L_R);
 
 #endif
 

@@ -39,3 +39,7 @@
 407vet6_imu_car\tb6612.o: ../Core/Inc/M24_EEPROM.h
 407vet6_imu_car\tb6612.o: ../Core/Inc/Functions.h
 407vet6_imu_car\tb6612.o: ../Core/Inc/tim.h
+407vet6_imu_car\tb6612.o: ../Core/Inc/ws2812.h
+407vet6_imu_car\tb6612.o: ../Core/Inc/angle.h
+407vet6_imu_car\tb6612.o: ../Core/Inc/HANA_math.h
+407vet6_imu_car\tb6612.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h

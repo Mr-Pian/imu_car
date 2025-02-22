@@ -56,6 +56,17 @@
 
 /* USER CODE BEGIN PV */
 
+//printf的重定向
+int fputc(int ch, FILE *f)
+
+{      
+	while((USART1->SR&0X40)==0)//循环发送,直到发送完毕   
+  {
+		USART1->DR = (u8) ch;
+	}  
+	return ch;
+}
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -108,7 +119,9 @@ int main(void)
   MX_TIM5_Init();
   MX_TIM8_Init();
   MX_TIM3_Init();
+  MX_TIM9_Init();
   /* USER CODE BEGIN 2 */
+	
 	/* 外设初始化 */
 	icm42688_init ();  //IMU Init
 	
@@ -125,7 +138,6 @@ int main(void)
 	
 	HAL_TIM_Base_Start_IT(&htim2);  //开启2812定时器以及编码器计速定时器
 
-//	char lv[10]={0},rv[10]={0};
 	DispCrtMenu();  //UI初始化
 	
   /* USER CODE END 2 */
@@ -134,11 +146,6 @@ int main(void)
   /* USER CODE BEGIN WHILE */
 	while (1)
 	{		
-//		sprintf(lv,"%ld",dif_l);
-//		sprintf(rv,"%ld",dif_r);
-//		LCD_ShowString(0,0,lv,WHITE,BLACK,16,0);
-//		LCD_ShowString(20,0,rv,WHITE,BLACK,16,0);
-//		LCD_Fill(0,0,50,50,BLACK);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

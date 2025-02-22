@@ -1,6 +1,6 @@
 #include "tb6612.h"
 #include "tim.h"
-
+#include "ws2812.h"
 
 /************************************************************************************************************
 ** int Motor_SetSpeed(uint8_t Mode,float speed, uint8_t L_R)                  				                     **                                                              
@@ -119,14 +119,54 @@ int Motor_Off(uint8_t L_R)
 }
 
 /************************************************************************************************************
-** void Motor_RealSpeed(uint8_t L_R)                  				                                                     **                                                              
-** 功能描述：停止一侧电机                                                                        		         **
+** long Get_Speed(uint8_t L_R)                  				                                                   **                                                              
+** 功能描述：获取一侧电机速度                                                                        		     **
 ** 参数说明：左右电机                          					                                                   **   
-** 参数返回：uint8_t                                                                                        **
+** 参数返回：long                                                                                           **
+************************************************************************************************************/
+long Get_Speed(uint8_t L_R)
+{
+	if(L_R==L) return dif_l;
+	else return dif_r;
+}
+
+/************************************************************************************************************
+** void Motor_RealSpeed(uint8_t L_R)                  				                                             **                                                              
+** 功能描述：PID保持稳定速度                                                                     		         **
+** 参数说明：左右电机，速度                          					                                               **   
+** 参数返回：				                                                                                       **
 ************************************************************************************************************/
 
 void Motor_RealSpeed(int speed,uint8_t L_R)
 {
+	int PID_FINAL=PID_Loc_V(speed,Get_Speed(L_R)*10,L_R?(&PID_VR):(&PID_VL),2999);
+	if(PID_FINAL>1000)	PID_FINAL=1000;
+	if(PID_FINAL<-1000)	PID_FINAL=-1000;
+	if(PID_FINAL>0)
+	{
+		Motor_SetSpeed(Foward, (PID_FINAL), L_R);
+	}
+	else
+	{
+		Motor_SetSpeed(Backward, -(PID_FINAL), L_R);
+	}
 	
+//	printf("%ld,%d\n",dif_l,PID_FINAL);
 }
+/************************************************************************************************************
+** void Motor_KeepAngle(int angle)                  				                                             **                                                              
+** 功能描述：PID保持稳定速度                                                                     		         **
+** 参数说明：左右电机，速度                          					                                               **   
+** 参数返回：				                                                                                       **
+************************************************************************************************************/
 
+void Motor_KeepAngle(int angle)
+{
+	 
+//    char flag = 0;
+		int PID_FINAL=PID_Loc_V(angle,Angle_Data.yaw,&PID_A,2999);
+		if(PID_FINAL>500)	PID_FINAL=500;
+		if(PID_FINAL<-500)	PID_FINAL=-500;		  
+	  Motor_RealSpeed(PID_FINAL, L);
+		Motor_RealSpeed(-PID_FINAL, R);
+}
