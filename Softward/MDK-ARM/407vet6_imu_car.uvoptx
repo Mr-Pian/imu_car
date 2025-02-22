@@ -163,17 +163,7 @@
         <Ww>
           <count>1</count>
           <WinNumber>1</WinNumber>
-          <ItemText>turn</ItemText>
-        </Ww>
-        <Ww>
-          <count>2</count>
-          <WinNumber>1</WinNumber>
-          <ItemText>turn_dmp</ItemText>
-        </Ww>
-        <Ww>
-          <count>3</count>
-          <WinNumber>1</WinNumber>
-          <ItemText>Angle_Data</ItemText>
+          <ItemText>cal_angle</ItemText>
         </Ww>
       </WatchWindow1>
       <Tracepoint>

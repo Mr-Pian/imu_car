@@ -57,16 +57,22 @@
 /* USER CODE BEGIN PV */
 
 //printf的重定向
-int fputc(int ch, FILE *f)
 
+//void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart)
+//{
+//    if(huart == &huart1)
+//    {
+//			if(dif_l>10)sprintf((char*)buffer,"0%ld\n",dif_l);
+//			if(dif_l<10&&dif_l>0)sprintf((char*)buffer,"00%ld\n",dif_l);
+//			HAL_UART_Transmit_DMA(&huart1,buffer,4);
+//    }
+//}
+int fputc(int ch, FILE *f)
 {      
-	while((USART1->SR&0X40)==0)//循环发送,直到发送完毕   
-  {
-		USART1->DR = (u8) ch;
-	}  
+	while((USART1->SR&0X40)==0);//循环发送,直到发送完毕   
+    USART1->DR = (u8) ch;      
 	return ch;
 }
-
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -120,12 +126,13 @@ int main(void)
   MX_TIM8_Init();
   MX_TIM3_Init();
   MX_TIM9_Init();
+  MX_TIM11_Init();
   /* USER CODE BEGIN 2 */
 	
 	/* 外设初始化 */
 	icm42688_init ();  //IMU Init
-	
-	WS2812_Init();  //WS2812 Init
+	IMU_Calibration();
+//	WS2812_Init();  //WS2812 Init
 	    
 	HAL_TIM_Encoder_Start(&htim4, TIM_CHANNEL_ALL);  //编码器初始化
 	HAL_TIM_Encoder_Start(&htim8, TIM_CHANNEL_ALL);
@@ -136,16 +143,22 @@ int main(void)
 	LCD_Fill(0,0,LCD_W,LCD_H,0xFFFE);
 	LCD_Fill(0, 0, 240, 50, GRAYBLUE);  //第一次打印标题框
 	
+	float cal_angle=Angle_Data.yaw;
+	
+	HAL_TIM_Base_Start_IT(&htim11);  //开启2812定时器以及编码器计速定时器
 	HAL_TIM_Base_Start_IT(&htim2);  //开启2812定时器以及编码器计速定时器
-
-	DispCrtMenu();  //UI初始化
+//	DispCrtMenu();  //UI初始化
+	Motor_Start(Both);
+//	HAL_UART_Transmit_DMA(&huart1,buffer,4);
 	
   /* USER CODE END 2 */
-
+	
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 	while (1)
 	{		
+		Motor_KeepAngle(0);
+		
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

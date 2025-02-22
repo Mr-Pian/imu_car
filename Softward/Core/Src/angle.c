@@ -12,7 +12,7 @@
 #include "HANA_math.h"
 #include "stdio.h"
 
-#define Gyro_NUM	100 // 角速度零漂采样个数
+#define Gyro_NUM	20 // 角速度零漂采样个数
 #define Acc_NUM   20 // 加速度零漂采样个数
 
 
@@ -128,8 +128,6 @@ void IMU_Calibration(void)
 			acc_var.z += (float) (1.0f/(Acc_NUM-1)) * (acc[i].z - acc_avg.z) * (acc[i].z - acc_avg.z);
 		}
 
-		printf("gyro_var\nx:%d\ny:%d\nz:%d\n",(int)(1000.0f*gyro_var.x),(int)(1000.0f*gyro_var.y),(int)(1000.0f*gyro_var.z));
-		printf("acc_var\nx:%d\ny:%d\nz:%d\n",(int)acc_var.x,(int)acc_var.y,(int)acc_var.z);
 		
 
 		//判断并保存静止时的零偏
@@ -144,12 +142,7 @@ void IMU_Calibration(void)
 			IMU_Data.acc_offset.z  = (int16_t)acc_avg.z;
 			/***零漂获取end***/
 			
-			printf("gyro_offset.x:%d\r\n",IMU_Data.gyro_offset.x);
-			printf("gyro_offset.y:%d\r\n",IMU_Data.gyro_offset.y);
-			printf("gyro_offset.z:%d\r\n",IMU_Data.gyro_offset.z);
-			printf("acc_offset.x:%d\r\n",IMU_Data.acc_offset.x);
-			printf("acc_offset.y:%d\r\n",IMU_Data.acc_offset.y);
-			printf("acc_offset.z:%d\r\n",IMU_Data.acc_offset.z);
+		
 			return;
 		}
 

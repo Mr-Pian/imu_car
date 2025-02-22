@@ -2,6 +2,7 @@
 #define __TB6612_H__
 #include "main.h"
 #include "control.h"
+#include "usart.h"
 #define R 1
 #define L 0
 #define Both 2
@@ -14,6 +15,7 @@ int Motor_SetSpeed(int Mode,int speed, uint8_t L_R);
 int Motor_Off(uint8_t L_R);
 long Get_Speed(uint8_t L_R);
 void Motor_RealSpeed(int speed,uint8_t L_R);
-
+void Motor_KeepAngle(int angle);
+extern uint8_t buffer[4];
 #endif
 

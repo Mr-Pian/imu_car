@@ -72,21 +72,8 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
 	static uint32_t turn=0,Num=0,turn_dmp=0;
 	static int com_l=0,last_com_l=0,com_r=0,last_com_r=0;
-	
-	if(htim==&htim2)
+	if(htim==&htim11)
 	{
-		turn++;
-		turn_dmp++;
-	}
-	if(turn_dmp==80000)
-	{
-		turn_dmp=0;
-		IMU_DataUpdate();
-		IMU_GetAngle(0.1);
-	}
-	if(turn==8000)
-	{
-		turn=0;
 		com_l=__HAL_TIM_GET_COUNTER(&htim4);//×ó
 		com_r=__HAL_TIM_GET_COUNTER(&htim8);//ÓÒ
 		dif_l=-com_l+last_com_l;
@@ -97,6 +84,23 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 		if(dif_r<-60000)dif_r+=65535;
 		last_com_l=com_l;
 		last_com_r=com_r;
+	}
+	if(htim==&htim2)
+	{
+		turn++;
+		turn_dmp++;
+	}
+	if(turn_dmp==4000)
+	{
+		turn_dmp=0;
+		IMU_GetAngle(0.1);
+		IMU_DataUpdate();
+
+	}
+	if(turn==80000)
+	{
+		turn=0;
+		
 		for(int i=0;i<LED_NUM;i++)
 		{
 			WS2812_Set(i,0,0,0);

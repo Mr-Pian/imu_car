@@ -1,7 +1,7 @@
 #include "tb6612.h"
 #include "tim.h"
 #include "ws2812.h"
-
+#include "stdio.h"
 /************************************************************************************************************
 ** int Motor_SetSpeed(uint8_t Mode,float speed, uint8_t L_R)                  				                     **                                                              
 ** 功能描述：设置一侧电机速度                                                                    		         **
@@ -136,10 +136,10 @@ long Get_Speed(uint8_t L_R)
 ** 参数说明：左右电机，速度                          					                                               **   
 ** 参数返回：				                                                                                       **
 ************************************************************************************************************/
-
+uint8_t buffer[4]={0};
 void Motor_RealSpeed(int speed,uint8_t L_R)
 {
-	int PID_FINAL=PID_Loc_V(speed,Get_Speed(L_R)*10,L_R?(&PID_VR):(&PID_VL),2999);
+	int PID_FINAL=PID_Loc_V(speed,Get_Speed(L_R)*10,L_R?(&PID_VR):(&PID_VL),2999999);
 	if(PID_FINAL>1000)	PID_FINAL=1000;
 	if(PID_FINAL<-1000)	PID_FINAL=-1000;
 	if(PID_FINAL>0)
@@ -150,8 +150,7 @@ void Motor_RealSpeed(int speed,uint8_t L_R)
 	{
 		Motor_SetSpeed(Backward, -(PID_FINAL), L_R);
 	}
-	
-//	printf("%ld,%d\n",dif_l,PID_FINAL);
+
 }
 /************************************************************************************************************
 ** void Motor_KeepAngle(int angle)                  				                                             **                                                              
@@ -162,11 +161,11 @@ void Motor_RealSpeed(int speed,uint8_t L_R)
 
 void Motor_KeepAngle(int angle)
 {
-	 
-//    char flag = 0;
-		int PID_FINAL=PID_Loc_V(angle,Angle_Data.yaw,&PID_A,2999);
+
+		int PID_FINAL=PID_Loc_V(angle,Angle_Data.yaw,&PID_A,299999);
 		if(PID_FINAL>500)	PID_FINAL=500;
 		if(PID_FINAL<-500)	PID_FINAL=-500;		  
-	  Motor_RealSpeed(PID_FINAL, L);
-		Motor_RealSpeed(-PID_FINAL, R);
+	  Motor_RealSpeed(PID_FINAL+50, L);
+		Motor_RealSpeed(-PID_FINAL+50, R);
+
 }
