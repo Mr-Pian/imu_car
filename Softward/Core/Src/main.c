@@ -123,22 +123,27 @@ int main(void)
   /* USER CODE BEGIN 2 */
 	
 	/* 外设初始化 */
+	HAL_Delay(20);
 	icm42688_init ();  //IMU Init
+	IMU_Calibration();
+
+//	WS2812_Init();  //WS2812 Init
+	HAL_TIM_Base_Start_IT(&htim2);  //开启2812定时器以及编码器计速定时器    
 	
-	WS2812_Init();  //WS2812 Init
-	    
 	HAL_TIM_Encoder_Start(&htim4, TIM_CHANNEL_ALL);  //编码器初始化
 	HAL_TIM_Encoder_Start(&htim8, TIM_CHANNEL_ALL);
 	
 	if (M24C02_Check()) Error_Handler();  //EEPROM初始化
-	
-	LCD_Init();  //LCD_Init
-	LCD_Fill(0,0,LCD_W,LCD_H,0xFFFE);
-	LCD_Fill(0, 0, 240, 50, GRAYBLUE);  //第一次打印标题框
-	
-	HAL_TIM_Base_Start_IT(&htim2);  //开启2812定时器以及编码器计速定时器
 
-	DispCrtMenu();  //UI初始化
+	
+		
+//	LCD_Init();  //LCD_Init
+//	LCD_Fill(0,0,LCD_W,LCD_H,0xFFFE);
+//	LCD_Fill(0, 0, 240, 50, GRAYBLUE);  //第一次打印标题框
+	
+
+
+//	DispCrtMenu();  //UI初始化
 	
   /* USER CODE END 2 */
 
