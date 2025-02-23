@@ -24,7 +24,7 @@ typedef struct
   float LocSum;                   //累计积分位置
 }PID_LocTypeDef;
 
-extern PID_LocTypeDef *PID_AV;
+extern PID_LocTypeDef PID_D;
 extern PID_LocTypeDef PID_A;
 extern PID_LocTypeDef PID_VL;
 extern PID_LocTypeDef PID_VR;

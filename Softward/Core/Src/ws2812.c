@@ -37,15 +37,15 @@ void WS2812_Init()
 			WS2812_Set(i,0,0,0);
   }
 	
-	uint8_t Data[4] = {0};
-	EEPROM_ReadMultipleBytes(RGB_LIGHT, Data, 4);
-	
-	if (Data[3] == 1)
-	{
-		WS2812_Set_Color(255, 105, 180);
-	}
-	
+//	uint8_t Data[4] = {0};
+//	EEPROM_ReadMultipleBytes(RGB_LIGHT, Data, 4);
+//	
+//	if (Data[3] == 1)
+//	{
+//		WS2812_Set_Color(255, 105, 180);
+//	}
 }
+	
 
 /************************************************************************************************************
 ** WS2812_Set_Color(uint8_t R,uint8_t G,uint8_t B)                  				                               **                                                              
@@ -93,6 +93,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 		if(dif_r<-60000)dif_r+=65535;
 		last_com_l=com_l;
 		last_com_r=com_r;
+		
 	}
 	if(htim==&htim2)
 	{
@@ -109,7 +110,6 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 	if(turn==80000)
 	{
 		turn=0;
-		
 		for(int i=0;i<LED_NUM;i++)
 		{
 			WS2812_Set(i,0,0,0);
@@ -120,7 +120,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 		if(Num<=3)WS2812_Set(7-((Num-0)%4),color.Re/10,color.G/10,color.B/10);
 		if(Num>=1&&Num<=4)WS2812_Set(7-((Num-1)%4),color.Re,color.G,color.B);
 		if(Num>=2&&Num<=5)WS2812_Set(7-((Num-2)%4),color.Re/10,color.G/10,color.B/10);
-		Num++;
+		Num++;		
 		if(Num==8)
 		{
 			Num=0;

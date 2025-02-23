@@ -153,19 +153,34 @@ void Motor_RealSpeed(int speed,uint8_t L_R)
 
 }
 /************************************************************************************************************
-** void Motor_KeepAngle(int angle)                  				                                             **                                                              
-** 功能描述：PID保持稳定速度                                                                     		         **
+** void Motor_KeepAngle(int angle,int speed);                				                                       **                                                              
+** 功能描述：PID保持稳定角度前进                                                                 		         **
+** 参数说明：初始角度，速度                          					                                               **   
+** 参数返回：				                                                                                       **
+************************************************************************************************************/
+
+void Motor_KeepAngle(int angle,int speed)
+{
+		int PID_FINAL=PID_Loc_V(angle,Angle_Data.yaw,&PID_A,299999);
+		if(PID_FINAL>500)	PID_FINAL=500;
+		if(PID_FINAL<-500)	PID_FINAL=-500;		  
+	  Motor_RealSpeed(PID_FINAL+speed, L);
+		Motor_RealSpeed(-PID_FINAL+speed, R);
+
+}
+
+/************************************************************************************************************
+** void Motor_Distance(int angle,int distance);                				                      		           **                                                              
+** 功能描述：PID保持稳定角度前进一定距离                                                                 	   **
 ** 参数说明：左右电机，速度                          					                                               **   
 ** 参数返回：				                                                                                       **
 ************************************************************************************************************/
 
-void Motor_KeepAngle(int angle)
+void Motor_Distance(int angle,int distance)
 {
-
-		int PID_FINAL=PID_Loc_V(angle,Angle_Data.yaw,&PID_A,299999);
-		if(PID_FINAL>500)	PID_FINAL=500;
-		if(PID_FINAL<-500)	PID_FINAL=-500;		  
-	  Motor_RealSpeed(PID_FINAL+50, L);
-		Motor_RealSpeed(-PID_FINAL+50, R);
-
+		int PID_FINAL=PID_Loc_V(distance,__HAL_TIM_GET_COUNTER(&htim4)/2+__HAL_TIM_GET_COUNTER(&htim8)/2,&PID_D,10000);
+		if(PID_FINAL>300)	PID_FINAL=300;
+		if(PID_FINAL<-300)	PID_FINAL=-300;		  
+		Motor_KeepAngle(angle,PID_FINAL);
 }
+

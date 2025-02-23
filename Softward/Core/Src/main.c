@@ -179,7 +179,7 @@ int main(void)
 	
 	IMU_Calibration();  //IMU零漂校准，上电时不要移动小车，不然会一直卡在这里
 
-	WS2812_Init();  //WS2812 Init
+//	WS2812_Init();  //WS2812 Init
 	    
 	HAL_TIM_Encoder_Start(&htim4, TIM_CHANNEL_ALL);  //编码器初始化
 	HAL_TIM_Encoder_Start(&htim8, TIM_CHANNEL_ALL);
@@ -194,10 +194,9 @@ int main(void)
 	
 	HAL_TIM_Base_Start_IT(&htim11);  //开启编码器计速定时器
 	HAL_TIM_Base_Start_IT(&htim2);  //开启2812定时器
-	
-	DispCrtMenu();  //UI初始化
-	
-//  Motor_Start(Both);
+//	
+//	DispCrtMenu();  //UI初始化
+	Motor_Start(Both);
 //	HAL_UART_Transmit_DMA(&huart1,buffer,4);
 	
   /* USER CODE END 2 */
@@ -206,9 +205,8 @@ int main(void)
   /* USER CODE BEGIN WHILE */
 	while (1)
 	{		
-//		Motor_KeepAngle(0);
-		
-		Run_main();
+		Motor_Distance(0,1000);
+
 		
     /* USER CODE END WHILE */
 
