@@ -1,5 +1,8 @@
 #include "ws2812.h"
 #include "UI.h"
+#include "M24_EEPROM.h"
+#include "Functions.h"
+
 Color_type color={0,0,0};//灯带rgb值储存处
 long dif_l,dif_r;
 
@@ -33,8 +36,14 @@ void WS2812_Init()
   {
 			WS2812_Set(i,0,0,0);
   }
-  //作用：调用DMA将显存中的内容实时搬运至定时器的比较寄存器
-  HAL_TIM_PWM_Start_DMA(&htim2,TIM_CHANNEL_4,(uint32_t *)WS2812_RGB_Buff,sizeof(WS2812_RGB_Buff)/sizeof(uint32_t)); 
+	
+	uint8_t Data[4] = {0};
+	EEPROM_ReadMultipleBytes(RGB_LIGHT, Data, 4);
+	
+	if (Data[3] == 1)
+	{
+		WS2812_Set_Color(255, 105, 180);
+	}
 	
 }
 
@@ -61,11 +70,11 @@ void WS2812_Set_Color(uint8_t Re,uint8_t G,uint8_t B)
 ************************************************************************************************************/
 void WS2812_Off(void)
 {
-	HAL_TIM_PWM_Stop_DMA(&htim2,TIM_CHANNEL_4);
 	for(int i=0;i<LED_NUM;i++)
 		{
 			WS2812_Set(i,0,0,0);
 		}
+	HAL_TIM_PWM_Stop_DMA(&htim2,TIM_CHANNEL_4);
 }
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)

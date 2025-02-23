@@ -1,5 +1,6 @@
 #ifndef __FUNCTIONS_H__
 #define __FUNCTIONS_H__
+#include "main.h"
 
 
 //以下是参数在eeprom中的首地址对照(全部为四个字节)
@@ -40,5 +41,8 @@ void Unlocked(void);
 void EEPROM_Lock(void);
 void Cancle(void);
 void EEPROM_Erase(void);
+void Run(void);
+
+extern uint8_t Run_flag;
 
 #endif

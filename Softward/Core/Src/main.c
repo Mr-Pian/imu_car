@@ -84,6 +84,50 @@ void SystemClock_Config(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 
+/*****************************************************************************/
+	//以下是手动运行的函数体
+	void Run_main(void)
+	{
+		if (Run_flag == 1)
+		{
+			uint8_t Speed1[4] = {0};
+			uint8_t Speed2[4] = {0};
+			uint8_t Status1[4] = {0};
+			uint8_t Status2[4] = {0};
+			EEPROM_ReadMultipleBytes(MOTOR1_SPEED, Speed1, 4);
+			EEPROM_ReadMultipleBytes(MOTOR2_SPEED, Speed2, 4);
+			EEPROM_ReadMultipleBytes(MOTOR1_STATUS, Status1, 4);
+			EEPROM_ReadMultipleBytes(MOTOR2_STATUS, Status2, 4);
+			
+			while (Run_flag)
+			{
+				if (Status1[3] == 1 && Status2[3] == 0)
+				{
+					Motor_Start(L);
+					Motor_RealSpeed(Speed1[3], L);
+				}
+				else if (Status1[3] == 1 && Status2[3] == 1)
+				{
+					Motor_Start(Both);
+					Motor_RealSpeed(Speed1[3], L);
+					Motor_RealSpeed(Speed2[3], R);
+				}
+				else if (Status1[3] == 0 && Status2[3] == 1)
+				{
+					Motor_Start(R);
+					Motor_RealSpeed(Speed2[3], R);
+				}
+				else
+				{
+					HAL_Delay(1500);
+					Failed();
+					Run_flag = 0;
+					return;
+				}
+			}
+		}
+	}
+
 /* USER CODE END 0 */
 
 /**
@@ -127,12 +171,15 @@ int main(void)
   MX_TIM3_Init();
   MX_TIM9_Init();
   MX_TIM11_Init();
+  MX_TIM10_Init();
   /* USER CODE BEGIN 2 */
 	
 	/* 外设初始化 */
-	icm42688_init ();  //IMU Init
-	IMU_Calibration();
-//	WS2812_Init();  //WS2812 Init
+	icm42688_init ();  //IMU 初始化
+	
+	IMU_Calibration();  //IMU零漂校准，上电时不要移动小车，不然会一直卡在这里
+
+	WS2812_Init();  //WS2812 Init
 	    
 	HAL_TIM_Encoder_Start(&htim4, TIM_CHANNEL_ALL);  //编码器初始化
 	HAL_TIM_Encoder_Start(&htim8, TIM_CHANNEL_ALL);
@@ -145,19 +192,23 @@ int main(void)
 	
 	float cal_angle=Angle_Data.yaw;
 	
-	HAL_TIM_Base_Start_IT(&htim11);  //开启2812定时器以及编码器计速定时器
-	HAL_TIM_Base_Start_IT(&htim2);  //开启2812定时器以及编码器计速定时器
-//	DispCrtMenu();  //UI初始化
-	Motor_Start(Both);
+	HAL_TIM_Base_Start_IT(&htim11);  //开启编码器计速定时器
+	HAL_TIM_Base_Start_IT(&htim2);  //开启2812定时器
+	
+	DispCrtMenu();  //UI初始化
+	
+//  Motor_Start(Both);
 //	HAL_UART_Transmit_DMA(&huart1,buffer,4);
 	
   /* USER CODE END 2 */
-	
+
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 	while (1)
 	{		
-		Motor_KeepAngle(0);
+//		Motor_KeepAngle(0);
+		
+		Run_main();
 		
     /* USER CODE END WHILE */
 
@@ -224,9 +275,15 @@ void Error_Handler(void)
   /* USER CODE BEGIN Error_Handler_Debug */
   /* User can add his own implementation to report the HAL error return state */
   __disable_irq();
-  while (1)
+  
+	LCD_Init();  //报错提示
+	LCD_Fill(0,0,LCD_W,LCD_H,RED);
+	LCD_ShowString(0,0,(uint8_t*)"ERROR_HANDLER",WHITE, RED, 32,0);
+	
+	while (1)
   {
-  }
+		;
+	}
   /* USER CODE END Error_Handler_Debug */
 }
 
