@@ -25,6 +25,7 @@
 #include "UI.h"
 #include "M24_EEPROM.h"
 #include "Functions.h"
+#include "ws2812.h"
 #include "tb6612.h"
 /* USER CODE END Includes */
 
@@ -344,7 +345,9 @@ void TIM3_IRQHandler(void)
 void EXTI15_10_IRQHandler(void)
 {
   /* USER CODE BEGIN EXTI15_10_IRQn 0 */
+	printf("%ld",accu_l+accu_r);
 	HAL_TIM_Base_Start_IT(&htim9);
+	
   /* USER CODE END EXTI15_10_IRQn 0 */
   HAL_GPIO_EXTI_IRQHandler(Key_No_Pin);
   HAL_GPIO_EXTI_IRQHandler(Key_Yes_Pin);

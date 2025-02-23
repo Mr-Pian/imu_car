@@ -26,3 +26,5 @@ void WS2812_Off(void);
 
 extern long dif_l;
 extern long dif_r;
+extern long accu_l;
+extern long accu_r;

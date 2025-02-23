@@ -5,7 +5,7 @@
 
 Color_type color={0,0,0};//灯带rgb值储存处
 long dif_l,dif_r;
-
+long accu_l=0,accu_r=0;
 //使用PWM+DMA驱动ws2812时要注意定时器是多少位的，如果是16位计数器则DMA为半字，如果是32位计数器则DMA为全字 
  
 //显存数组，长度为 灯的数量*24+复位周期
@@ -93,7 +93,8 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 		if(dif_r<-60000)dif_r+=65535;
 		last_com_l=com_l;
 		last_com_r=com_r;
-		
+		accu_l+=dif_l;
+		accu_r+=dif_r;
 	}
 	if(htim==&htim2)
 	{
@@ -105,7 +106,6 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 		turn_dmp=0;
 		IMU_GetAngle(0.1);
 		IMU_DataUpdate();
-
 	}
 	if(turn==80000)
 	{

@@ -27,7 +27,16 @@ Project File Date:  02/23/2025
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'D:\Keil_v5\ARM\ARMCC\Bin'
 Build target '407vet6_imu_car'
-"407vet6_imu_car\407vet6_imu_car.axf" - 0 Error(s), 0 Warning(s).
+compiling main.c...
+../Core/Inc/ws2812.h(30): warning:  #1-D: last line of file ends without a newline
+  extern long accu_r;
+../Core/Src/main.c(193): warning:  #177-D: variable "cal_angle"  was declared but never referenced
+  	float cal_angle=Angle_Data.yaw;
+../Core/Src/main.c: 2 warnings, 0 errors
+linking...
+Program Size: Code=38118 RO-data=19602 RW-data=1524 ZI-data=3244  
+FromELF: creating hex file...
+"407vet6_imu_car\407vet6_imu_car.axf" - 0 Error(s), 2 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -50,7 +59,7 @@ Package Vendor: Keil
 
    * Component: ARM::CMSIS:CORE:5.5.0
       Include file:  CMSIS\Core\Include\tz_context.h
-Build Time Elapsed:  00:00:01
+Build Time Elapsed:  00:00:03
 </pre>
 </body>
 </html>

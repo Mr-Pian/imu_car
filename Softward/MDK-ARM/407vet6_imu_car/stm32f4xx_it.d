@@ -39,6 +39,11 @@
 407vet6_imu_car\stm32f4xx_it.o: ../Core/Inc/lcd.h
 407vet6_imu_car\stm32f4xx_it.o: ../Core/Inc/M24_EEPROM.h
 407vet6_imu_car\stm32f4xx_it.o: ../Core/Inc/Functions.h
+407vet6_imu_car\stm32f4xx_it.o: ../Core/Inc/ws2812.h
+407vet6_imu_car\stm32f4xx_it.o: ../Core/Inc/tim.h
+407vet6_imu_car\stm32f4xx_it.o: ../Core/Inc/angle.h
+407vet6_imu_car\stm32f4xx_it.o: ../Core/Inc/HANA_math.h
+407vet6_imu_car\stm32f4xx_it.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
 407vet6_imu_car\stm32f4xx_it.o: ../Core/Inc/tb6612.h
 407vet6_imu_car\stm32f4xx_it.o: ../Core/Inc/control.h
 407vet6_imu_car\stm32f4xx_it.o: ../Core/Inc/usart.h
