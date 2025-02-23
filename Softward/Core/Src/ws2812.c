@@ -1,5 +1,6 @@
 #include "ws2812.h"
 #include "UI.h"
+#include "Functions.h"
 Color_type color={0,0,0};//µÆ´ørgbÖµ´¢´æ´¦
 long dif_l,dif_r;
 
@@ -115,6 +116,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 	}
 	if(htim==&htim9)
 	{
+		
 		if (HAL_GPIO_ReadPin(GPIOB, Key_No_Pin) == GPIO_PIN_RESET)
 		{
 			Key_val = KEY_RETURN_PRESS;
@@ -131,6 +133,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 		{
 			Key_val = KEY_DOWN_PRESS;
 		}
+		
 		Display();
 		HAL_TIM_Base_Stop_IT(&htim9);
 	}

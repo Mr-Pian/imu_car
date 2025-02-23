@@ -48,12 +48,12 @@ Menu menu2_set[2] =  // 第2级 设置菜单
 
 Menu menu3_manual_run[6] =  // 第3级 手动运行 
 {
-	{6, "手动运行", "Motor1_Speed", MOTOR1_SPEED,100, (*Change_Param), NULL, menu2_run, English, RED, 10, 55}, 
-	{6, "",     "Motor2_Speed", MOTOR2_SPEED,100, (*Change_Param), NULL, menu2_run, English, ORANGE, 10, 0}, 
+	{6, "手动运行", "Motor1_Speed", MOTOR1_SPEED,255, (*Change_Param), NULL, menu2_run, English, RED, 10, 55}, 
+	{6, "",     "Motor2_Speed", MOTOR2_SPEED,255, (*Change_Param), NULL, menu2_run, English, ORANGE, 10, 0}, 
 	{6, "",     "Motor1_Status", MOTOR1_STATUS,1, (*Change_Param), NULL, menu2_run, English, YELLOW, 10, 0},
 	{6, "",     "Motor2_Status", MOTOR2_STATUS,1, (*Change_Param), NULL, menu2_run, English, DARKGREEN, 10, 0},
 	{6, "",     "Run_time", RUN_TIME,60, (*Change_Param), NULL, menu2_run, English, DODGERBLUE, 10, 0},
-	{6, "",     "<<< Run >>>", TYPE_SPECIAL_PARAM,0, NULL, NULL, menu2_run, English, DARKBLUE, 55, 0},
+	{6, "",     "<<< Run >>>", TYPE_SPECIAL_PARAM,0, (*Run), NULL, menu2_run, English, DARKBLUE, 55, 0},
 };
 
 Menu menu3_car_set[6] =  //第3级 小车设置

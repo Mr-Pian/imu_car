@@ -11,6 +11,7 @@
 //以下为通用功能的函数
 
 uint8_t Data[4] = {0};
+uint8_t Run_flag = 0;
 
 //该函数用于在ui里修改一般参数
 void Change_Param(void)
@@ -243,6 +244,19 @@ void EEPROM_Erase(void)
 		}
 		Delay_ms(10);
 	}
+	
+}
+
+void Run(void)
+{
+	Enter_Bounce();
+	
+	LCD_Fill(75, 95, 170, 140, DARKGREEN);
+	LCD_ShowString(87, 103, (uint8_t*)"Runing", WHITE, DARKGREEN, 24, 0);
+	
+	HAL_TIM_Base_Start_IT(&htim10);
+	
+	Run_flag = 1;  //运行标志
 	
 }
 /************************************************************************************************************************************/

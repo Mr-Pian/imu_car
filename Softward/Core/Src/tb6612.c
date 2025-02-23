@@ -151,7 +151,7 @@ void Motor_RealSpeed(int speed,uint8_t L_R)
 		Motor_SetSpeed(Backward, -(PID_FINAL), L_R);
 	}
 	
-//	printf("%ld,%d\n",dif_l,PID_FINAL);
+	printf("%ld,%d\n",dif_l,PID_FINAL);
 }
 /************************************************************************************************************
 ** void Motor_KeepAngle(int angle)                  				                                             **                                                              
