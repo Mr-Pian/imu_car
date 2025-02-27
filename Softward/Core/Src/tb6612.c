@@ -162,11 +162,18 @@ void Motor_RealSpeed(int speed,uint8_t L_R)
 void Motor_KeepAngle(int angle,int speed)
 {
 		int PID_FINAL=PID_Loc_V(angle,Angle_Data.yaw,&PID_A,299999);
-		if(PID_FINAL>200)	PID_FINAL=200;
-		if(PID_FINAL<-200)	PID_FINAL=-200;		
-		Motor_RealSpeed(-PID_FINAL+speed, R);
-	  Motor_RealSpeed(PID_FINAL+speed, L);
-		
+		if(PID_FINAL>100)	PID_FINAL=100;
+		if(PID_FINAL<-100)	PID_FINAL=-100;
+		if(PID_A.Ek<=10)
+		{
+			Motor_RealSpeed(-PID_FINAL+speed, R);
+			Motor_RealSpeed(PID_FINAL+speed, L);
+		}
+		else
+		{
+			Motor_RealSpeed(-PID_FINAL, R);
+			Motor_RealSpeed(PID_FINAL, L);
+		}
 		
 }
 

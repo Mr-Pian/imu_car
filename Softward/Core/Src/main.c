@@ -198,6 +198,7 @@ int main(void)
 //	
 //	DispCrtMenu();  //UI≥ı ºªØ
 	Motor_Start(Both);
+	
 //	HAL_UART_Transmit_DMA(&huart1,buffer,4);
 	
   /* USER CODE END 2 */
@@ -210,11 +211,104 @@ int main(void)
 	while (1)
 	{	
 		
-//		Motor_KeepAngle(2375,0);//120°„2375
+//		Motor_KeepAngle(0,0);//120°„2375
 
-//		Motor_KeepAngle(1167,0);//60°„1167
-		Motor_Distance(0,107`00);
-    /* USER CODE END WHILE */
+	Motor_KeepAngle(3501,0);//60°„1167	
+		while(1)
+		{
+			Motor_Distance(0,10500);
+			if(PID_D.Ek<10)
+			{
+				PID_D.Ek=0;
+				PID_D.Ek1=0;
+				PID_D.LocSum=0;
+				accu_l=0;
+				accu_r=0;
+				break;
+			}
+		}
+		
+		while(1)
+		{
+			Motor_Distance(1167,10500);
+			if(PID_D.Ek<10)
+			{
+				accu_l=0;
+				accu_r=0;
+				PID_D.Ek=0;
+				PID_D.Ek1=0;
+				PID_D.LocSum=0;
+				break;
+			}
+		}
+				while(1)
+		{
+			Motor_Distance(2375,10500);
+			if(PID_D.Ek<10)
+			{
+				accu_l=0;
+				accu_r=0;
+				PID_D.Ek=0;
+				PID_D.Ek1=0;
+				PID_D.LocSum=0;
+				break;
+			}
+		}
+				while(1)
+		{
+			Motor_Distance(3501,10500);
+			if(PID_D.Ek<10)
+			{
+				accu_l=0;
+				accu_r=0;
+				PID_D.Ek=0;
+				PID_D.Ek1=0;
+				PID_D.LocSum=0;
+				break;
+			}
+		}
+				while(1)
+		{
+			Motor_Distance(4750,10500);
+			if(PID_D.Ek<10)
+			{
+				accu_l=0;
+				accu_r=0;
+				PID_D.Ek=0;
+				PID_D.Ek1=0;
+				PID_D.LocSum=0;
+				break;
+			}
+		}
+				while(1)
+		{
+			Motor_Distance(5835,10500);
+			if(PID_D.Ek<10)
+			{
+				accu_l=0;
+				accu_r=0;
+				PID_D.Ek=0;
+				PID_D.Ek1=0;
+				PID_D.LocSum=0;
+				break;
+			}
+		}
+				while(1)
+		{
+			Motor_Distance(7050,10500);
+			if(PID_D.Ek<10)
+			{
+				accu_l=0;
+				accu_r=0;
+				PID_D.Ek=0;
+				PID_D.Ek1=0;
+				PID_D.LocSum=0;
+				break;
+			}
+		}
+		
+
+			/* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
   }
