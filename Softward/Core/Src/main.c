@@ -138,9 +138,9 @@ void Run_Auto_1(void)
 		float now_angle=Angle_Data.yaw;
 		int turn=0;
 		Motor_Start(Both);
-				while(1)
+		while(1)
 		{
-			Motor_Distance(now_angle,56.8+i,9760);
+			Motor_Distance(now_angle,59.0+i,9760);
 			if(PID_D.Ek<10)
 			{
 				PID_D.Ek=0;
@@ -149,8 +149,8 @@ void Run_Auto_1(void)
 				accu_l=0;
 				accu_r=0;
 				now_angle=Angle_Data.yaw;
-				i+=0.5;
-				if(i>1.4)i=1.4;
+				i+=0.6;
+				if(i>1.8)i=1.8;
 			}
 		}
 
@@ -252,21 +252,13 @@ int main(void)
 	
 	HAL_TIM_Base_Start_IT(&htim11);  //开启编码器计速定时器
 	HAL_TIM_Base_Start_IT(&htim2);  //开启2812定时器
-	Motor_Start(Both);
-//	DispCrtMenu();  //第一次打印ui
-
-	
-	if (M24C02_Check()) Error_Handler();  //EEPROM初始化
-	
-	LCD_Fill(0,0,LCD_W,LCD_H,0xFFFE);  //填充主菜单背景，这里的0xfffe是特殊标志
-	LCD_Fill(0, 0, 240, 50, GRAYBLUE);  //第一次打印标题框
-	
+	Motor_Start(Both);	
 //	float cal_angle=Angle_Data.yaw;
 	
 	HAL_TIM_Base_Start_IT(&htim11);  //开启编码器计速定时器
 	HAL_TIM_Base_Start_IT(&htim2);  //开启2812定时器
 	
-	DispCrtMenu();  //第一次打印ui
+//	DispCrtMenu();  //第一次打印ui
 	
 //	HAL_UART_Transmit_DMA(&huart1,buffer,4);
 	
@@ -276,9 +268,111 @@ int main(void)
   /* USER CODE BEGIN WHILE */
 	accu_l=0;
 	accu_r=0;
+		float i=0;
+		float now_angle=Angle_Data.yaw;
+		int turn=0;
+		Motor_Start(Both);
 
 	while (1)
 	{
+//				while(1)
+//		{
+//			Motor_Distance(now_angle,59.0+i,9760);
+//			if(PID_D.Ek<10)
+//			{
+//				PID_D.Ek=0;
+//				PID_D.Ek1=0;
+//				PID_D.LocSum=0;
+//				accu_l=0;
+//				accu_r=0;
+//				now_angle=Angle_Data.yaw;
+//				i+=0.6;
+//			}
+//		}
+//		Motor_Distance(0,56.8,100);
+		while(1)
+		{
+			Motor_Distance(now_angle,59.0+i,9755);
+			if(PID_D.Ek<10)
+			{
+				PID_D.Ek=0;
+				PID_D.Ek1=0;
+				PID_D.LocSum=0;
+				accu_l=0;
+				accu_r=0;
+				now_angle=Angle_Data.yaw;
+				i+=0.5;
+				turn++;
+			}
+			if(turn==2)
+			{
+				i=0;	
+				turn=0;
+				break;
+			}
+		}
+			while(1)
+		{
+			Motor_Distance(now_angle,118.2,19550);
+			if(PID_D.Ek<10)
+			{
+				PID_D.Ek=0;
+				PID_D.Ek1=0;
+				PID_D.LocSum=0;
+				accu_l=0;
+				accu_r=0;
+				now_angle=Angle_Data.yaw;
+				break;
+			}
+
+		}
+		while(1)
+		{
+			Motor_Distance(now_angle,-117.5,9760);
+			if(PID_D.Ek<10)
+			{
+				PID_D.Ek=0;
+				PID_D.Ek1=0;
+				PID_D.LocSum=0;
+				accu_l=0;
+				accu_r=0;
+				now_angle=Angle_Data.yaw;
+				i+=0.5;
+				break;
+			}
+		}
+		while(1)
+		{
+			Motor_Distance(now_angle,-59.0-i,9750);
+			if(PID_D.Ek<10)
+			{
+				PID_D.Ek=0;
+				PID_D.Ek1=0;
+				PID_D.LocSum=0;
+				accu_l=0;
+				accu_r=0;
+				now_angle=Angle_Data.yaw;
+				i+=0.5;
+				if(i>1.4)i=1.4;
+				break;
+			}
+		}
+		while(1)
+		{
+			Motor_Distance(now_angle,-116.5,19515);
+			if(PID_D.Ek<10)
+			{
+				PID_D.Ek=0;
+				PID_D.Ek1=0;
+				PID_D.LocSum=0;
+				accu_l=0;
+				accu_r=0;
+				now_angle=Angle_Data.yaw;
+				i+=0.5;
+				if(i>1.4)i=1.4;
+				break;
+			}
+		}
 		/* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
