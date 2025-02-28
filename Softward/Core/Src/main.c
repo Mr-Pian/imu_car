@@ -85,48 +85,166 @@ void SystemClock_Config(void);
 /* USER CODE BEGIN 0 */
 
 /*****************************************************************************/
-	//以下是手动运行的函数体
-	void Run_main(void)
+//以下是手动运行的函数体
+void Run_manual(void)
+{
+	if (Run_flag == 1)
 	{
-		if (Run_flag == 1)
+		uint8_t Speed1[4] = {0};
+		uint8_t Speed2[4] = {0};
+		uint8_t Status1[4] = {0};
+		uint8_t Status2[4] = {0};
+		EEPROM_ReadMultipleBytes(MOTOR1_SPEED, Speed1, 4);
+		EEPROM_ReadMultipleBytes(MOTOR2_SPEED, Speed2, 4);
+		EEPROM_ReadMultipleBytes(MOTOR1_STATUS, Status1, 4);
+		EEPROM_ReadMultipleBytes(MOTOR2_STATUS, Status2, 4);
+		
+		while (Run_flag)
 		{
-			uint8_t Speed1[4] = {0};
-			uint8_t Speed2[4] = {0};
-			uint8_t Status1[4] = {0};
-			uint8_t Status2[4] = {0};
-			EEPROM_ReadMultipleBytes(MOTOR1_SPEED, Speed1, 4);
-			EEPROM_ReadMultipleBytes(MOTOR2_SPEED, Speed2, 4);
-			EEPROM_ReadMultipleBytes(MOTOR1_STATUS, Status1, 4);
-			EEPROM_ReadMultipleBytes(MOTOR2_STATUS, Status2, 4);
-			
-			while (Run_flag)
+			if (Status1[3] == 1 && Status2[3] == 0)
 			{
-				if (Status1[3] == 1 && Status2[3] == 0)
-				{
-					Motor_Start(L);
-					Motor_RealSpeed(Speed1[3], L);
-				}
-				else if (Status1[3] == 1 && Status2[3] == 1)
-				{
-					Motor_Start(Both);
-					Motor_RealSpeed(Speed1[3], L);
-					Motor_RealSpeed(Speed2[3], R);
-				}
-				else if (Status1[3] == 0 && Status2[3] == 1)
-				{
-					Motor_Start(R);
-					Motor_RealSpeed(Speed2[3], R);
-				}
-				else
-				{
-					HAL_Delay(1500);
-					Failed();
-					Run_flag = 0;
-					return;
-				}
+				Motor_Start(L);
+				Motor_RealSpeed(Speed1[3], L);
+			}
+			else if (Status1[3] == 1 && Status2[3] == 1)
+			{
+				Motor_Start(Both);
+				Motor_RealSpeed(Speed1[3], L);
+				Motor_RealSpeed(Speed2[3], R);
+			}
+			else if (Status1[3] == 0 && Status2[3] == 1)
+			{
+				Motor_Start(R);
+				Motor_RealSpeed(Speed2[3], R);
+			}
+			else
+			{
+				HAL_Delay(1500);
+				Failed();
+				Run_flag = 0;
+				return;
 			}
 		}
 	}
+}
+
+/*****************************************************************************/
+//以下是第一问的执行函数体
+void Run_Auto_1(void)
+{
+	if (Run_flag == 2)	
+	{
+		Motor_Start(Both);  //启动电机
+		
+		Motor_KeepAngle(3501,0);//60°1167	
+			while(1)
+			{
+				Motor_Distance(0,10500);
+				if(PID_D.Ek<10)
+				{
+					PID_D.Ek=0;
+					PID_D.Ek1=0;
+					PID_D.LocSum=0;
+					accu_l=0;
+					accu_r=0;
+					break;
+				}
+			}
+			
+			while(1)
+			{
+				Motor_Distance(1167,10500);
+				if(PID_D.Ek<10)
+				{
+					accu_l=0;
+					accu_r=0;
+					PID_D.Ek=0;
+					PID_D.Ek1=0;
+					PID_D.LocSum=0;
+					break;
+				}
+			}
+					while(1)
+			{
+				Motor_Distance(2375,10500);
+				if(PID_D.Ek<10)
+				{
+					accu_l=0;
+					accu_r=0;
+					PID_D.Ek=0;
+					PID_D.Ek1=0;
+					PID_D.LocSum=0;
+					break;
+				}
+			}
+					while(1)
+			{
+				Motor_Distance(3501,10500);
+				if(PID_D.Ek<10)
+				{
+					accu_l=0;
+					accu_r=0;
+					PID_D.Ek=0;
+					PID_D.Ek1=0;
+					PID_D.LocSum=0;
+					break;
+				}
+			}
+					while(1)
+			{
+				Motor_Distance(4750,10500);
+				if(PID_D.Ek<10)
+				{
+					accu_l=0;
+					accu_r=0;
+					PID_D.Ek=0;
+					PID_D.Ek1=0;
+					PID_D.LocSum=0;
+					break;
+				}
+			}
+					while(1)
+			{
+				Motor_Distance(5835,10500);
+				if(PID_D.Ek<10)
+				{
+					accu_l=0;
+					accu_r=0;
+					PID_D.Ek=0;
+					PID_D.Ek1=0;
+					PID_D.LocSum=0;
+					break;
+				}
+			}
+
+//  这一段多了
+//					while(1)
+//			{
+//				Motor_Distance(7050,10500);
+//				if(PID_D.Ek<10)
+//				{
+//					accu_l=0;
+//					accu_r=0;
+//					PID_D.Ek=0;
+//					PID_D.Ek1=0;
+//					PID_D.LocSum=0;
+//					break;
+//				}
+//			}
+			
+			Motor_Off(Both);  //关电机
+			//声光提示
+			WS2812_Set_Color(255, 255, 255);  ///光
+			HAL_GPIO_WritePin(GPIOE, GPIO_PIN_2, GPIO_PIN_RESET);  //声
+			HAL_Delay(200);
+			HAL_GPIO_WritePin(GPIOE, GPIO_PIN_2, GPIO_PIN_SET);
+			HAL_Delay(400);
+			WS2812_Off();
+			
+			Run_flag = 0;  //flag复位
+			Success();
+		}
+}	
 
 /* USER CODE END 0 */
 
@@ -175,6 +293,12 @@ int main(void)
   /* USER CODE BEGIN 2 */
 	
 	/* 外设初始化 */
+	LCD_Init();  //LCD_Init
+	
+	LCD_Fill(0,0,LCD_W,LCD_H,BLACK);  //提示
+	LCD_ShowString(0, 0, (uint8_t*)"IMU init, don't move", WHITE, BLACK, 24, 1);
+	LCD_ShowString(0, 30, (uint8_t*)"the car", WHITE, BLACK, 24, 1);
+	
 	icm42688_init ();  //IMU 初始化
 	
 	IMU_Calibration();  //IMU零漂校准，上电时不要移动小车，不然会一直卡在这里
@@ -186,18 +310,15 @@ int main(void)
 	
 	if (M24C02_Check()) Error_Handler();  //EEPROM初始化
 	
-	LCD_Init();  //LCD_Init
-	LCD_Fill(0,0,LCD_W,LCD_H,0xFFFE);
+	LCD_Fill(0,0,LCD_W,LCD_H,0xFFFE);  //填充主菜单背景，这里的0xfffe是特殊标志
 	LCD_Fill(0, 0, 240, 50, GRAYBLUE);  //第一次打印标题框
 	
-	float cal_angle=Angle_Data.yaw;
+//	float cal_angle=Angle_Data.yaw;
 	
 	HAL_TIM_Base_Start_IT(&htim11);  //开启编码器计速定时器
 	HAL_TIM_Base_Start_IT(&htim2);  //开启2812定时器
-
-//	
-//	DispCrtMenu();  //UI初始化
-	Motor_Start(Both);
+	
+	DispCrtMenu();  //第一次打印ui
 	
 //	HAL_UART_Transmit_DMA(&huart1,buffer,4);
 	
@@ -210,105 +331,17 @@ int main(void)
 
 	while (1)
 	{	
+		//主函数体
 		
-//		Motor_KeepAngle(0,0);//120°2375
-
-	Motor_KeepAngle(3501,0);//60°1167	
-		while(1)
-		{
-			Motor_Distance(0,10500);
-			if(PID_D.Ek<10)
-			{
-				PID_D.Ek=0;
-				PID_D.Ek1=0;
-				PID_D.LocSum=0;
-				accu_l=0;
-				accu_r=0;
-				break;
-			}
-		}
+		//手动运行的执行函数
 		
-		while(1)
-		{
-			Motor_Distance(1167,10500);
-			if(PID_D.Ek<10)
-			{
-				accu_l=0;
-				accu_r=0;
-				PID_D.Ek=0;
-				PID_D.Ek1=0;
-				PID_D.LocSum=0;
-				break;
-			}
-		}
-				while(1)
-		{
-			Motor_Distance(2375,10500);
-			if(PID_D.Ek<10)
-			{
-				accu_l=0;
-				accu_r=0;
-				PID_D.Ek=0;
-				PID_D.Ek1=0;
-				PID_D.LocSum=0;
-				break;
-			}
-		}
-				while(1)
-		{
-			Motor_Distance(3501,10500);
-			if(PID_D.Ek<10)
-			{
-				accu_l=0;
-				accu_r=0;
-				PID_D.Ek=0;
-				PID_D.Ek1=0;
-				PID_D.LocSum=0;
-				break;
-			}
-		}
-				while(1)
-		{
-			Motor_Distance(4750,10500);
-			if(PID_D.Ek<10)
-			{
-				accu_l=0;
-				accu_r=0;
-				PID_D.Ek=0;
-				PID_D.Ek1=0;
-				PID_D.LocSum=0;
-				break;
-			}
-		}
-				while(1)
-		{
-			Motor_Distance(5835,10500);
-			if(PID_D.Ek<10)
-			{
-				accu_l=0;
-				accu_r=0;
-				PID_D.Ek=0;
-				PID_D.Ek1=0;
-				PID_D.LocSum=0;
-				break;
-			}
-		}
-				while(1)
-		{
-			Motor_Distance(7050,10500);
-			if(PID_D.Ek<10)
-			{
-				accu_l=0;
-				accu_r=0;
-				PID_D.Ek=0;
-				PID_D.Ek1=0;
-				PID_D.LocSum=0;
-				break;
-			}
-		}
+		Run_manual();
 		
-
-			/* USER CODE END WHILE */
+		//自动运行第一问的执行函数
+		
+		Run_Auto_1();
+		
+		/* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
   }

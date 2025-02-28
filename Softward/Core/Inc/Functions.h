@@ -24,6 +24,8 @@
 #define LCD_B_COLOR 0x3C
 #define SLEEP 0x40
 #define SLEEP_TIME 0x44
+#define AUTO_RUN_MODE 0x48
+#define TARGET_POINT 0x4C
 /************************************************************************/
 
 void Change_Param(void);
@@ -41,7 +43,8 @@ void Unlocked(void);
 void EEPROM_Lock(void);
 void Cancle(void);
 void EEPROM_Erase(void);
-void Run(void);
+void Run_Manual(void);
+void Run_Auto(void);
 
 extern uint8_t Run_flag;
 

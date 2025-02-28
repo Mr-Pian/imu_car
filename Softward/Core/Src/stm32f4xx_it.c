@@ -272,6 +272,8 @@ void TIM1_BRK_TIM9_IRQHandler(void)
 void TIM1_UP_TIM10_IRQHandler(void)
 {
   /* USER CODE BEGIN TIM1_UP_TIM10_IRQn 0 */
+	
+	//以下这段是用来计算手动运行时间的
 	static long Count = 0;
 	static uint8_t time[4] = {0};
 	if (Count == 0)EEPROM_ReadMultipleBytes(RUN_TIME, time, 4);

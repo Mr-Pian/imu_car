@@ -11,7 +11,7 @@
 //以下为通用功能的函数
 
 uint8_t Data[4] = {0};
-uint8_t Run_flag = 0;
+uint8_t Run_flag = 0;  //Runflag是主程序里的调用flag，其中值为0不干任何事，值为1将手动运行，值为2将自动运行第一小问
 
 //该函数用于在ui里修改一般参数
 void Change_Param(void)
@@ -131,10 +131,9 @@ void Change_Param(void)
 }
 
 /************************************************************************************************************************************/
-//以下为特殊功能的函数
+//以下为特殊功能项的函数
 
-//eeprom输出
-void EEPROM_OUT(void)
+void EEPROM_OUT(void)  //eeprom输出
 {
 	
 	Enter_Bounce();
@@ -179,8 +178,7 @@ void EEPROM_OUT(void)
 	}
 }
 
-//eeprom写锁定
-void EEPROM_Lock(void)
+void EEPROM_Lock(void)  //eeprom写锁定
 {
 	
 	Enter_Bounce();
@@ -217,7 +215,7 @@ void EEPROM_Lock(void)
 	}
 }
 
-void EEPROM_Erase(void)
+void EEPROM_Erase(void)  //格式化eeprom
 {
 	Enter_Bounce();
 	
@@ -247,7 +245,7 @@ void EEPROM_Erase(void)
 	
 }
 
-void Run(void)
+void Run_Manual(void)  //手动运行
 {
 	Enter_Bounce();
 	
@@ -257,6 +255,31 @@ void Run(void)
 	HAL_TIM_Base_Start_IT(&htim10);
 	
 	Run_flag = 1;  //运行标志
+}
+
+void Run_Auto(void)  //手动运行
+{
+	Enter_Bounce();
+	
+	//这里先读取一下运行模式
+	uint8_t Run_mode_data[4] = {0};
+	EEPROM_ReadMultipleBytes(cur_item[item_index].type, Run_mode_data, 4);
+
+	if (Run_mode_data[3] == 0)  //第一问
+	{
+		Run_flag = 2;
+	}
+	if (Run_mode_data[3] == 1)  //第二问
+	{
+		Run_flag = 3;
+	}
+	if (Run_mode_data[3] == 2)  //第三问
+	{
+		Run_flag = 4;
+	}
+	
+	LCD_Fill(75, 95, 170, 140, DARKGREEN);
+	LCD_ShowString(87, 103, (uint8_t*)"Runing", WHITE, DARKGREEN, 24, 0);
 	
 }
 /************************************************************************************************************************************/
