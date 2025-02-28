@@ -15,9 +15,8 @@ int Motor_SetSpeed(int Mode,int speed, uint8_t L_R);
 int Motor_Off(uint8_t L_R);
 long Get_Speed(uint8_t L_R);
 void Motor_RealSpeed(int speed,uint8_t L_R);
-void Motor_KeepAngle(int angle,int speed);
-void Motor_Distance(int angle,int distance);
-
+void Motor_KeepAngle(float nowangle ,float angle,int speed);
+void Motor_Distance(float nowangle ,float angle,int distance);
 extern uint8_t buffer[4];
 #endif
 

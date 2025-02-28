@@ -43,6 +43,7 @@ extern Menu menu2_set[2];
 extern Menu menu3_manual_run[6];
 extern Menu menu3_car_set[6];
 extern Menu menu3_LCD_set[4];
+extern Menu menu3_auto_run[3];
 
 void DrawTitle(uint8_t* Title_Name);
 void DispCrtMenu(void);

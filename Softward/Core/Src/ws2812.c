@@ -77,6 +77,7 @@ void WS2812_Off(void)
 	HAL_TIM_PWM_Stop_DMA(&htim2,TIM_CHANNEL_4);
 }
 
+//定时器回调函数
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
 	static uint32_t turn=0,Num=0,turn_dmp=0;
@@ -104,7 +105,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 	if(turn_dmp==4000)
 	{
 		turn_dmp=0;
-		IMU_GetAngle(0.1);
+		IMU_GetAngle(0.005);
 		IMU_DataUpdate();
 	}
 	if(turn==80000)

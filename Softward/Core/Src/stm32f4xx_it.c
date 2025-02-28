@@ -272,6 +272,8 @@ void TIM1_BRK_TIM9_IRQHandler(void)
 void TIM1_UP_TIM10_IRQHandler(void)
 {
   /* USER CODE BEGIN TIM1_UP_TIM10_IRQn 0 */
+	
+	//以下这段是用来计算手动运行时间的
 	static long Count = 0;
 	static uint8_t time[4] = {0};
 	if (Count == 0)EEPROM_ReadMultipleBytes(RUN_TIME, time, 4);
@@ -345,7 +347,6 @@ void TIM3_IRQHandler(void)
 void EXTI15_10_IRQHandler(void)
 {
   /* USER CODE BEGIN EXTI15_10_IRQn 0 */
-	printf("%ld",accu_l+accu_r);
 	HAL_TIM_Base_Start_IT(&htim9);
 	
   /* USER CODE END EXTI15_10_IRQn 0 */

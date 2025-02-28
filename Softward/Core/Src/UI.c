@@ -24,7 +24,7 @@ Menu menu1_main[4] = // 第1级 主菜单
 
 Menu menu2_run[4] =  // 第2级 运行菜单 
 {
-	{4, "运行菜单", "自动运行", TYPE_SUBMENU,0, NULL, NULL, menu1_main, Chinese, RED, 70, 90}, 
+	{4, "运行菜单", "自动运行", TYPE_SUBMENU,0, NULL, menu3_auto_run, menu1_main, Chinese, RED, 70, 90}, 
 	{4, "",     "手动运行", TYPE_SUBMENU,0, NULL, menu3_manual_run, menu1_main, Chinese, ORANGE, 70, 0}, 
 	{4, "",     "参数监视", TYPE_SUBMENU,0, NULL, NULL, menu1_main, Chinese, YELLOW, 70, 0},
 	{4, "",     "编程", TYPE_SUBMENU,0, NULL, NULL, menu1_main, Chinese, DARKGREEN, 90, 0},
@@ -53,7 +53,14 @@ Menu menu3_manual_run[6] =  // 第3级 手动运行
 	{6, "",     "Motor1_Status", MOTOR1_STATUS,1, (*Change_Param), NULL, menu2_run, English, YELLOW, 10, 0},
 	{6, "",     "Motor2_Status", MOTOR2_STATUS,1, (*Change_Param), NULL, menu2_run, English, DARKGREEN, 10, 0},
 	{6, "",     "Run_time", RUN_TIME,60, (*Change_Param), NULL, menu2_run, English, DODGERBLUE, 10, 0},
-	{6, "",     "<<< Run >>>", TYPE_SPECIAL_PARAM,0, (*Run), NULL, menu2_run, English, DARKBLUE, 55, 0},
+	{6, "",     "Run >>>>>>>>>>>>>>", TYPE_SPECIAL_PARAM,0, (*Run_Manual), NULL, menu2_run, English, DARKBLUE, 10, 0},
+};
+
+Menu menu3_auto_run[3] =
+{
+	{3, "自动运行", "Auto_Run_Mode", AUTO_RUN_MODE,2, (*Change_Param), NULL, menu2_run, English, RED, 10, 95}, //其中0,1,2三个值分别代表一二三问
+	{3, "", "Target_Point", TARGET_POINT, 5, (*Change_Param), NULL, menu2_run, English, ORANGE, 10, 0},  //其中0-5分别代表了ABCDEF六个点
+	{3, "", "Run >>>>>>>>>>>>>>", TYPE_SPECIAL_PARAM, 0, (*Run_Auto), NULL, menu2_run, English, YELLOW, 10, 0},
 };
 
 Menu menu3_car_set[6] =  //第3级 小车设置

@@ -159,12 +159,12 @@ void Motor_RealSpeed(int speed,uint8_t L_R)
 ** 参数返回：				                                                                                       **
 ************************************************************************************************************/
 
-void Motor_KeepAngle(int angle,int speed)
+void Motor_KeepAngle(float nowangle ,float angle,int speed)
 {
-		int PID_FINAL=PID_Loc_V(angle,Angle_Data.yaw,&PID_A,299999);
+		int PID_FINAL=PID_Loc_V(nowangle+angle,Angle_Data.yaw,&PID_A,29999999999);
 		if(PID_FINAL>100)	PID_FINAL=100;
 		if(PID_FINAL<-100)	PID_FINAL=-100;
-		if(PID_A.Ek<=10)
+		if(PID_A.Ek<=1)
 		{
 			Motor_RealSpeed(-PID_FINAL+speed, R);
 			Motor_RealSpeed(PID_FINAL+speed, L);
@@ -174,7 +174,6 @@ void Motor_KeepAngle(int angle,int speed)
 			Motor_RealSpeed(-PID_FINAL, R);
 			Motor_RealSpeed(PID_FINAL, L);
 		}
-		
 }
 
 /************************************************************************************************************
@@ -184,13 +183,13 @@ void Motor_KeepAngle(int angle,int speed)
 ** 参数返回：				                                                                                       **
 ************************************************************************************************************/
 
-void Motor_Distance(int angle,int distance)
+void Motor_Distance(float nowangle ,float angle,int distance)
 {
 		int PID_FINAL=PID_Loc_V(distance,accu_l+accu_r,&PID_D,30000);
-		if(PID_FINAL>50)	PID_FINAL=50;
-		if(PID_FINAL<-50)	PID_FINAL=-50;		  
+		if(PID_FINAL>100)	PID_FINAL=100;
+		if(PID_FINAL<-100)	PID_FINAL=-100;		  
 		
-		Motor_KeepAngle(angle,PID_FINAL);
+		Motor_KeepAngle(nowangle,angle,PID_FINAL);
 
 }
 
