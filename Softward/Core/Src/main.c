@@ -179,8 +179,8 @@ void Run_Auto_1(void)
 			HAL_GPIO_WritePin(GPIOE, GPIO_PIN_2, GPIO_PIN_SET);
 			HAL_Delay(400);	
 			Run_flag = 0;  //flag复位
-			Success();
 			WS2812_Set_Color(0,0,0);  ///光
+			Success();
 
 		}
 }	
@@ -336,7 +336,48 @@ void Run_Auto_2(void)
 		Success();
 	}
 }
+/*****************************************************************************/
+//以下是第三问的执行函数体
+void Run_Auto_3(void)
+{
+	if (Run_flag == 4)	
+	{
+		float i=0;
+		float now_angle=Angle_Data.yaw;
+		int turn=0;
+		Motor_Start(Both);
+		while(1)
+		{
+			Motor_Distance(now_angle,117.5,9760);
+			if(PID_D.Ek<10)
+			{
+				PID_D.Ek=0;
+				PID_D.Ek1=0;
+				PID_D.LocSum=0;
+				accu_l=0;
+				accu_r=0;
+				now_angle=Angle_Data.yaw;
+				turn++;
+				i+=0.6;
+				if(i>1)i=1;
+			}
+			if(turn==3)break;
+		}
+			
+			Motor_Off(Both);  //关电机
+			//声光提示
+			WS2812_Set_Color(255, 255, 255);  ///光
+			HAL_GPIO_WritePin(GPIOE, GPIO_PIN_2, GPIO_PIN_RESET);  //声
+			HAL_Delay(200);
+			HAL_GPIO_WritePin(GPIOE, GPIO_PIN_2, GPIO_PIN_SET);
+			HAL_Delay(400);	
+			Run_flag = 0;  //flag复位
+			WS2812_Set_Color(0,0,0);  ///光
+			Success();
+			
 
+		}
+}	
 /* USER CODE END 0 */
 
 /**
@@ -441,6 +482,8 @@ int main(void)
 		//自动运行函数二
 		Run_Auto_2();
 		
+		//自动运行函数三
+		Run_Auto_3();
 		/* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

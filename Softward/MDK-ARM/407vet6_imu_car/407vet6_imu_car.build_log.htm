@@ -27,11 +27,32 @@ Project File Date:  03/01/2025
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target '407vet6_imu_car'
-compiling Functions.c...
+compiling main.c...
+../Core/Src/main.c(153): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  				i+=0.6;
+../Core/Src/main.c(208): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  				i+=0.5;
+../Core/Src/main.c(269): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  				i+=0.5;
+../Core/Src/main.c(284): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  				i+=0.5;
+../Core/Src/main.c(285): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  				if(i>1.4)i=1.4;
+../Core/Src/main.c(300): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  				i+=0.5;
+../Core/Src/main.c(301): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  				if(i>1.4)i=1.4;
+../Core/Src/main.c(328): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  				i+=0.5;
+../Core/Src/main.c(329): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  				if(i>1.4)i=1.4;
+../Core/Src/main.c(361): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  				i+=0.6;
+../Core/Src/main.c: 10 warnings, 0 errors
 linking...
-Program Size: Code=32680 RO-data=19640 RW-data=1644 ZI-data=3244  
+Program Size: Code=32964 RO-data=19644 RW-data=1644 ZI-data=3244  
 FromELF: creating hex file...
-"407vet6_imu_car\407vet6_imu_car.axf" - 0 Error(s), 0 Warning(s).
+"407vet6_imu_car\407vet6_imu_car.axf" - 0 Error(s), 10 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -54,7 +75,7 @@ Package Vendor: Keil
 
    * Component: ARM::CMSIS:CORE:5.6.0
       Include file:  CMSIS/Core/Include/tz_context.h
-Build Time Elapsed:  00:00:05
+Build Time Elapsed:  00:00:02
 </pre>
 </body>
 </html>
