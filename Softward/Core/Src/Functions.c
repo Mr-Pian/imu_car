@@ -263,13 +263,13 @@ void Run_Auto(void)  //手动运行
 	
 	//这里先读取一下运行模式
 	uint8_t Run_mode_data[4] = {0};
-	EEPROM_ReadMultipleBytes(cur_item[item_index].type, Run_mode_data, 4);
+	EEPROM_ReadMultipleBytes(AUTO_RUN_MODE, Run_mode_data, 4);
 
 	if (Run_mode_data[3] == 0)  //第一问
 	{
 		Run_flag = 2;
 	}
-	if (Run_mode_data[3] == 1)  //第二问
+	if (Run_mode_data[3]  == 1)  //第二问
 	{
 		Run_flag = 3;
 	}
@@ -349,7 +349,7 @@ void Success(void)
 {
 	LCD_Fill(70, 95, 170, 140, DARKGREEN);
 	LCD_ShowString(78, 103, (uint8_t*)"Success", WHITE, DARKGREEN, 24, 0);
-	Delay_ms(1500);
+	Delay_ms(1000);
 	LCD_Fill(70, 95, 170, 140, Back_ground_color);
 	Key_val = 0;
 	DispCrtMenu();
@@ -359,7 +359,7 @@ void Failed(void)
 {
 	LCD_Fill(75, 95, 170, 140, RED);
 	LCD_ShowString(87, 103, (uint8_t*)"Failed", WHITE, RED, 24, 0);
-	Delay_ms(1500);
+	Delay_ms(1000);
 	LCD_Fill(75, 95, 170, 140, Back_ground_color);
 	Key_val = 0;
 	DispCrtMenu();
@@ -369,7 +369,7 @@ void Locked(void)
 {
 	LCD_Fill(75, 95, 170, 140, DARKGREEN);
 	LCD_ShowString(87, 103, (uint8_t*)"Locked", WHITE, DARKGREEN, 24, 0);
-	Delay_ms(1500);
+	Delay_ms(1000);
 	LCD_Fill(75, 95, 170, 140, Back_ground_color);
 	Key_val = 0;
 	DispCrtMenu();
@@ -379,7 +379,7 @@ void Unlocked(void)
 {
 	LCD_Fill(75, 95, 170, 140, DARKGREEN);
 	LCD_ShowString(87, 103, (uint8_t*)"Unlock", WHITE, DARKGREEN, 24, 0);
-	Delay_ms(1500);
+	Delay_ms(1000);
 	LCD_Fill(75, 95, 170, 140, Back_ground_color);
 	Key_val = 0;
 	DispCrtMenu();
@@ -389,7 +389,7 @@ void Cancle(void)
 {
 	LCD_Fill(75, 95, 170, 140, RED);
 	LCD_ShowString(87, 103, (uint8_t*)"Cancle", WHITE, RED, 24, 0);
-	Delay_ms(1500);
+	Delay_ms(1000);
 	LCD_Fill(75, 95, 170, 140, Back_ground_color);
 	Key_val = 0;
 	DispCrtMenu();

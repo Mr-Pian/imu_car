@@ -111,22 +111,26 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 	if(turn==80000)
 	{
 		turn=0;
-		for(int i=0;i<LED_NUM;i++)
+//		for(int i=0;i<LED_NUM;i++)
+//		{
+//			WS2812_Set(i,0,0,0);
+//		}
+				for(int i=0;i<LED_NUM;i++)
 		{
-			WS2812_Set(i,0,0,0);
+			WS2812_Set(i,color.Re,color.G,color.B);
 		}
-		if(Num<=3)WS2812_Set(Num%4,color.Re/10,color.G/10,color.B/10);
-		if(Num>=1&&Num<=4)WS2812_Set((Num-1)%4,color.Re,color.G,color.B);
-		if(Num>=2&&Num<=5)WS2812_Set((Num-2)%4,color.Re/10,color.G/10,color.B/10);
-		if(Num<=3)WS2812_Set(7-((Num-0)%4),color.Re/10,color.G/10,color.B/10);
-		if(Num>=1&&Num<=4)WS2812_Set(7-((Num-1)%4),color.Re,color.G,color.B);
-		if(Num>=2&&Num<=5)WS2812_Set(7-((Num-2)%4),color.Re/10,color.G/10,color.B/10);
-		Num++;		
-		if(Num==8)
-		{
-			Num=0;
-			WS2812_Set_Color(0,0,0);
-		}	
+//		if(Num<=3)WS2812_Set(Num%4,color.Re/10,color.G/10,color.B/10);
+//		if(Num>=1&&Num<=4)WS2812_Set((Num-1)%4,color.Re,color.G,color.B);
+//		if(Num>=2&&Num<=5)WS2812_Set((Num-2)%4,color.Re/10,color.G/10,color.B/10);
+//		if(Num<=3)WS2812_Set(7-((Num-0)%4),color.Re/10,color.G/10,color.B/10);
+//		if(Num>=1&&Num<=4)WS2812_Set(7-((Num-1)%4),color.Re,color.G,color.B);
+//		if(Num>=2&&Num<=5)WS2812_Set(7-((Num-2)%4),color.Re/10,color.G/10,color.B/10);
+//		Num++;		
+//		if(Num==8)
+//		{
+//			Num=0;
+//			WS2812_Set_Color(0,0,0);
+//		}	
 	}
 	if(htim==&htim9)
 	{
