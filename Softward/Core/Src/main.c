@@ -176,11 +176,142 @@ void Run_Auto_1(void)
 			HAL_Delay(200);
 			HAL_GPIO_WritePin(GPIOE, GPIO_PIN_2, GPIO_PIN_SET);
 			HAL_Delay(400);
-			WS2812_Off();			
+//			WS2812_Off();			
 			Run_flag = 0;  //flag复位
 			Success();
 		}
 }	
+/*****************************************************************************/
+//以下是第二问的执行函数体
+void Run_Auto_2(void)
+{
+		float i=0;
+		float now_angle=Angle_Data.yaw;
+		int turn=0;
+		Motor_Start(Both);
+			while(1)
+		{
+			Motor_Distance(now_angle,59.0+i,9755);
+			if(PID_D.Ek<10)
+			{
+				PID_D.Ek=0;
+				PID_D.Ek1=0;
+				PID_D.LocSum=0;
+				accu_l=0;
+				accu_r=0;
+				now_angle=Angle_Data.yaw;
+				i+=0.5;
+				turn++;
+			}
+			if(turn==2)
+			{
+				i=0;	
+				turn=0;
+				break;
+			}
+		}
+			while(1)
+		{
+			Motor_Distance(now_angle,118.2,9775);
+			if(PID_D.Ek<10)
+			{
+				PID_D.Ek=0;
+				PID_D.Ek1=0;
+				PID_D.LocSum=0;
+				accu_l=0;
+				accu_r=0;
+				now_angle=Angle_Data.yaw;
+				break;
+			}
+		}
+		WS2812_Set_Color(255, 255, 255);  ///光
+		HAL_GPIO_WritePin(GPIOE, GPIO_PIN_2, GPIO_PIN_RESET);  //声
+		HAL_Delay(200);
+		HAL_GPIO_WritePin(GPIOE, GPIO_PIN_2, GPIO_PIN_SET);
+		HAL_Delay(400);
+		while(1)
+		{
+			Motor_Distance(now_angle,0,9775);
+			if(PID_D.Ek<10)
+			{
+				PID_D.Ek=0;
+				PID_D.Ek1=0;
+				PID_D.LocSum=0;
+				accu_l=0;
+				accu_r=0;
+				now_angle=Angle_Data.yaw;
+				break;
+			}
+		}
+		while(1)
+		{
+			Motor_Distance(now_angle,-117.5,9760);
+			if(PID_D.Ek<10)
+			{
+				PID_D.Ek=0;
+				PID_D.Ek1=0;
+				PID_D.LocSum=0;
+				accu_l=0;
+				accu_r=0;
+				now_angle=Angle_Data.yaw;
+				i+=0.5;
+				break;
+			}
+		}
+		while(1)
+		{
+			Motor_Distance(now_angle,-59.0-i,9750);
+			if(PID_D.Ek<10)
+			{
+				PID_D.Ek=0;
+				PID_D.Ek1=0;
+				PID_D.LocSum=0;
+				accu_l=0;
+				accu_r=0;
+				now_angle=Angle_Data.yaw;
+				i+=0.5;
+				if(i>1.4)i=1.4;
+				break;
+			}
+		}
+		while(1)
+		{
+			Motor_Distance(now_angle,-116.5,9757);
+			if(PID_D.Ek<10)
+			{
+				PID_D.Ek=0;
+				PID_D.Ek1=0;
+				PID_D.LocSum=0;
+				accu_l=0;
+				accu_r=0;
+				now_angle=Angle_Data.yaw;
+				i+=0.5;
+				if(i>1.4)i=1.4;
+				break;
+			}
+		}
+		WS2812_Set_Color(255, 255, 255);  ///光
+		HAL_GPIO_WritePin(GPIOE, GPIO_PIN_2, GPIO_PIN_RESET);  //声
+		HAL_Delay(200);
+		HAL_GPIO_WritePin(GPIOE, GPIO_PIN_2, GPIO_PIN_SET);
+		HAL_Delay(400);
+		while(1)
+		{
+			Motor_Distance(now_angle,0,9758);
+			if(PID_D.Ek<10)
+			{
+				PID_D.Ek=0;
+				PID_D.Ek1=0;
+				PID_D.LocSum=0;
+				accu_l=0;
+				accu_r=0;
+				now_angle=Angle_Data.yaw;
+				i+=0.5;
+				if(i>1.4)i=1.4;
+				break;
+			}
+		}
+}
 
 /* USER CODE END 0 */
 
@@ -239,7 +370,7 @@ int main(void)
 	
 	IMU_Calibration();  //IMU零漂校准，上电时不要移动小车，不然会一直卡在这里
 	
-//WS2812_Init();  //WS2812 Init
+	WS2812_Init();  //WS2812 Init
 	    
 	HAL_TIM_Encoder_Start(&htim4, TIM_CHANNEL_ALL);  //编码器初始化
 	HAL_TIM_Encoder_Start(&htim8, TIM_CHANNEL_ALL);
@@ -268,11 +399,10 @@ int main(void)
   /* USER CODE BEGIN WHILE */
 	accu_l=0;
 	accu_r=0;
-		float i=0;
-		float now_angle=Angle_Data.yaw;
-		int turn=0;
-		Motor_Start(Both);
-
+	float i=0;
+	float now_angle=Angle_Data.yaw;
+	int turn=0;
+	Motor_Start(Both);
 	while (1)
 	{
 //				while(1)
@@ -290,89 +420,7 @@ int main(void)
 //			}
 //		}
 //		Motor_Distance(0,56.8,100);
-		while(1)
-		{
-			Motor_Distance(now_angle,59.0+i,9755);
-			if(PID_D.Ek<10)
-			{
-				PID_D.Ek=0;
-				PID_D.Ek1=0;
-				PID_D.LocSum=0;
-				accu_l=0;
-				accu_r=0;
-				now_angle=Angle_Data.yaw;
-				i+=0.5;
-				turn++;
-			}
-			if(turn==2)
-			{
-				i=0;	
-				turn=0;
-				break;
-			}
-		}
-			while(1)
-		{
-			Motor_Distance(now_angle,118.2,19550);
-			if(PID_D.Ek<10)
-			{
-				PID_D.Ek=0;
-				PID_D.Ek1=0;
-				PID_D.LocSum=0;
-				accu_l=0;
-				accu_r=0;
-				now_angle=Angle_Data.yaw;
-				break;
-			}
 
-		}
-		while(1)
-		{
-			Motor_Distance(now_angle,-117.5,9760);
-			if(PID_D.Ek<10)
-			{
-				PID_D.Ek=0;
-				PID_D.Ek1=0;
-				PID_D.LocSum=0;
-				accu_l=0;
-				accu_r=0;
-				now_angle=Angle_Data.yaw;
-				i+=0.5;
-				break;
-			}
-		}
-		while(1)
-		{
-			Motor_Distance(now_angle,-59.0-i,9750);
-			if(PID_D.Ek<10)
-			{
-				PID_D.Ek=0;
-				PID_D.Ek1=0;
-				PID_D.LocSum=0;
-				accu_l=0;
-				accu_r=0;
-				now_angle=Angle_Data.yaw;
-				i+=0.5;
-				if(i>1.4)i=1.4;
-				break;
-			}
-		}
-		while(1)
-		{
-			Motor_Distance(now_angle,-116.5,19515);
-			if(PID_D.Ek<10)
-			{
-				PID_D.Ek=0;
-				PID_D.Ek1=0;
-				PID_D.LocSum=0;
-				accu_l=0;
-				accu_r=0;
-				now_angle=Angle_Data.yaw;
-				i+=0.5;
-				if(i>1.4)i=1.4;
-				break;
-			}
-		}
 		/* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

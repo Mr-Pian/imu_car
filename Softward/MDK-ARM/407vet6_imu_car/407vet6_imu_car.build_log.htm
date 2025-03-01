@@ -27,7 +27,42 @@ Project File Date:  02/28/2025
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'D:\Keil_v5\ARM\ARMCC\Bin'
 Build target '407vet6_imu_car'
-"407vet6_imu_car\407vet6_imu_car.axf" - 0 Error(s), 0 Warning(s).
+compiling main.c...
+../Core/Src/main.c(143): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  			Motor_Distance(now_angle,59.0+i,9760);
+../Core/Src/main.c(152): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  				i+=0.6;
+../Core/Src/main.c(153): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  				if(i>1.8)i=1.8;
+../Core/Src/main.c(172): warning:  #111-D: statement is unreachable
+  			Motor_Off(Both);  //¹Øµç»ú
+../Core/Src/main.c(139): warning:  #177-D: variable "turn"  was declared but never referenced
+  		int turn=0;
+../Core/Src/main.c(192): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  			Motor_Distance(now_angle,59.0+i,9755);
+../Core/Src/main.c(201): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  				i+=0.5;
+../Core/Src/main.c(237): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  				i+=0.5;
+../Core/Src/main.c(252): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  				i+=0.5;
+../Core/Src/main.c(253): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  				if(i>1.4)i=1.4;
+../Core/Src/main.c(268): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  				i+=0.5;
+../Core/Src/main.c(269): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  				if(i>1.4)i=1.4;
+../Core/Src/main.c(361): warning:  #177-D: variable "i"  was declared but never referenced
+  	float i=0;
+../Core/Src/main.c(362): warning:  #177-D: variable "now_angle"  was declared but never referenced
+  	float now_angle=Angle_Data.yaw;
+../Core/Src/main.c(363): warning:  #177-D: variable "turn"  was declared but never referenced
+  	int turn=0;
+../Core/Src/main.c: 15 warnings, 0 errors
+linking...
+Program Size: Code=29512 RO-data=19640 RW-data=1552 ZI-data=3240  
+FromELF: creating hex file...
+"407vet6_imu_car\407vet6_imu_car.axf" - 0 Error(s), 15 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -50,7 +85,7 @@ Package Vendor: Keil
 
    * Component: ARM::CMSIS:CORE:5.5.0
       Include file:  CMSIS\Core\Include\tz_context.h
-Build Time Elapsed:  00:00:00
+Build Time Elapsed:  00:00:03
 </pre>
 </body>
 </html>

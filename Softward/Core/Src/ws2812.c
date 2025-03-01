@@ -125,6 +125,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 		if(Num==8)
 		{
 			Num=0;
+			WS2812_Set_Color(0,0,0);
 		}	
 	}
 	if(htim==&htim9)
