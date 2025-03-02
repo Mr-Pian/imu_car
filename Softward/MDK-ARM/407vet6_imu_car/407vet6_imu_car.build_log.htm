@@ -22,11 +22,21 @@ Dialog DLL:      TCM.DLL V1.56.4.0
  
 <h2>Project:</h2>
 D:\407vet6_imu_car\Softward\MDK-ARM\407vet6_imu_car.uvprojx
-Project File Date:  03/01/2025
+Project File Date:  03/02/2025
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target '407vet6_imu_car'
+compiling UI.c...
+compiling ws2812.c...
+..\Core\Src\ws2812.c(83): warning:  #177-D: variable "Num"  was declared but never referenced
+  	static uint32_t turn=0,Num=0,turn_dmp=0;
+..\Core\Src\ws2812.c: 1 warning, 0 errors
+compiling lcd_init.c...
+compiling control.c...
+compiling tb6612.c...
+compiling Functions.c...
+compiling stm32f4xx_it.c...
 compiling main.c...
 ../Core/Src/main.c(153): warning:  #1035-D: single-precision operand implicitly converted to double-precision
   				i+=0.6;
@@ -46,13 +56,27 @@ compiling main.c...
   				i+=0.5;
 ../Core/Src/main.c(329): warning:  #1035-D: single-precision operand implicitly converted to double-precision
   				if(i>1.4)i=1.4;
-../Core/Src/main.c(361): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+../Core/Src/main.c(407): warning:  #1035-D: single-precision operand implicitly converted to double-precision
   				i+=0.6;
 ../Core/Src/main.c: 10 warnings, 0 errors
+compiling lcd.c...
 linking...
-Program Size: Code=32964 RO-data=19644 RW-data=1644 ZI-data=3244  
+Program Size: Code=31904 RO-data=22344 RW-data=1644 ZI-data=3244  
 FromELF: creating hex file...
-"407vet6_imu_car\407vet6_imu_car.axf" - 0 Error(s), 10 Warning(s).
+After Build - User command #1: D:\407vet6_imu_car\Softward\MDK-ARM\Keil5_disp_size_bar_v0.4.exe
+[Keil5_disp_size_bar V0.4]: find project satrt!
+[Keil5_disp_size_bar V0.4]: Found file: .//407vet6_imu_car.uvprojx
+[Keil5_disp_size_bar V0.4]: Found file: .//407vet6_imu_car.uvprojx
+[Keil5_disp_size_bar V0.4]: find map file start
+[Keil5_disp_size_bar V0.4]: Found file: .//407vet6_imu_car/407vet6_imu_car.map
+[Keil5_disp_size_bar V0.4]: map file read end
+ram:
+  112 KB   ram1:|____________________|  4.26 % (    4.77 KB /   112.00 KB) [109800 B]
+   16 KB   ram2:|____________________|  0.00 % (    0.00 KB /    16.00 KB) [16384 B]
+flash:
+  512 KB flash1:|¡ö¡ö__________________| 10.35 % (   52.98 KB /   512.00 KB) [470040 B]
+ 
+"407vet6_imu_car\407vet6_imu_car.axf" - 0 Error(s), 11 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -75,7 +99,7 @@ Package Vendor: Keil
 
    * Component: ARM::CMSIS:CORE:5.6.0
       Include file:  CMSIS/Core/Include/tz_context.h
-Build Time Elapsed:  00:00:02
+Build Time Elapsed:  00:00:05
 </pre>
 </body>
 </html>

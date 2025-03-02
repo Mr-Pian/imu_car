@@ -19,7 +19,7 @@ Menu menu1_main[4] = // 第1级 主菜单
 	{4, "核心选项", "运行", TYPE_SUBMENU,0, NULL, menu2_run, NULL, Chinese, RED, 90, 90}, //注意，第一个的y不能是默认
 	{4, "", "调试", TYPE_SUBMENU, NULL,0, menu2_debug, NULL, Chinese, ORANGE, 90, 0}, 
 	{4, "", "设置", TYPE_SUBMENU, NULL,0, menu2_set, NULL, Chinese, YELLOW, 90, 0}, 
-	{4, "", "版本信息", TYPE_SUBMENU, NULL,0, NULL, NULL, Chinese, DARKGREEN, 70, 0},  
+	{4, "", "开发成员", TYPE_SPECIAL_PARAM, NULL,(*Developer_list), NULL, NULL, Chinese, DARKGREEN, 70, 0},  
 }; 
 
 Menu menu2_run[4] =  // 第2级 运行菜单 

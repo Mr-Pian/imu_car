@@ -282,6 +282,26 @@ void Run_Auto(void)  //手动运行
 	LCD_ShowString(87, 103, (uint8_t*)"Runing", WHITE, DARKGREEN, 24, 0);
 	
 }
+
+void Developer_list(void)  //这个是主界面的开发人员
+{
+	Enter_Bounce();
+	
+	LCD_Fill(0, 0, 240, 240, Back_ground_color);  //填充屏幕
+	LCD_ShowChinese24x24(0, 0, (uint8_t*)"开发人员名单", WHITE, Back_ground_color, 24, 1);
+	LCD_ShowChinese24x24(0, 30, (uint8_t*)"景蕾", WHITE, Back_ground_color, 24, 1);
+	LCD_ShowChinese24x24(0, 60, (uint8_t*)"徐培原", WHITE, Back_ground_color, 24, 1);
+	LCD_ShowChinese24x24(0, 90, (uint8_t*)"徐齐治", WHITE, Back_ground_color, 24, 1);
+	LCD_ShowChinese24x24(0, 120, (uint8_t*)"特别感谢", WHITE, Back_ground_color, 24, 1);
+	LCD_ShowChinese24x24(0, 150, (uint8_t*)"徐培原对小车参数调整做出的贡献", WHITE, Back_ground_color, 24, 1);
+	LCD_ShowChinese24x24(0, 180, (uint8_t*)"", WHITE, Back_ground_color, 24, 1);
+	LCD_ShowChinese24x24(0, 210, (uint8_t*)"固件版本", WHITE, Back_ground_color, 24, 1);
+	LCD_ShowString(100, 210, (uint8_t*)"1.3.7", WHITE, Back_ground_color, 24, 1);
+	
+	//这里将会实现一个按任意键退出的效果
+
+}
+
 /************************************************************************************************************************************/
 //以下为不同功能的执行函数
 

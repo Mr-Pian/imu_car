@@ -45,6 +45,7 @@ void Cancle(void);
 void EEPROM_Erase(void);
 void Run_Manual(void);
 void Run_Auto(void);
+void Developer_list(void);
 
 extern uint8_t Run_flag;
 
