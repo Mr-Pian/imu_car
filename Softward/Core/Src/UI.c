@@ -19,7 +19,7 @@ Menu menu1_main[4] = // 第1级 主菜单
 	{4, "核心选项", "运行", TYPE_SUBMENU,0, NULL, menu2_run, NULL, Chinese, RED, 90, 90}, //注意，第一个的y不能是默认
 	{4, "", "调试", TYPE_SUBMENU, NULL,0, menu2_debug, NULL, Chinese, ORANGE, 90, 0}, 
 	{4, "", "设置", TYPE_SUBMENU, NULL,0, menu2_set, NULL, Chinese, YELLOW, 90, 0}, 
-	{4, "", "开发成员", TYPE_SPECIAL_PARAM, NULL,(*Developer_list), NULL, NULL, Chinese, DARKGREEN, 70, 0},  
+	{4, "", "开发人员", TYPE_SPECIAL_PARAM, 0,(*Developer_list), NULL, NULL, Chinese, DARKGREEN, 70, 0},  
 }; 
 
 Menu menu2_run[4] =  // 第2级 运行菜单 
@@ -200,8 +200,16 @@ void Display(void)
 						}
 						else
 						{
-							LCD_ShowString(cur_item[item_index].X_coord,cur_item->Y_coord+(item_index*30),(u8* )cur_item[item_index].label, cur_item[item_index].Color, GRAYBLUE, 24, 0);
-							LCD_Fill(cur_item[item_index].X_coord,cur_item->Y_coord+(item_index*30), 230, 24+(cur_item->Y_coord+(item_index*30)), GRAYBLUE);
+							if (cur_item[item_index].ce != Chinese)
+							{
+								LCD_ShowString(cur_item[item_index].X_coord,cur_item->Y_coord+(item_index*30),(u8* )cur_item[item_index].label, cur_item[item_index].Color, GRAYBLUE, 24, 0);
+								LCD_Fill(cur_item[item_index].X_coord,cur_item->Y_coord+(item_index*30), 230, 24+(cur_item->Y_coord+(item_index*30)), GRAYBLUE);
+							}
+							else
+							{
+								LCD_ShowChinese(cur_item[item_index].X_coord,cur_item->Y_coord+(item_index*30),(uint8_t*)"开发人员", cur_item[item_index].Color, GRAYBLUE, 24, 0);
+								LCD_Fill(0 ,cur_item->Y_coord+(item_index*30), 230, 24+(cur_item->Y_coord+(item_index*30)), GRAYBLUE);
+							}	
 							//屏蔽按键
 							flag = 1;
 							//调用相应的动作函数

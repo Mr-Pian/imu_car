@@ -352,19 +352,19 @@ void Run_Auto_3(void)
 		EEPROM_ReadMultipleBytes(TARGET_POINT, Target, 4);
 		if (Target[3] == 0)  //A点
 		{
-			First_angle = -29.375;
+			First_angle = 0;
 		}
 		if (Target[3] == 1)  //B点
 		{
-			First_angle = 29.375;
+			First_angle = 60;
 		}
 		if (Target[3] == 2)  //C点
 		{
-			First_angle = 88.125;
+			First_angle = 117.5;
 		}
 		if (Target[3] == 3)  //D点
 		{
-			First_angle = 117.5;
+			First_angle = 178;
 		}
 		if (Target[3] == 4)  //E点
 		{
@@ -372,7 +372,7 @@ void Run_Auto_3(void)
 		}
 		if (Target[3] == 5)  //F点
 		{
-			First_angle = -88.125;
+			First_angle = -60                                               ;
 		}
 		
 		Motor_Start(Both);  //启动电机
