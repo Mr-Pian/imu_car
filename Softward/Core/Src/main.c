@@ -49,7 +49,8 @@
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
-
+int i=0;
+float ang_array[1000];
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
@@ -422,6 +423,32 @@ void Run_Auto_3(void)
 			Success();
 		}
 }	
+void Trance_mode(uint8_t Key_val)
+{
+	if(Key_val == KEY_UP_PRESS)
+	{
+		stage=1;
+		LCD_Fill(0,0,80,20,BLACK);
+		LCD_ShowString(0,0,"start",WHITE,BLACK,16,0);
+		HAL_TIM_Base_Start_IT(&htim6);
+		Key_val=0x00;
+	}
+	if(Key_val == KEY_DOWN_PRESS)
+	{
+		stage=2;
+		LCD_Fill(0,0,80,20,BLACK);
+		LCD_ShowString(0,20,"run start",WHITE,BLACK,16,0);
+		HAL_TIM_Base_Start_IT(&htim6);
+		while(stage!=0)
+		{
+			Motor_RealSpeed(set_l*10,L);
+			Motor_RealSpeed(set_r*10,R);
+		}
+		LCD_Fill(0,0,80,20,BLACK);
+		LCD_ShowString(0,20,"run over",WHITE,BLACK,16,0);
+		Key_val=0x00;
+	}
+}
 /* USER CODE END 0 */
 
 /**
@@ -466,6 +493,7 @@ int main(void)
   MX_TIM9_Init();
   MX_TIM11_Init();
   MX_TIM10_Init();
+  MX_TIM6_Init();
   /* USER CODE BEGIN 2 */
 	
 	/* 外设初始化 */
@@ -484,26 +512,23 @@ int main(void)
 	HAL_TIM_Encoder_Start(&htim4, TIM_CHANNEL_ALL);  //编码器初始化
 	HAL_TIM_Encoder_Start(&htim8, TIM_CHANNEL_ALL);
 	
-	if (M24C02_Check()) Error_Handler();  //EEPROM初始化
+//	if (M24C02_Check()) Error_Handler();  //EEPROM初始化
 	
-	LCD_Fill(0,0,LCD_W,LCD_H,0xFFFE);  //填充主菜单背景，这里的0xfffe是特殊标志
-	LCD_Fill(0, 0, 240, 50, GRAYBLUE);  //第一次打印标题框
+//	LCD_Fill(0,0,LCD_W,LCD_H,0xFFFE);  //填充主菜单背景，这里的0xfffe是特殊标志
+//	LCD_Fill(0, 0, 240, 50, GRAYBLUE);  //第一次打印标题框
 	
 	
 	HAL_TIM_Base_Start_IT(&htim11);  //开启编码器计速定时器
 	HAL_TIM_Base_Start_IT(&htim2);  //开启2812定时器
 	Motor_Start(Both);	
+	LCD_Fill(0,0,LCD_W,LCD_H,BLACK); 
+// 	DispCrtMenu();  //第一次打印ui
+	
+	int com_l=0,last_com_l=0,com_r=0,last_com_r=0;
+	long d_l=0,d_r=0;
 
-	
-	HAL_TIM_Base_Start_IT(&htim11);  //开启编码器计速定时器
-	HAL_TIM_Base_Start_IT(&htim2);  //开启2812定时器
-	
- 	DispCrtMenu();  //第一次打印ui
-	
-
-	
   /* USER CODE END 2 */
-	
+
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 
@@ -514,21 +539,79 @@ int main(void)
 //	int turn=0;
 //	Motor_Start(Both);
 
-	while (1)
-	{
-		
-		//手动运行函数
-		Run_manual();
-		
-		//自动运行函数
-		Run_Auto_1();
-		
-		//自动运行函数二
-		Run_Auto_2();
-		
-		//自动运行函数三
-		Run_Auto_3();
-		/* USER CODE END WHILE */
+while (1)
+{
+		if(Key_val == KEY_UP_PRESS)
+		{
+			i=0;
+			LCD_Fill(0,0,80,20,BLACK);
+			LCD_ShowString(0,0,(uint8_t*)"start",WHITE,BLACK,16,0);
+			__HAL_TIM_SET_COUNTER(&htim4,65535);
+			__HAL_TIM_SET_COUNTER(&htim8,0);
+			while(i<1000)
+			{
+				com_l=__HAL_TIM_GET_COUNTER(&htim4);//左
+				com_r=__HAL_TIM_GET_COUNTER(&htim8);//右
+				d_l=65535-com_l;
+				d_r=com_r;
+				if(d_r>60000)d_r=-d_r+65535;
+				if(d_r+d_l>=30*i)
+				{
+					ang_array[i]=Angle_Data.yaw;
+					HAL_Delay(1);
+					i++;
+				}
+			}
+			Key_val=0x00;
+			LCD_Fill(0,0,80,20,BLACK);
+			LCD_ShowString(0,0,(uint8_t*)"over",WHITE,BLACK,16,0);
+			d_l=0,d_r=0;
+		}
+		if(Key_val == KEY_DOWN_PRESS)
+		{
+			LCD_Fill(0,0,80,20,BLACK);
+			LCD_ShowString(0,0,(uint8_t*)"run start",WHITE,BLACK,16,0);
+			__HAL_TIM_SET_COUNTER(&htim4,65535);
+			__HAL_TIM_SET_COUNTER(&htim8,0);
+			i=0;
+			float nw_ang=Angle_Data.yaw;
+			while(i<1000)
+			{
+				if(i==0)Motor_KeepAngle(nw_ang,0,70);
+				else Motor_KeepAngle(ang_array[i-1]+nw_ang,ang_array[i]-ang_array[i-1],80);
+				com_l=__HAL_TIM_GET_COUNTER(&htim4);//左
+				com_r=__HAL_TIM_GET_COUNTER(&htim8);//右
+				d_l=65535-com_l;
+				d_r=com_r;
+				if(d_r+d_l>30*i)
+				{
+					i++;
+					HAL_Delay(1);
+				}
+			}
+			Motor_SetSpeed(0,0,L);
+			Motor_SetSpeed(0,0,R);
+			LCD_Fill(0,0,80,20,BLACK);
+			LCD_ShowString(0,0,(uint8_t*)"run over",WHITE,BLACK,16,0);
+			HAL_GPIO_WritePin(AIN1_GPIO_Port,AIN1_Pin,GPIO_PIN_RESET);
+			HAL_GPIO_WritePin(AIN2_GPIO_Port,AIN2_Pin,GPIO_PIN_RESET);	
+			HAL_GPIO_WritePin(BIN1_GPIO_Port,BIN1_Pin,GPIO_PIN_RESET);
+			HAL_GPIO_WritePin(BIN2_GPIO_Port,BIN2_Pin,GPIO_PIN_RESET);
+			Key_val=0x00;
+			d_l=0,d_r=0;
+		}
+//		//手动运行函数
+//		Run_manual();
+//		
+//		//自动运行函数
+//		Run_Auto_1();
+//		
+//		//自动运行函数二
+//		Run_Auto_2();
+//		
+//		//自动运行函数三
+//		Run_Auto_3();
+    /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
   }

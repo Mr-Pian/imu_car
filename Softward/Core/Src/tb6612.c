@@ -164,16 +164,16 @@ void Motor_KeepAngle(float nowangle ,float angle,int speed)
 		int PID_FINAL=PID_Loc_V(nowangle+angle,Angle_Data.yaw,&PID_A,199999);
 		if(PID_FINAL>110)	PID_FINAL=110;
 		if(PID_FINAL<-110)	PID_FINAL=-110;
-		if(PID_A.Ek<=2&&PID_A.Ek>=-4)
-		{
+//		if(PID_A.Ek<=2&&PID_A.Ek>=-4)
+//		{
 			Motor_RealSpeed(-PID_FINAL+speed, R);
 			Motor_RealSpeed(PID_FINAL+speed, L);
-		}
-		else
-		{
-			Motor_RealSpeed(-PID_FINAL, R);
-			Motor_RealSpeed(PID_FINAL, L);
-		}
+//		}
+//		else
+//		{
+//			Motor_RealSpeed(-PID_FINAL, R);
+//			Motor_RealSpeed(PID_FINAL, L);
+//		}
 }
 
 /************************************************************************************************************

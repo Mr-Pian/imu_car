@@ -4,8 +4,11 @@
 #include "Functions.h"
 
 Color_type color={0,0,0};//灯带rgb值储存处
-long dif_l,dif_r;
+long dif_l,dif_r,stage;
+float	set_l,set_r;
 long accu_l=0,accu_r=0;
+
+int lr_array[500][2]={0}; 
 //使用PWM+DMA驱动ws2812时要注意定时器是多少位的，如果是16位计数器则DMA为半字，如果是32位计数器则DMA为全字 
  
 //显存数组，长度为 灯的数量*24+复位周期
@@ -81,7 +84,8 @@ void WS2812_Off(void)
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
 	static uint32_t turn=0,Num=0,turn_dmp=0;
-	static int com_l=0,last_com_l=0,com_r=0,last_com_r=0;
+	static int com_l=0,last_com_l=0,com_r=0,last_com_r=0,i=0;
+
 	if(htim==&htim11)
 	{
 		com_l=__HAL_TIM_GET_COUNTER(&htim4);//左
@@ -150,7 +154,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 		{
 			Key_val = KEY_DOWN_PRESS;
 		}
-		Display();
+//		Display();
 		HAL_TIM_Base_Stop_IT(&htim9);
 	}
 }

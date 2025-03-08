@@ -46,22 +46,22 @@ ARM Macro Assembler    Page 1
    29 00000000         ;   <o> Stack Size (in Bytes) <0x0-0xFFFFFFFF:8>
    30 00000000         ; </h>
    31 00000000         
-   32 00000000 00000400 
+   32 00000000 00001000 
                        Stack_Size
-                               EQU              0x400
+                               EQU              0x1000
    33 00000000         
    34 00000000                 AREA             STACK, NOINIT, READWRITE, ALIGN
 =3
    35 00000000         Stack_Mem
                                SPACE            Stack_Size
-   36 00000400         __initial_sp
-   37 00000400         
-   38 00000400         
-   39 00000400         ; <h> Heap Configuration
-   40 00000400         ;   <o>  Heap Size (in Bytes) <0x0-0xFFFFFFFF:8>
-   41 00000400         ; </h>
-   42 00000400         
-   43 00000400 00000200 
+   36 00001000         __initial_sp
+   37 00001000         
+   38 00001000         
+   39 00001000         ; <h> Heap Configuration
+   40 00001000         ;   <o>  Heap Size (in Bytes) <0x0-0xFFFFFFFF:8>
+   41 00001000         ; </h>
+   42 00001000         
+   43 00001000 00000200 
                        Heap_Size
 
 
@@ -70,8 +70,8 @@ ARM Macro Assembler    Page 2
 
 
                                EQU              0x200
-   44 00000400         
-   45 00000400                 AREA             HEAP, NOINIT, READWRITE, ALIGN=
+   44 00001000         
+   45 00001000                 AREA             HEAP, NOINIT, READWRITE, ALIGN=
 3
    46 00000000         __heap_base
    47 00000000         Heap_Mem
@@ -831,11 +831,11 @@ ARM Macro Assembler    Page 13
               00000000 
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M4.fp.sp --apcs=
 interwork --depend=407vet6_imu_car\startup_stm32f407xx.d -o407vet6_imu_car\star
-tup_stm32f407xx.o -I.\RTE\_407vet6_imu_car -IC:\Users\Lenovo\AppData\Local\Arm\
-Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include --predefine="__MICROLIB SETA 1" --pred
-efine="__UVISION_VERSION SETA 538" --predefine="_RTE_ SETA 1" --predefine="STM3
-2F407xx SETA 1" --predefine="_RTE_ SETA 1" --list=startup_stm32f407xx.lst start
-up_stm32f407xx.s
+tup_stm32f407xx.o -I.\RTE\_407vet6_imu_car -IC:\Users\19963\AppData\Local\Arm\P
+acks\ARM\CMSIS\5.8.0\CMSIS\Core\Include --predefine="__MICROLIB SETA 1" --prede
+fine="__UVISION_VERSION SETA 535" --predefine="_RTE_ SETA 1" --predefine="STM32
+F407xx SETA 1" --predefine="_RTE_ SETA 1" --list=startup_stm32f407xx.lst startu
+p_stm32f407xx.s
 
 
 
@@ -858,7 +858,7 @@ Symbol: Stack_Mem
    Uses
       None
 Comment: Stack_Mem unused
-__initial_sp 00000400
+__initial_sp 00001000
 
 Symbol: __initial_sp
    Definitions
@@ -1880,7 +1880,7 @@ Symbol: Heap_Size
    Uses
       At line 47 in file startup_stm32f407xx.s
 Comment: Heap_Size used once
-Stack_Size 00000400
+Stack_Size 00001000
 
 Symbol: Stack_Size
    Definitions

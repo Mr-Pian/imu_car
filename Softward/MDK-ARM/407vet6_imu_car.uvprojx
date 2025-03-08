@@ -81,8 +81,8 @@
           </BeforeMake>
           <AfterMake>
             <RunUserProg1>1</RunUserProg1>
-            <RunUserProg2>0</RunUserProg2>
-            <UserProg1Name>D:\407vet6_imu_car\Softward\MDK-ARM\Keil5_disp_size_bar_v0.4.exe</UserProg1Name>
+            <RunUserProg2>1</RunUserProg2>
+            <UserProg1Name>D:\stm32cubemx\git\car1.0.4\Softward\MDK-ARM\Keil5_disp_size_bar_v0.4.exe</UserProg1Name>
             <UserProg2Name></UserProg2Name>
             <UserProg1Dos16Mode>0</UserProg1Dos16Mode>
             <UserProg2Dos16Mode>0</UserProg2Dos16Mode>
@@ -186,7 +186,6 @@
             <RvdsVP>2</RvdsVP>
             <RvdsMve>0</RvdsMve>
             <RvdsCdeCp>0</RvdsCdeCp>
-            <nBranchProt>0</nBranchProt>
             <hadIRAM2>1</hadIRAM2>
             <hadIROM2>0</hadIROM2>
             <StupSel>8</StupSel>

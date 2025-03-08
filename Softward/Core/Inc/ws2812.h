@@ -28,3 +28,7 @@ extern long dif_l;
 extern long dif_r;
 extern long accu_l;
 extern long accu_r;
+extern float set_l;
+extern float set_r;
+extern long stage;
+
