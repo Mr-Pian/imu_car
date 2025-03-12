@@ -80,7 +80,7 @@
             <nStopB2X>0</nStopB2X>
           </BeforeMake>
           <AfterMake>
-            <RunUserProg1>1</RunUserProg1>
+            <RunUserProg1>0</RunUserProg1>
             <RunUserProg2>0</RunUserProg2>
             <UserProg1Name>D:\407vet6_imu_car\Softward\MDK-ARM\Keil5_disp_size_bar_v0.4.exe</UserProg1Name>
             <UserProg2Name></UserProg2Name>
