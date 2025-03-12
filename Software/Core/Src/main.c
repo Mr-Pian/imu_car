@@ -498,7 +498,7 @@ int main(void)
 	HAL_TIM_Base_Start_IT(&htim11);  //开启编码器计速定时器
 	HAL_TIM_Base_Start_IT(&htim2);  //开启2812定时器
 	
- 	DispCrtMenu();  //第一次打印ui
+ //	DispCrtMenu();  //第一次打印ui
 	
 
 	
@@ -513,7 +513,7 @@ int main(void)
 //	float now_angle=Angle_Data.yaw;
 //	int turn=0;
 //	Motor_Start(Both);
-
+	
 	while (1)
 	{
 		
@@ -528,6 +528,10 @@ int main(void)
 		
 		//自动运行函数三
 		Run_Auto_3();
+		
+		//直立环
+		
+		Motor_Keep_Stand(180.0);
 		/* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

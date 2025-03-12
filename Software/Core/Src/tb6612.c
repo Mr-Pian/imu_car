@@ -162,7 +162,7 @@ void Motor_RealSpeed(int speed,uint8_t L_R)
 void Motor_KeepAngle(float nowangle ,float angle,int speed)
 {
 		int PID_FINAL=PID_Loc_V(nowangle+angle,Angle_Data.yaw,&PID_A,199999);
-		if(PID_FINAL>110)	PID_FINAL=110;
+		if(PID_FINAL>110)	PID_FINAL=110;  //限幅
 		if(PID_FINAL<-110)	PID_FINAL=-110;
 		if(PID_A.Ek<=2&&PID_A.Ek>=-4)
 		{
@@ -176,6 +176,33 @@ void Motor_KeepAngle(float nowangle ,float angle,int speed)
 		}
 }
 
+/************************************************************************************************************
+** void Motor_KeepAngle(int angle,int speed);                				                                       **                                                              
+** 功能描述：PID保持稳定角度前进                                                                 		         **
+** 参数说明：初始角度，速度                          					                                               **   
+** 参数返回：				                                                                                       **
+************************************************************************************************************/
+
+void Motor_Keep_Stand(float angle)
+{
+	float Real_angle = 0.0;
+	if (Angle_Data.roll <= 0.0 && Angle_Data.roll >= -180.0)
+	{
+		Real_angle = 360.0+Angle_Data.roll;
+	}
+	else
+	{
+		Real_angle = Angle_Data.roll;
+	}
+	
+	int PID_FINAL=PID_Loc_V(angle,Real_angle,&PID_S,199999);
+	if(PID_FINAL>110)	PID_FINAL=110;  //限幅
+		if(PID_FINAL<-110)	PID_FINAL=-110;
+		
+		Motor_RealSpeed(-PID_FINAL, R);
+		Motor_RealSpeed(-PID_FINAL, L);
+	
+}
 /************************************************************************************************************
 ** void Motor_Distance(int angle,int distance);                				                      		           **                                                              
 ** 功能描述：PID保持稳定角度前进一定距离                                                                 	   **
