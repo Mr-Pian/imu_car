@@ -177,37 +177,59 @@ void Motor_KeepAngle(float nowangle ,float angle,int speed)
 }
 
 /************************************************************************************************************
-** void Motor_KeepAngle(int angle,int speed);                				                                       **                                                              
-** 功能描述：PID保持稳定角度前进                                                                 		         **
-** 参数说明：初始角度，速度                          					                                               **   
-** 参数返回：				                                                                                       **
+** void Motor_Keep_Stand(float angle)                				                                               **                                                              
+** 功能描述：直立环，让小车以指定角度直立                                                        		         **
+** 参数说明：目标角度                                      					                                       **   
+** 参数返回：void				                                                                                   **
 ************************************************************************************************************/
 
 void Motor_Keep_Stand(float angle)
 {
-	float Real_angle = 0.0;
-	if (Angle_Data.roll <= 0.0 && Angle_Data.roll >= -180.0)
+	
+	int PID_FINAL=PID_Loc_V(angle,Angle_Data.roll,&PID_S,199999);
+
+	Motor_Goal_Speed(PID_FINAL);
+//	if (PID_FINAL >= 0)
+//	{
+//		Motor_SetSpeed(Foward, PID_FINAL, L);
+//		Motor_SetSpeed(Foward, PID_FINAL, R);
+//	}
+//	else
+//	{
+//		Motor_SetSpeed(Backward, -PID_FINAL, L);
+//		Motor_SetSpeed(Backward, -PID_FINAL, R);
+//	}
+	
+}
+
+
+/************************************************************************************************************
+** void Motor_Keep_Stand(float angle)                				                                               **                                                              
+** 功能描述：直立环，让小车以指定角度直立                                                        		         **
+** 参数说明：目标角度                                      					                                       **   
+** 参数返回：void				                                                                                   **
+************************************************************************************************************/
+
+void Motor_Goal_Speed(float Speed)
+{
+	int PID_FINAL= -PID_Loc_V(Speed,(Get_Speed(L)+Get_Speed(R))*10, &PID_SV,2999999);
+	
+	if (PID_FINAL >= 0)
 	{
-		Real_angle = 360.0+Angle_Data.roll;
+		Motor_SetSpeed(Backward, PID_FINAL, L);
+		Motor_SetSpeed(Backward, PID_FINAL, R);
 	}
 	else
 	{
-		Real_angle = Angle_Data.roll;
+		Motor_SetSpeed(Foward, -PID_FINAL, L);
+		Motor_SetSpeed(Foward, -PID_FINAL, R);
 	}
-	
-	int PID_FINAL=PID_Loc_V(angle,Real_angle,&PID_S,199999);
-	if(PID_FINAL>110)	PID_FINAL=110;  //限幅
-		if(PID_FINAL<-110)	PID_FINAL=-110;
-		
-		Motor_RealSpeed(-PID_FINAL, R);
-		Motor_RealSpeed(-PID_FINAL, L);
-	
 }
 /************************************************************************************************************
 ** void Motor_Distance(int angle,int distance);                				                      		           **                                                              
 ** 功能描述：PID保持稳定角度前进一定距离                                                                 	   **
 ** 参数说明：左右电机，速度                          					                                               **   
-** 参数返回：				                                                                                       **
+** 参数返回：void				                                                                                   **
 ************************************************************************************************************/
 
 void Motor_Distance(float nowangle ,float angle,int distance)

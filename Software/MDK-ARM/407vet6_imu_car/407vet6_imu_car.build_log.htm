@@ -27,14 +27,9 @@ Project File Date:  03/12/2025
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target '407vet6_imu_car'
-compiling tb6612.c...
-..\Core\Src\tb6612.c(189): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  	if (Angle_Data.roll <= 0.0 && Angle_Data.roll >= -180.0)
-..\Core\Src\tb6612.c(191): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  		Real_angle = 360.0+Angle_Data.roll;
-..\Core\Src\tb6612.c: 2 warnings, 0 errors
+compiling control.c...
 linking...
-Program Size: Code=32264 RO-data=22216 RW-data=1668 ZI-data=3244  
+Program Size: Code=32216 RO-data=22216 RW-data=1680 ZI-data=3240  
 FromELF: creating hex file...
 After Build - User command #1: D:\Project\stm32_series\407vet6_imu_car\Software\MDK-ARM\Keil5_disp_size_bar_v0.4.exe
 [Keil5_disp_size_bar V0.4]: find project satrt!
@@ -44,12 +39,12 @@ After Build - User command #1: D:\Project\stm32_series\407vet6_imu_car\Software\
 [Keil5_disp_size_bar V0.4]: Found file: .//407vet6_imu_car/407vet6_imu_car.map
 [Keil5_disp_size_bar V0.4]: map file read end
 ram:
-  112 KB   ram1:|____________________|  4.28 % (    4.80 KB /   112.00 KB) [109776 B]
+  112 KB   ram1:|____________________|  4.29 % (    4.80 KB /   112.00 KB) [109768 B]
    16 KB   ram2:|____________________|  0.00 % (    0.00 KB /    16.00 KB) [16384 B]
 flash:
-  512 KB flash1:|¡ö¡ö__________________| 10.39 % (   53.20 KB /   512.00 KB) [469808 B]
+  512 KB flash1:|¡ö¡ö__________________| 10.38 % (   53.16 KB /   512.00 KB) [469856 B]
  
-"407vet6_imu_car\407vet6_imu_car.axf" - 0 Error(s), 2 Warning(s).
+"407vet6_imu_car\407vet6_imu_car.axf" - 0 Error(s), 0 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -72,7 +67,7 @@ Package Vendor: Keil
 
    * Component: ARM::CMSIS:CORE:5.6.0
       Include file:  CMSIS/Core/Include/tz_context.h
-Build Time Elapsed:  00:00:06
+Build Time Elapsed:  00:00:02
 </pre>
 </body>
 </html>

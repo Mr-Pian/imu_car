@@ -318,7 +318,22 @@ void TIM1_TRG_COM_TIM11_IRQHandler(void)
   */
 void TIM2_IRQHandler(void)
 {
-  /* USER CODE BEGIN TIM2_IRQn 0 */
+	/* USER CODE BEGIN TIM2_IRQn 0 */
+	//以下是直立环的采样部分和控制部分
+	//直立环pid频率500hz
+	static int Count_Num = 0;
+	Count_Num++;
+	
+	if (Count_Num == 4000)
+	{
+		//以下进行采样和pid计算
+		Count_Num = 0;
+		IMU_GetAngle(0.005);
+		IMU_DataUpdate();
+		
+		Motor_Keep_Stand(-9.9);
+		
+	}
 
   /* USER CODE END TIM2_IRQn 0 */
   HAL_TIM_IRQHandler(&htim2);

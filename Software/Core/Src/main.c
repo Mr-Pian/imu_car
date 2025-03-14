@@ -150,7 +150,7 @@ void Run_Auto_1(void)
 				accu_r=0;
 				now_angle=Angle_Data.yaw;
 				turn++;
-				i+=0.6;
+				i+=0.6f;
 				if(i>1)i=1;
 			}
 			if(turn==6)break;
@@ -205,7 +205,7 @@ void Run_Auto_2(void)
 				accu_l=0;
 				accu_r=0;
 				now_angle=Angle_Data.yaw;
-				i+=0.5;
+				i+=0.5f;
 				turn++;
 			}
 			if(turn==2)
@@ -266,7 +266,7 @@ void Run_Auto_2(void)
 				accu_l=0;
 				accu_r=0;
 				now_angle=Angle_Data.yaw;
-				i+=0.5;
+				i+=0.5f;
 				break;
 			}
 		}
@@ -281,8 +281,8 @@ void Run_Auto_2(void)
 				accu_l=0;
 				accu_r=0;
 				now_angle=Angle_Data.yaw;
-				i+=0.5;
-				if(i>1.4)i=1.4;
+				i+=0.5f;
+				if(i>1.4f)i=1.4f;
 				break;
 			}
 		}
@@ -297,8 +297,8 @@ void Run_Auto_2(void)
 				accu_l=0;
 				accu_r=0;
 				now_angle=Angle_Data.yaw;
-				i+=0.5;
-				if(i>1.4)i=1.4;
+				i+=0.5f;
+				if(i>1.4f)i=1.4f;
 				break;
 			}
 		}
@@ -325,8 +325,8 @@ void Run_Auto_2(void)
 				accu_l=0;
 				accu_r=0;
 				now_angle=Angle_Data.yaw;
-				i+=0.5;
-				if(i>1.4)i=1.4;
+				i+=0.5f;
+				if(i>1.4f)i=1.4f;
 				break;
 			}
 		}
@@ -404,7 +404,7 @@ void Run_Auto_3(void)
 				accu_r=0;
 				now_angle=Angle_Data.yaw;
 				turn++;
-				i+=0.6;
+				i+=0.6f;
 				if(i>1)i=1;
 			}
 			if(turn==2)break;
@@ -421,7 +421,19 @@ void Run_Auto_3(void)
 			WS2812_Set_Color(0,0,0);  ///光
 			Success();
 		}
-}	
+}
+
+/*****************************************************************************/
+//以下是用于刷新ui的刷新函数
+void Renew_UI(void)
+{
+	if (display_flag == 1)
+	{
+		Display();  //刷新屏幕
+		display_flag = 0;  //标志重置
+	}
+}
+
 /* USER CODE END 0 */
 
 /**
@@ -512,7 +524,7 @@ int main(void)
 //	float i=0;
 //	float now_angle=Angle_Data.yaw;
 //	int turn=0;
-//	Motor_Start(Both);
+ 	Motor_Start(Both);
 	
 	while (1)
 	{
@@ -530,8 +542,11 @@ int main(void)
 		Run_Auto_3();
 		
 		//直立环
+		//Motor_Keep_Stand(0);
 		
-		Motor_Keep_Stand(180.0);
+		//UI刷新函数
+		Renew_UI();
+		
 		/* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

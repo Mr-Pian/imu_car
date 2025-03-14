@@ -29,6 +29,7 @@ extern PID_LocTypeDef PID_A;
 extern PID_LocTypeDef PID_VL;
 extern PID_LocTypeDef PID_VR;
 extern PID_LocTypeDef PID_S;
+extern PID_LocTypeDef PID_SV;
 void PID_Init(void);
 float PID_Loc(float SetValue, float ActualValue, PID_LocTypeDef *PID,float Limit);
 float PID_Loc_V(float SetValue, float ActualValue, PID_LocTypeDef *PID,float Limit);

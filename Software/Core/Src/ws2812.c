@@ -6,6 +6,8 @@
 Color_type color={0,0,0};//灯带rgb值储存处
 long dif_l,dif_r;
 long accu_l=0,accu_r=0;
+uint8_t display_flag = 0;
+
 //使用PWM+DMA驱动ws2812时要注意定时器是多少位的，如果是16位计数器则DMA为半字，如果是32位计数器则DMA为全字 
  
 //显存数组，长度为 灯的数量*24+复位周期
@@ -82,21 +84,26 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
 	static uint32_t turn=0,Num=0,turn_dmp=0;
 	static int com_l=0,last_com_l=0,com_r=0,last_com_r=0;
+	
+	//编码器速度采样
 	if(htim==&htim11)
 	{
-		com_l=__HAL_TIM_GET_COUNTER(&htim4);//左
-		com_r=__HAL_TIM_GET_COUNTER(&htim8);//右
-		dif_l=-com_l+last_com_l;
-		if(dif_l>60000)dif_l=dif_l-65535;
-		if(dif_l<-60000)dif_l=dif_l+65535;
-		dif_r=com_r-last_com_r;
-		if(dif_r>60000)dif_r-=65535;
-		if(dif_r<-60000)dif_r+=65535;
-		last_com_l=com_l;
-		last_com_r=com_r;
-		accu_l+=dif_l;
-		accu_r+=dif_r;
+//		com_l=__HAL_TIM_GET_COUNTER(&htim4);//左
+//		com_r=__HAL_TIM_GET_COUNTER(&htim8);//右
+//		dif_l=-com_l+last_com_l;
+//		if(dif_l>60000)dif_l=dif_l-65535;
+//		if(dif_l<-60000)dif_l=dif_l+65535;
+//		dif_r=com_r-last_com_r;
+//		if(dif_r>60000)dif_r-=65535;
+//		if(dif_r<-60000)dif_r+=65535;
+//		last_com_l=com_l;
+//		last_com_r=com_r;
+//		accu_l+=dif_l;
+//		accu_r+=dif_r;
 	}
+	
+	
+	//Imu角度更新
 	if(htim==&htim2)
 	{
 		turn++;
@@ -108,6 +115,9 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 		IMU_GetAngle(0.005);
 		IMU_DataUpdate();
 	}
+	
+	
+	//2812闪烁频率设置
 	if(turn==80000)
 	{
 		turn=0;
@@ -132,7 +142,10 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 //			WS2812_Set_Color(0,0,0);
 //		}	
 	}
-	if(htim==&htim9)
+	
+	
+	//按钮消抖
+	if(htim==&htim9) 
 	{
 		if (HAL_GPIO_ReadPin(GPIOB, Key_No_Pin) == GPIO_PIN_RESET)
 		{
@@ -150,7 +163,9 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 		{
 			Key_val = KEY_DOWN_PRESS;
 		}
-		Display();
+		
+		display_flag = 1;  //标志就位
+		
 		HAL_TIM_Base_Stop_IT(&htim9);
 	}
 }
